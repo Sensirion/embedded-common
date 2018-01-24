@@ -7,7 +7,7 @@ We recommend to download the repository recursively within the
 [SGP](https://github.com/Sensirion/embedded-sgp) and
 [SHT](https://github.com/Sensirion/embedded-sht) projects.
 
-## Repistory content
+## Repository content
 * `*.c` files (CRC calculation function)
 * `*.h` files (type definitions, prototype declarations for i2c
   communication,...)
