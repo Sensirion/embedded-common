@@ -52,7 +52,7 @@
 #define I2C_READ_FAILED -1
 
 static int i2c_device = 0;
-static u8 sht_address = 0;
+static u8 i2c_address = 0;
 
 /**
  * Initialize all hard- and software components that are needed for the I2C
@@ -62,15 +62,8 @@ void sensirion_i2c_init()
 {
     /* open i2c adapter */
     i2c_device = open(I2C_DEVICE_PATH, O_RDWR);
-    if (i2c_device == -1) {
-        return;
-    }
-
-    /* get sht address of used sensor */
-    sht_address = sht_get_configured_sht_address();
-
-    /* open specific device */
-    ioctl(i2c_device, I2C_SLAVE, sht_address);
+    if (i2c_device == -1)
+        return; /* no error handling */
 }
 
 /**
@@ -85,8 +78,9 @@ void sensirion_i2c_init()
  */
 s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
 {
-    if (sht_address != address) {
-        return I2C_READ_FAILED;
+    if (i2c_address != address) {
+        ioctl(i2c_device, I2C_SLAVE, address);
+        i2c_address = address;
     }
 
     if (read(i2c_device, data, count) != count) {
@@ -108,8 +102,9 @@ s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
  */
 s8 sensirion_i2c_write(u8 address, const u8* data, u16 count)
 {
-    if (sht_address != address) {
-        return I2C_WRITE_FAILED;
+    if (i2c_address != address) {
+        ioctl(i2c_device, I2C_SLAVE, address);
+        i2c_address = address;
     }
 
     if (write(i2c_device, data, count) != count) {
