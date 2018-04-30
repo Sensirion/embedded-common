@@ -41,7 +41,7 @@ int main(void) {
     s16 err;
     u16 tvoc_ppb, co2_eq_ppm;
     u32 iaq_baseline;
-    u16 scaled_ethanol_signal, scaled_h2_signal;
+    u16 ethanol_signal, h2_signal;
 
     while (sgp_probe() != STATUS_OK) {
         pc.printf("SGP sensor probing failed" EOL);
@@ -51,16 +51,12 @@ int main(void) {
 
 
     /* Read signals */
-    err = sgp_measure_signals_blocking_read(&scaled_ethanol_signal,
-                                            &scaled_h2_signal);
+    err = sgp_measure_signals_blocking_read(&ethanol_signal,
+                                            &h2_signal);
     if (err == STATUS_OK) {
-        /* Print ethanol signal with floating point support */
-        pc.printf("Ethanol signal: %f" EOL, scaled_ethanol_signal / 512.0f);
-
-        /* Print H2 signal without floating point support */
-        pc.printf("H2 signal: %u.%09llu" EOL,
-                  scaled_h2_signal >> 9,
-                  ((scaled_h2_signal & 0x01ff) * (u64)1000000000) >> 9);
+        /* Print ethanol signal and h2 signal */
+        pc.printf("Ethanol signal: %u" EOL, ethanol_signal);
+        pc.printf("H2 signal: %u" EOL, h2_signal);
     } else {
         pc.printf("error reading signals" EOL);
     }
