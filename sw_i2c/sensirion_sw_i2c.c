@@ -33,7 +33,7 @@
 #include "sensirion_i2c.h"
 #include "sensirion_sw_i2c_gpio.h"
 
-#define DELAY_USEC (I2C_CLOCK_PERIOD_USEC / 2)
+#define DELAY_USEC (SENSIRION_I2C_CLOCK_PERIOD_USEC / 2)
 
 static s8 sensirion_i2c_write_byte(u8 data)
 {

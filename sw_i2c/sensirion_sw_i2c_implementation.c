@@ -110,7 +110,13 @@ u8 sensirion_SCL_read()
 
 /**
  * Sleep for a given number of microseconds. The function should delay the
- * execution for at least the given time, but may also sleep longer.
+ * execution approximately the given time.
+ *
+ * The precision needed depends on the desired i2c frequency, i.e. should be
+ * exact to about half a clock cycle (defined in
+ * `SENSIRION_I2C_CLOCK_PERIOD_USEC` in `sensirion_arch_config.h`).
+ *
+ * Example with 400kHz requires a precision of 1 / (2 * 400kHz) == 1.25usec.
  *
  * @param useconds the sleep time in microseconds
  */
