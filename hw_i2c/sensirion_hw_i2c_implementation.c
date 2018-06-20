@@ -85,6 +85,8 @@ s8 sensirion_i2c_write(u8 address, const u8* data, u16 count)
  * Sleep for a given number of microseconds. The function should delay the
  * execution for at least the given time, but may also sleep longer.
  *
+ * Despite the unit, a <10 millisecond precision is sufficient.
+ *
  * @param useconds the sleep time in microseconds
  */
 void sensirion_sleep_usec(u32 useconds) {

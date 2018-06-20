@@ -70,9 +70,12 @@ typedef uint8_t u8;
 
 /**
  * The clock period of the i2c bus in microseconds. Increase this, if your GPIO
- * ports cannot support a 200 kHz output rate.
+ * ports cannot support a 200 kHz output rate. (2 * 1 / 10usec == 200Khz)
+ *
+ * This is only relevant for the sw-i2c HAL (bit-banging on GPIO pins). The
+ * pulse length is half the clock period, the number should thus be even.
  */
-#define I2C_CLOCK_PERIOD_USEC 10
+#define SENSIRION_I2C_CLOCK_PERIOD_USEC 10
 
 #ifdef __cplusplus
 }
