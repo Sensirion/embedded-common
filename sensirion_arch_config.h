@@ -69,6 +69,32 @@ typedef int8_t s8;
 typedef uint8_t u8;
 
 /**
+ * Define the endianness of your architecture:
+ * 0: little endian, 1: big endian
+ * Use the following code to determine if unsure:
+ * ```c
+ * #include <stdio.h>
+ *
+ * int is_big_endian(void) {
+ *     union {
+ *         unsigned int u;
+ *         char c[sizeof(unsigned int)];
+ *     } e = { 0 };
+ *     e.c[0] = 1;
+ *
+ *     return (e.i != 1);
+ * }
+ *
+ * int main(void) {
+ *     printf("Use #define SENSIRION_BIG_ENDIAN %d\n", is_big_endian());
+ *
+ *     return 0;
+ * }
+ * ```
+ */
+#define SENSIRION_BIG_ENDIAN 0
+
+/**
  * The clock period of the i2c bus in microseconds. Increase this, if your GPIO
  * ports cannot support a 200 kHz output rate. (2 * 1 / 10usec == 200Khz)
  *
