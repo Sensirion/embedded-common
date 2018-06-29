@@ -41,6 +41,9 @@
  * We use the following names for the two I2C signal lines:
  * SCL for the clock line
  * SDA for the data line
+ *
+ * Both lines must be equipped with pull-up resistors appropriate to the bus
+ * frequency.
  */
 
 /**
@@ -53,8 +56,9 @@ void sensirion_init_pins()
 }
 
 /**
- * Configure the SDA pin as an input. The pin should be either left floating
- * or pulled up to the supply voltage.
+ * Configure the SDA pin as an input. With an external pull-up resistor the line
+ * should be left floating, without external pull-up resistor, the input must be
+ * configured to use the internal pull-up resistor.
  */
 void sensirion_SDA_in()
 {
@@ -62,8 +66,7 @@ void sensirion_SDA_in()
 }
 
 /**
- * Configure the SDA pin as an output and drive it low. The pin must be pulled
- * to ground or set to logical false.
+ * Configure the SDA pin as an output and drive it low or set to logical false.
  */
 void sensirion_SDA_out()
 {
@@ -81,8 +84,9 @@ u8 sensirion_SDA_read()
 }
 
 /**
- * Configure the SCL pin as an input. The pin should be either left floating
- * or pulled up to the supply voltage.
+ * Configure the SCL pin as an input. With an external pull-up resistor the line
+ * should be left floating, without external pull-up resistor, the input must be
+ * configured to use the internal pull-up resistor.
  */
 void sensirion_SCL_in()
 {
@@ -90,8 +94,7 @@ void sensirion_SCL_in()
 }
 
 /**
- * Configure the SCL pin as an output and drive it low. The pin must be pulled
- * to ground or set to logical false.
+ * Configure the SCL pin as an output and drive it low or set to logical false.
  */
 void sensirion_SCL_out()
 {
@@ -110,7 +113,7 @@ u8 sensirion_SCL_read()
 
 /**
  * Sleep for a given number of microseconds. The function should delay the
- * execution approximately the given time.
+ * execution approximately, but no less than, the given time.
  *
  * The precision needed depends on the desired i2c frequency, i.e. should be
  * exact to about half a clock cycle (defined in
