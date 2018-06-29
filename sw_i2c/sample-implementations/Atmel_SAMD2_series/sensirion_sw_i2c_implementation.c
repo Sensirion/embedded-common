@@ -33,6 +33,15 @@
 
 #include <asf.h>
 
+/*
+ * We use the following names for the two I2C signal lines:
+ * SCL for the clock line
+ * SDA for the data line
+ *
+ * Both lines must be equipped with pull-up resistors appropriate to the bus
+ * frequency.
+ */
+
 ioport_pin_t scl_port = IOPORT_CREATE_PIN(IOPORT_PORTA, 9);
 ioport_pin_t sda_port = IOPORT_CREATE_PIN(IOPORT_PORTA, 8);
 
@@ -48,8 +57,9 @@ void sensirion_init_pins() {
 }
 
 /**
- * Configure the SDA pin as an input. The pin should be either left floating
- * or pulled up to the supply voltage.
+ * Configure the SDA pin as an input. With an external pull-up resistor the line
+ * should be left floating, without external pull-up resistor, the input must be
+ * configured to use the internal pull-up resistor.
  */
 void sensirion_SDA_in() {
     ioport_set_pin_dir(sda_port, IOPORT_DIR_INPUT);
@@ -57,8 +67,7 @@ void sensirion_SDA_in() {
 }
 
 /**
- * Configure the SDA pin as an output and drive it low. The pin must be pulled
- * to ground or set to logical false.
+ * Configure the SDA pin as an output and drive it low or set to logical false.
  */
 void sensirion_SDA_out() {
     ioport_set_pin_dir(sda_port, IOPORT_DIR_OUTPUT);
@@ -74,8 +83,9 @@ u8 sensirion_SDA_read() {
 }
 
 /**
- * Configure the SCL pin as an input. The pin should be either left floating
- * or pulled up to the supply voltage.
+ * Configure the SCL pin as an input. With an external pull-up resistor the line
+ * should be left floating, without external pull-up resistor, the input must be
+ * configured to use the internal pull-up resistor.
  */
 void sensirion_SCL_in() {
     ioport_set_pin_dir(scl_port, IOPORT_DIR_INPUT);
@@ -83,8 +93,7 @@ void sensirion_SCL_in() {
 }
 
 /**
- * Configure the SCL pin as an output and drive it low. The pin must be pulled
- * to ground or set to logical false.
+ * Configure the SCL pin as an output and drive it low or set to logical false.
  */
 void sensirion_SCL_out() {
     ioport_set_pin_dir(scl_port, IOPORT_DIR_OUTPUT);
@@ -101,7 +110,13 @@ u8 sensirion_SCL_read() {
 
 /**
  * Sleep for a given number of microseconds. The function should delay the
- * execution for at least the given time, but may also sleep longer.
+ * execution approximately, but no less than, the given time.
+ *
+ * The precision needed depends on the desired i2c frequency, i.e. should be
+ * exact to about half a clock cycle (defined in
+ * `SENSIRION_I2C_CLOCK_PERIOD_USEC` in `sensirion_arch_config.h`).
+ *
+ * Example with 400kHz requires a precision of 1 / (2 * 400kHz) == 1.25usec.
  *
  * @param useconds the sleep time in microseconds
  */
