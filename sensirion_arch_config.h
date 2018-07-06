@@ -31,11 +31,11 @@
 #ifndef SENSIRION_ARCH_CONFIG_H
 #define SENSIRION_ARCH_CONFIG_H
 
-/** 
+/**
  * If your platform does not provide the library stdint.h you have to
  * define the integral types yourself (see below).
  */
-#include <stdint.h> 
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
