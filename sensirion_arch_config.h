@@ -68,6 +68,9 @@ typedef uint16_t u16;
 typedef int8_t s8;
 typedef uint8_t u8;
 
+/* Types not typically provided by <stdint.h> */
+typedef float f32;
+
 /**
  * Define the endianness of your architecture:
  * 0: little endian, 1: big endian
