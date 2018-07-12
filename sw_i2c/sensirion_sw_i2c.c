@@ -124,6 +124,7 @@ s8 sensirion_i2c_write(u8 address, const u8* data, u16 count)
 s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
 {
     s8 ret;
+    u8 send_ack;
     u16 i;
     sensirion_i2c_start();
     ret = sensirion_i2c_write_byte((address << 1) | 1);
@@ -131,8 +132,10 @@ s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
         sensirion_i2c_stop();
         return ret;
     }
-    for (i = 0; i < count; i++)
-        data[i] = sensirion_i2c_read_byte(1);
+    for (i = 0; i < count; i++) {
+        send_ack = i < (count - 1); /* last byte must be NACK'ed */
+        data[i] = sensirion_i2c_read_byte(send_ack);
+    }
 
     sensirion_i2c_stop();
     return ret;
