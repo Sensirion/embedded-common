@@ -178,4 +178,6 @@ s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
 void sensirion_i2c_init()
 {
     sensirion_init_pins();
+    sensirion_SCL_in();
+    sensirion_SDA_in();
 }
