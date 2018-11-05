@@ -83,10 +83,10 @@ u16 sensirion_fill_cmd_send_buf(u8 *buf, u16 cmd, const u16 *args, u8 num_args)
     return idx;
 }
 
-s16 sensirion_i2c_read_words(u8 address, u16 *data, u16 data_words) {
+s16 sensirion_i2c_read_words(u8 address, u16 *data_words, u16 num_words) {
     s16 ret;
     u16 i, j;
-    u16 size = data_words * (SENSIRION_WORD_SIZE + CRC8_LEN);
+    u16 size = num_words * (SENSIRION_WORD_SIZE + CRC8_LEN);
     u16 word_buf[SENSIRION_MAX_BUFFER_WORDS];
     u8 * const buf8 = (u8 *)word_buf;
 
@@ -104,8 +104,8 @@ s16 sensirion_i2c_read_words(u8 address, u16 *data, u16 data_words) {
         if (ret != STATUS_OK)
             return ret;
 
-        ((u8 *)data)[j]     = buf8[i];
-        ((u8 *)data)[j + 1] = buf8[i + 1];
+        ((u8 *)data_words)[j]     = buf8[i];
+        ((u8 *)data_words)[j + 1] = buf8[i + 1];
     }
 
     return STATUS_OK;
