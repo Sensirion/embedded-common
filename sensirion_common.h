@@ -93,13 +93,13 @@ u16 sensirion_fill_cmd_send_buf(u8 *buf, u16 cmd, const u16 *args, u8 num_args);
  * sensirion_i2c_read_words() - read data words from sensor
  *
  * @address:    Sensor i2c address
- * @data:       Allocated buffer to store the read data.
+ * @data_words: Allocated buffer to store the read words.
  *              The buffer may also have been modified on STATUS_FAIL return.
- * @data_words: Number of data words to read (without CRC bytes)
+ * @num_words:  Number of data words to read (without CRC bytes)
  *
  * @return      STATUS_OK on success, an error code otherwise
  */
-s16 sensirion_i2c_read_words(u8 address, u16 *data, u16 data_words);
+s16 sensirion_i2c_read_words(u8 address, u16 *data_words, u16 num_words);
 
 /**
  * sensirion_i2c_write_cmd() - writes a command to the sensor
