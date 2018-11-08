@@ -48,13 +48,26 @@ extern "C" {
 #define be16_to_cpu(s) (s)
 #define be32_to_cpu(s) (s)
 #define be64_to_cpu(s) (s)
-#else
+#define SENSIRION_WORDS_TO_BYTES(a, w) ()
+
+#else /* SENSIRION_BIG_ENDIAN */
+
 #define be16_to_cpu(s) (((u16)(s) << 8) | (0xff & ((u16)(s)) >> 8))
 #define be32_to_cpu(s) (((u32)be16_to_cpu(s) << 16) | \
                         (0xffff & (be16_to_cpu((s) >> 16))))
 #define be64_to_cpu(s) (((u64)be32_to_cpu(s) << 32) | \
                         (0xffffffff & ((u64)be32_to_cpu((s) >> 32))))
-#endif
+/**
+ * Convert a word-array to a bytes-array, effectively reverting the
+ * host-endianness to big-endian
+ * @a:  word array to change (must be (u16 *) castable)
+ * @w:  number of word-sized elements in the array (SENSIRION_NUM_WORDS(a)).
+ */
+#define SENSIRION_WORDS_TO_BYTES(a, w) \
+    for (u16 *__a = (u16 *)(a), __e = (w), __w = 0; __w < __e; ++__w) { \
+        __a[__w] = be16_to_cpu(__a[__w]); \
+    }
+#endif /* SENSIRION_BIG_ENDIAN */
 
 #ifndef ARRAY_SIZE
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof(*(x)))
