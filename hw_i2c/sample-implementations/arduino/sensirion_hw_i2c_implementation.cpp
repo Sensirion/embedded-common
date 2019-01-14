@@ -39,11 +39,7 @@
  * INSTRUCTIONS
  * ============
  *
- * Use the "arduino_example.ino" and copy
- * sht.h, shtxx.c, sht_common.h, sht_common.c, sensirion_i2c.h,
- * hw_i2c/configuration.h, hw_i2c/configuration_Arduino.cpp
- * in the .ino folder.
- * Follow the function specification in the comments.
+ * See this folder's README.md
  */
 
 #ifdef __cplusplus
