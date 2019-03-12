@@ -59,7 +59,7 @@ s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
       return ret;
     }
 
-    memcpy(data, readData, count);a
+    memcpy(data, readData, count);
     return 0;
 }
 
