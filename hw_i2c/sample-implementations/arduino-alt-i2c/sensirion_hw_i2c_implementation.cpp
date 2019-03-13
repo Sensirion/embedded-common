@@ -52,7 +52,6 @@ void sensirion_i2c_init()
 s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
 {
     u8 readData[count];
-    u8 rxByteCount = 0;
 
     uint8_t ret = I2c.read(address, count, readData);
     if (ret != 0) {
