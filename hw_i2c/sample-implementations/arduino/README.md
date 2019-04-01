@@ -125,6 +125,9 @@ Multiply by 1000 because delay uses milliseconds but sleep uses seconds.
 
 ### Limited Receive Buffer
 Arduino's Wire library has a limited receive buffer of 30bytes, which is not
-enough for the SPS30. A possible workaround is using a software-i2c
+enough for the SPS30. We're offering an alternative I2C implementation for 
+our drivers to address this, called arduino-alt-i2c.
+
+Another possible workaround is using a software-i2c
 implementation. See [embedded-sps #7](https://github.com/Sensirion/embedded-sps/issues/7)
 for more details.
