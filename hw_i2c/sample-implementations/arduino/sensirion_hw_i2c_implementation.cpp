@@ -18,18 +18,19 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "sensirion_i2c.h"
 #include "sensirion_arch_config.h"
+#include "sensirion_i2c.h"
 
 // needed for delay() routine
 #include <Arduino.h>
@@ -51,23 +52,21 @@ extern "C" {
  * communication. After this function has been called, the functions
  * i2c_read() and i2c_write() must succeed.
  */
-void sensirion_i2c_init()
-{
-   Wire.begin();
+void sensirion_i2c_init() {
+    Wire.begin();
 }
 
-s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
-{
+s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
     u8 readData[count];
-    u8 rxByteCount=0;
+    u8 rxByteCount = 0;
 
     // 2 bytes RH, 1 CRC, 2 bytes T, 1 CRC
     Wire.requestFrom(address, count);
 
-    while (Wire.available()) { // wait till all arrive
-      readData[rxByteCount++] = Wire.read();
-      if(rxByteCount >= count)
-        break;
+    while (Wire.available()) {  // wait till all arrive
+        readData[rxByteCount++] = Wire.read();
+        if (rxByteCount >= count)
+            break;
     }
 
     memcpy(data, readData, count);
@@ -75,8 +74,7 @@ s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
     return 0;
 }
 
-s8 sensirion_i2c_write(u8 address, const u8* data, u16 count)
-{
+s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
     Wire.beginTransmission(address);
     Wire.write(data, count);
     Wire.endTransmission();
@@ -95,5 +93,5 @@ void sensirion_sleep_usec(u32 useconds) {
 }
 
 #ifdef __cplusplus
-} // extern "C"
+}  // extern "C"
 #endif

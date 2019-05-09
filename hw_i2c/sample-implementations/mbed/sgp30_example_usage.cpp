@@ -18,20 +18,21 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include "mbed.h"
 #include "sgp30.h"
 
-#include <stdio.h> // printf
+#include <stdio.h>  // printf
 
 #define EOL "\r\n"
 Serial pc(USBTX, USBRX);
@@ -49,10 +50,8 @@ int main(void) {
     }
     pc.printf("SGP sensor probing successful" EOL);
 
-
     /* Read signals */
-    err = sgp_measure_signals_blocking_read(&ethanol_signal,
-                                            &h2_signal);
+    err = sgp_measure_signals_blocking_read(&ethanol_signal, &h2_signal);
     if (err == STATUS_OK) {
         /* Print ethanol signal and h2 signal */
         pc.printf("Ethanol signal: %u" EOL, ethanol_signal);
@@ -60,7 +59,6 @@ int main(void) {
     } else {
         pc.printf("error reading signals" EOL);
     }
-
 
     /* Consider the two cases (A) and (B):
      * (A) If a recent baseline, less than one week old, is not available it
@@ -75,8 +73,9 @@ int main(void) {
     while (1) {
         err = sgp_measure_iaq_blocking_read(&tvoc_ppb, &co2_eq_ppm);
         if (err == STATUS_OK) {
-            pc.printf("tVOC  Concentration: %dppb, CO2eq Concentration: %dppm" EOL,
-                      tvoc_ppb, co2_eq_ppm);
+            pc.printf(
+                "tVOC  Concentration: %dppb, CO2eq Concentration: %dppm" EOL,
+                tvoc_ppb, co2_eq_ppm);
         } else {
             pc.printf("error reading IAQ values" EOL);
         }

@@ -18,18 +18,19 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "sensirion_i2c.h"
 #include "sensirion_arch_config.h"
+#include "sensirion_i2c.h"
 
 /*
  * INSTRUCTIONS
@@ -43,8 +44,7 @@
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
-void sensirion_i2c_init()
-{
+void sensirion_i2c_init() {
     // IMPLEMENT
 }
 
@@ -58,16 +58,15 @@ void sensirion_i2c_init()
  * @param count   number of bytes to read from I2C and store in the buffer
  * @returns 0 on success, error code otherwise
  */
-s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
-{
+s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
     // IMPLEMENT
     return 0;
 }
 
 /**
- * Execute one write transaction on the I2C bus, sending a given number of bytes.
- * The bytes in the supplied buffer must be sent to the given address. If the
- * slave device does not acknowledge any of the bytes, an error shall be
+ * Execute one write transaction on the I2C bus, sending a given number of
+ * bytes. The bytes in the supplied buffer must be sent to the given address. If
+ * the slave device does not acknowledge any of the bytes, an error shall be
  * returned.
  *
  * @param address 7-bit I2C address to write to
@@ -75,8 +74,7 @@ s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
  * @param count   number of bytes to read from the buffer and send over I2C
  * @returns 0 on success, error code otherwise
  */
-s8 sensirion_i2c_write(u8 address, const u8* data, u16 count)
-{
+s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
     // IMPLEMENT
     return 0;
 }

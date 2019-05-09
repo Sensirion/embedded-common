@@ -18,21 +18,21 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
-
 
 #include <mbed.h>
 
-#include "sensirion_sw_i2c_gpio.h"
 #include "sensirion_arch_config.h"
+#include "sensirion_sw_i2c_gpio.h"
 
 /*
  * We use the following names for the two I2C signal lines:
@@ -47,13 +47,11 @@
 DigitalInOut sda(p28);
 DigitalInOut scl(p27);
 
-
 /**
  * Initialize all hard- and software components that are needed to set the
  * SDA and SCL pins.
  */
-void sensirion_init_pins()
-{
+void sensirion_init_pins() {
     /* Do nothing */
 }
 
@@ -62,8 +60,7 @@ void sensirion_init_pins()
  * should be left floating, without external pull-up resistor, the input must be
  * configured to use the internal pull-up resistor.
  */
-void sensirion_SDA_in()
-{
+void sensirion_SDA_in() {
     sda.input();
     sda = 1;
 }
@@ -71,8 +68,7 @@ void sensirion_SDA_in()
 /**
  * Configure the SDA pin as an output and drive it low or set to logical false.
  */
-void sensirion_SDA_out()
-{
+void sensirion_SDA_out() {
     sda.output();
     sda = 0;
 }
@@ -81,8 +77,7 @@ void sensirion_SDA_out()
  * Read the value of the SDA pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-u8 sensirion_SDA_read()
-{
+u8 sensirion_SDA_read() {
     return sda.read();
 }
 
@@ -91,8 +86,7 @@ u8 sensirion_SDA_read()
  * should be left floating, without external pull-up resistor, the input must be
  * configured to use the internal pull-up resistor.
  */
-void sensirion_SCL_in()
-{
+void sensirion_SCL_in() {
     scl.input();
     scl = 1;
 }
@@ -100,8 +94,7 @@ void sensirion_SCL_in()
 /**
  * Configure the SCL pin as an output and drive it low or set to logical false.
  */
-void sensirion_SCL_out()
-{
+void sensirion_SCL_out() {
     scl.output();
     scl = 0;
 }
@@ -110,8 +103,7 @@ void sensirion_SCL_out()
  * Read the value of the SCL pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-u8 sensirion_SCL_read()
-{
+u8 sensirion_SCL_read() {
     return scl.read();
 }
 

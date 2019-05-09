@@ -18,26 +18,26 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <i2c_master.h>
 #include <delay.h>
+#include <i2c_master.h>
 
-#include "sensirion_i2c.h"
 #include "sensirion_arch_config.h"
+#include "sensirion_i2c.h"
 
 struct i2c_master_module i2c_master_instance;
 
-void sensirion_i2c_init()
-{
+void sensirion_i2c_init() {
     /* initialize config structure and software module */
     struct i2c_master_config config_i2c_master;
     i2c_master_get_config_defaults(&config_i2c_master);
@@ -50,26 +50,24 @@ void sensirion_i2c_init()
     i2c_master_enable(&i2c_master_instance);
 }
 
-s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
-{
+s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
     struct i2c_master_packet packet = {
         .address = address,
         .data_length = count,
-        .data = (u8*)data,
+        .data = (u8 *)data,
         .ten_bit_address = false,
         .high_speed = false,
     };
     return i2c_master_read_packet_wait(&i2c_master_instance, &packet);
 }
 
-s8 sensirion_i2c_write(u8 address, const u8* data, u16 count)
-{
+s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
     struct i2c_master_packet packet = {
-            .address = address,
-            .data_length = count,
-            .data = (u8 *)data,
-            .ten_bit_address = false,
-            .high_speed = false,
+        .address = address,
+        .data_length = count,
+        .data = (u8 *)data,
+        .ten_bit_address = false,
+        .high_speed = false,
     };
     return i2c_master_write_packet_wait_no_stop(&i2c_master_instance, &packet);
 }
