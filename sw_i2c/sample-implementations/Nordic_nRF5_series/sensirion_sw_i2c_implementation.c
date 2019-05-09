@@ -53,20 +53,20 @@
 #define SENSIRION_SDA_PIN 0
 #define SENSIRION_SCL_PIN 2
 
-u32 sda;
-u32 scl;
-volatile u32 *sclPinRegAddr;
-volatile u32 *sdaPinRegAddr;
+uint32_t sda;
+uint32_t scl;
+volatile uint32_t *sclPinRegAddr;
+volatile uint32_t *sdaPinRegAddr;
 
 /* configuration register value for I2C output pin */
-static const u32 REGVALOUT =
+static const uint32_t REGVALOUT =
     (GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos) |
     (GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) |
     (GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) |
     (GPIO_PIN_CNF_INPUT_Disconnect << GPIO_PIN_CNF_INPUT_Pos) |
     (GPIO_PIN_CNF_DIR_Output << GPIO_PIN_CNF_DIR_Pos);
 /* configuration register value for I2C input pin */
-static const u32 REGVALIN =
+static const uint32_t REGVALIN =
     (GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos) |
     (GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) |
     (GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) |
@@ -80,8 +80,8 @@ static const u32 REGVALIN =
 void sensirion_init_pins() {
     scl = SENSIRION_SCL_PIN;
     sda = SENSIRION_SDA_PIN;
-    sclPinRegAddr = &NRF_GPIO->PIN_CNF[(u32)scl];
-    sdaPinRegAddr = &NRF_GPIO->PIN_CNF[(u32)sda];
+    sclPinRegAddr = &NRF_GPIO->PIN_CNF[(uint32_t)scl];
+    sdaPinRegAddr = &NRF_GPIO->PIN_CNF[(uint32_t)sda];
     *sclPinRegAddr = REGVALIN;
     *sdaPinRegAddr = REGVALIN;
 }
@@ -106,8 +106,8 @@ void sensirion_SDA_out() {
  * Read the value of the SDA pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-u8 sensirion_SDA_read() {
-    return (u8)nrf_gpio_pin_read(sda);
+uint8_t sensirion_SDA_read() {
+    return (uint8_t)nrf_gpio_pin_read(sda);
 }
 
 /**
@@ -130,8 +130,8 @@ void sensirion_SCL_out() {
  * Read the value of the SCL pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-u8 sensirion_SCL_read() {
-    return (u8)nrf_gpio_pin_read(scl);
+uint8_t sensirion_SCL_read() {
+    return (uint8_t)nrf_gpio_pin_read(scl);
 }
 
 /**
@@ -146,6 +146,6 @@ u8 sensirion_SCL_read() {
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(u32 useconds) {
+void sensirion_sleep_usec(uint32_t useconds) {
     nrf_delay_us(useconds);
 }

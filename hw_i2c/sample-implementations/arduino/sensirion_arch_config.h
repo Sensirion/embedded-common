@@ -38,23 +38,23 @@
 extern "C" {
 #endif
 
-typedef unsigned long long int u64;
-typedef long long int s64;
-typedef long s32;
-typedef unsigned long u32;
-typedef short s16;
-typedef unsigned short u16;
-typedef char s8;
-typedef unsigned char u8;
-typedef float f32;
+typedef unsigned long long int uint64_t;
+typedef long long int int64_t;
+typedef long int32_t;
+typedef unsigned long uint32_t;
+typedef short int16_t;
+typedef unsigned short uint16_t;
+typedef char int8_t;
+typedef unsigned char uint8_t;
+typedef float float32_t;
 
 /*
  * If you encounter errors similar to this
- *     error: 's32' has a previous declaration as 'typedef int s32'
+ *     error: 'int32_t' has a previous declaration as 'typedef int int32_t'
  *
  * Change every conflicting type in the sensirion driver to avoid the conflict
  by
- * using another name, e.g. rename all instances of `s32` to `sensirion_s32`
+ * using another name, e.g. rename all instances of `int32_t` to `sensirion_s32`
  etc.
  * and change the typedef accordingly in the typedef list above
  *

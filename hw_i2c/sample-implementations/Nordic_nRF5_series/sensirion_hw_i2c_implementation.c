@@ -54,7 +54,7 @@ static const nrf_drv_twi_t i2c_instance = NRF_DRV_TWI_INSTANCE(0);
  * communication.
  */
 void sensirion_i2c_init() {
-    s8 err;
+    int8_t err;
     const nrf_drv_twi_config_t i2c_instance_config = {.scl = SENSIRION_SCL_PIN,
                                                       .sda = SENSIRION_SDA_PIN,
                                                       .frequency =
@@ -85,8 +85,8 @@ void sensirion_i2c_init() {
  * error codes:  3 -> error detected by hardware (internal error)
  *              17 -> driver not ready for new transfer (busy)
  */
-s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
-    s8 err = nrf_drv_twi_rx(&i2c_instance, address, data, (u8)count);
+int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
+    int8_t err = nrf_drv_twi_rx(&i2c_instance, address, data, (uint8_t)count);
     return err;
 }
 
@@ -104,8 +104,10 @@ s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
  * error codes:  3 -> error detected by hardware (internal error)
  *              17 -> driver not ready for new transfer (busy)
  */
-s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
-    s8 err = nrf_drv_twi_tx(&i2c_instance, address, data, (u8)count, false);
+int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
+                           uint16_t count) {
+    int8_t err =
+        nrf_drv_twi_tx(&i2c_instance, address, data, (uint8_t)count, false);
     return err;
 }
 
@@ -115,6 +117,6 @@ s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(u32 useconds) {
+void sensirion_sleep_usec(uint32_t useconds) {
     nrf_delay_us(useconds);
 }

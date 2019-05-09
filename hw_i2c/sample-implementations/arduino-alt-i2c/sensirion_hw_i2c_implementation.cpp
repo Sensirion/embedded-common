@@ -49,11 +49,12 @@ void sensirion_i2c_init() {
     I2c.begin();
 }
 
-s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
+int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
     return I2c.read(address, count, data);
 }
 
-s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
+int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
+                           uint16_t count) {
     // the API doesn't forsee calls without register, so we'll use the first
     // byte as "register", and pass the rest as data argument
     if (count == 0) {
@@ -68,7 +69,7 @@ s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(u32 useconds) {
+void sensirion_sleep_usec(uint32_t useconds) {
     delay((useconds / 1000) + 1);
 }
 

@@ -72,9 +72,9 @@ void sensirion_i2c_init() {
  * @param count   number of bytes to read from I2C and store in the buffer
  * @returns 0 on success, error code otherwise
  */
-s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
-    return (s8)HAL_I2C_Master_Receive(&hi2c1, (u16)(address << 1), data, count,
-                                      100);
+int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
+    return (int8_t)HAL_I2C_Master_Receive(&hi2c1, (uint16_t)(address << 1),
+                                          data, count, 100);
 }
 
 /**
@@ -88,9 +88,10 @@ s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
  * @param count   number of bytes to read from the buffer and send over I2C
  * @returns 0 on success, error code otherwise
  */
-s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
-    return (s8)HAL_I2C_Master_Transmit(&hi2c1, (u16)(address << 1), (u8 *)data,
-                                       count, 100);
+int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
+                           uint16_t count) {
+    return (int8_t)HAL_I2C_Master_Transmit(&hi2c1, (uint16_t)(address << 1),
+                                           (uint8_t *)data, count, 100);
 }
 
 /**
@@ -99,8 +100,8 @@ s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(u32 useconds) {
-    u32 msec = useconds / 1000;
+void sensirion_sleep_usec(uint32_t useconds) {
+    uint32_t msec = useconds / 1000;
     if (useconds % 1000 > 0) {
         msec++;
     }

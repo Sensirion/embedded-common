@@ -87,8 +87,8 @@ void sensirion_SDA_out() {
  * Read the value of the SDA pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-u8 sensirion_SDA_read() {
-    return (u8)HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_9) == GPIO_PIN_SET;
+uint8_t sensirion_SDA_read() {
+    return (uint8_t)HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_9) == GPIO_PIN_SET;
 }
 
 /**
@@ -124,8 +124,8 @@ void sensirion_SCL_out() {
  * Read the value of the SCL pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-u8 sensirion_SCL_read() {
-    return (u8)HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8) == GPIO_PIN_SET;
+uint8_t sensirion_SCL_read() {
+    return (uint8_t)HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8) == GPIO_PIN_SET;
 }
 
 /**
@@ -140,6 +140,6 @@ u8 sensirion_SCL_read() {
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(u32 useconds) {
+void sensirion_sleep_usec(uint32_t useconds) {
     HAL_Delay(useconds / 1000 + 1);
 }

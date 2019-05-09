@@ -44,15 +44,15 @@ void sensirion_SDA_in();
 
 void sensirion_SDA_out();
 
-u8 sensirion_SDA_read();
+uint8_t sensirion_SDA_read();
 
 void sensirion_SCL_in();
 
 void sensirion_SCL_out();
 
-u8 sensirion_SCL_read();
+uint8_t sensirion_SCL_read();
 
-void sensirion_sleep_usec(u32 useconds);
+void sensirion_sleep_usec(uint32_t useconds);
 
 #ifdef __cplusplus
 }
