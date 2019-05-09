@@ -18,22 +18,23 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "sensirion_i2c.h"
 #include "sensirion_arch_config.h"
+#include "sensirion_i2c.h"
 
 // needed for delay() routine
-#include <Arduino.h>
 #include "i2c_master_lib.h"
+#include <Arduino.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,22 +45,19 @@ extern "C" {
  * communication. After this function has been called, the functions
  * i2c_read() and i2c_write() must succeed.
  */
-void sensirion_i2c_init()
-{
-   I2c.begin();
+void sensirion_i2c_init() {
+    I2c.begin();
 }
 
-s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
-{
+s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
     return I2c.read(address, count, data);
 }
 
-s8 sensirion_i2c_write(u8 address, const u8* data, u16 count)
-{
+s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
     // the API doesn't forsee calls without register, so we'll use the first
     // byte as "register", and pass the rest as data argument
     if (count == 0) {
-      return 0;
+        return 0;
     }
     return I2c.write(address, data[0], data + 1, count - 1);
 }
@@ -75,5 +73,5 @@ void sensirion_sleep_usec(u32 useconds) {
 }
 
 #ifdef __cplusplus
-} // extern "C"
+}  // extern "C"
 #endif

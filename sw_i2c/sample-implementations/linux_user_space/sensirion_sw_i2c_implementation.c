@@ -18,26 +18,26 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-#include <fcntl.h> /* close, open */
+#include <fcntl.h>     /* close, open */
+#include <stdio.h>     /* fprintf, perror, stderr */
+#include <stdlib.h>    /* exit */
+#include <string.h>    /* strlen */
 #include <sys/types.h> /* mode_t */
-#include <stdio.h> /* fprintf, perror, stderr */
-#include <string.h> /* strlen */
-#include <unistd.h> /* access, lseek, read, usleep */
-#include <stdlib.h> /* exit */
+#include <unistd.h>    /* access, lseek, read, usleep */
 
-#include "sensirion_sw_i2c_gpio.h"
 #include "sensirion_arch_config.h"
+#include "sensirion_sw_i2c_gpio.h"
 
 /*
  * We use the following names for the two I2C signal lines:
@@ -77,8 +77,7 @@ static int scl_val_fd;
 static int sda_dir_fd;
 static int sda_val_fd;
 
-static int open_or_exit(const char *path, mode_t mode)
-{
+static int open_or_exit(const char *path, mode_t mode) {
     int fd = open(path, mode);
     if (fd < 0) {
         perror(NULL);
@@ -88,16 +87,14 @@ static int open_or_exit(const char *path, mode_t mode)
     return fd;
 }
 
-static void rev_or_exit(int fd)
-{
+static void rev_or_exit(int fd) {
     if (lseek(fd, 0, SEEK_SET) < 0) {
         perror("Error seeking gpio");
         exit(-1);
     }
 }
 
-static void write_or_exit(int fd, const char *buf)
-{
+static void write_or_exit(int fd, const char *buf) {
     size_t len = strlen(buf);
 
     if (write(fd, buf, len) != len) {
@@ -106,8 +103,7 @@ static void write_or_exit(int fd, const char *buf)
     }
 }
 
-static void gpio_export(const char *path, const char *export_pin)
-{
+static void gpio_export(const char *path, const char *export_pin) {
     int fd;
 
     if (access(path, F_OK) == -1) {
@@ -117,8 +113,7 @@ static void gpio_export(const char *path, const char *export_pin)
     }
 }
 
-static void gpio_set_value(int fd, int value)
-{
+static void gpio_set_value(int fd, int value) {
     char buf[] = {'0', '\0'};
 
     buf[0] += value;
@@ -126,14 +121,12 @@ static void gpio_set_value(int fd, int value)
     write_or_exit(fd, buf);
 }
 
-static void gpio_set_direction(int fd, const char *dir)
-{
+static void gpio_set_direction(int fd, const char *dir) {
     rev_or_exit(fd);
     write_or_exit(fd, dir);
 }
 
-static char gpio_get_value(int fd)
-{
+static char gpio_get_value(int fd) {
     char c;
 
     rev_or_exit(fd);
@@ -148,8 +141,7 @@ static char gpio_get_value(int fd)
  * Initialize all hard- and software components that are needed to set the
  * SDA and SCL pins.
  */
-void sensirion_init_pins()
-{
+void sensirion_init_pins() {
     gpio_export(GPIO_SCL_DIR, GPIO_PIN_SCL_STR);
     gpio_export(GPIO_SDA_DIR, GPIO_PIN_SDA_STR);
 
@@ -164,16 +156,14 @@ void sensirion_init_pins()
  * should be left floating, without external pull-up resistor, the input must be
  * configured to use the internal pull-up resistor.
  */
-void sensirion_SDA_in()
-{
+void sensirion_SDA_in() {
     gpio_set_direction(sda_dir_fd, GPIO_DIRECTION_IN);
 }
 
 /**
  * Configure the SDA pin as an output and drive it low or set to logical false.
  */
-void sensirion_SDA_out()
-{
+void sensirion_SDA_out() {
     gpio_set_direction(sda_dir_fd, GPIO_DIRECTION_OUT);
     gpio_set_value(sda_val_fd, GPIO_LOW);
 }
@@ -182,8 +172,7 @@ void sensirion_SDA_out()
  * Read the value of the SDA pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-u8 sensirion_SDA_read()
-{
+u8 sensirion_SDA_read() {
     return gpio_get_value(sda_val_fd);
 }
 
@@ -192,16 +181,14 @@ u8 sensirion_SDA_read()
  * should be left floating, without external pull-up resistor, the input must be
  * configured to use the internal pull-up resistor.
  */
-void sensirion_SCL_in()
-{
+void sensirion_SCL_in() {
     gpio_set_direction(scl_dir_fd, GPIO_DIRECTION_IN);
 }
 
 /**
  * Configure the SCL pin as an output and drive it low or set to logical false.
  */
-void sensirion_SCL_out()
-{
+void sensirion_SCL_out() {
     gpio_set_direction(scl_dir_fd, GPIO_DIRECTION_OUT);
     gpio_set_value(scl_val_fd, GPIO_LOW);
 }
@@ -210,8 +197,7 @@ void sensirion_SCL_out()
  * Read the value of the SCL pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-u8 sensirion_SCL_read()
-{
+u8 sensirion_SCL_read() {
     return gpio_get_value(scl_val_fd);
 }
 

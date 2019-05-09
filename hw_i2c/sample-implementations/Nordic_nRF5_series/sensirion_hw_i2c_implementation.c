@@ -18,14 +18,15 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include <nrf_delay.h>
@@ -42,31 +43,28 @@
 #define SENSIRION_SDA_PIN 0
 #define SENSIRION_SCL_PIN 2
 
-
 /**
- * Create new TWI instance. You may also use a different interface. In this case, please adapt
- * the code below.
+ * Create new TWI instance. You may also use a different interface. In this
+ * case, please adapt the code below.
  */
 static const nrf_drv_twi_t i2c_instance = NRF_DRV_TWI_INSTANCE(0);
-
 
 /**
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
-void sensirion_i2c_init()
-{
+void sensirion_i2c_init() {
     s8 err;
-    const nrf_drv_twi_config_t i2c_instance_config = {
-        .scl                = SENSIRION_SCL_PIN,
-        .sda                = SENSIRION_SDA_PIN,
-        .frequency          = NRF_TWI_FREQ_100K,
-        .interrupt_priority = 0
-    };
+    const nrf_drv_twi_config_t i2c_instance_config = {.scl = SENSIRION_SCL_PIN,
+                                                      .sda = SENSIRION_SDA_PIN,
+                                                      .frequency =
+                                                          NRF_TWI_FREQ_100K,
+                                                      .interrupt_priority = 0};
     /* initiate TWI instance */
     err = nrf_drv_twi_init(&i2c_instance, &i2c_instance_config, NULL, NULL);
     if (err) {
-        /* Could be omitted if the prototyp is changed to non-void or an error flag is introduced */
+        /* Could be omitted if the prototyp is changed to non-void or an error
+         * flag is introduced */
         printf("Error %d: Initialization of I2C connection failed!\n", err);
     }
     /* enable TWI instance */
@@ -87,16 +85,15 @@ void sensirion_i2c_init()
  * error codes:  3 -> error detected by hardware (internal error)
  *              17 -> driver not ready for new transfer (busy)
  */
-s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
-{
+s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
     s8 err = nrf_drv_twi_rx(&i2c_instance, address, data, (u8)count);
     return err;
 }
 
 /**
- * Execute one write transaction on the I2C bus, sending a given number of bytes.
- * The bytes in the supplied buffer must be sent to the given address. If the
- * slave device does not acknowledge any of the bytes, an error shall be
+ * Execute one write transaction on the I2C bus, sending a given number of
+ * bytes. The bytes in the supplied buffer must be sent to the given address. If
+ * the slave device does not acknowledge any of the bytes, an error shall be
  * returned.
  *
  * @param address 7-bit I2C address to write to
@@ -107,8 +104,7 @@ s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
  * error codes:  3 -> error detected by hardware (internal error)
  *              17 -> driver not ready for new transfer (busy)
  */
-s8 sensirion_i2c_write(u8 address, const u8* data, u16 count)
-{
+s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
     s8 err = nrf_drv_twi_tx(&i2c_instance, address, data, (u8)count, false);
     return err;
 }

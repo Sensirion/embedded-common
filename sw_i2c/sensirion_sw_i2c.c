@@ -18,14 +18,15 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include "sensirion_arch_config.h"
@@ -35,8 +36,7 @@
 
 #define DELAY_USEC (SENSIRION_I2C_CLOCK_PERIOD_USEC / 2)
 
-static u8 sensirion_wait_while_clock_stretching(void)
-{
+static u8 sensirion_wait_while_clock_stretching(void) {
     u8 timeout = 100;
 
     while (--timeout) {
@@ -48,8 +48,7 @@ static u8 sensirion_wait_while_clock_stretching(void)
     return STATUS_FAIL;
 }
 
-static s8 sensirion_i2c_write_byte(u8 data)
-{
+static s8 sensirion_i2c_write_byte(u8 data) {
     s8 nack, i;
     for (i = 7; i >= 0; i--) {
         sensirion_SCL_out();
@@ -75,8 +74,7 @@ static s8 sensirion_i2c_write_byte(u8 data)
     return nack;
 }
 
-static u8 sensirion_i2c_read_byte(u8 ack)
-{
+static u8 sensirion_i2c_read_byte(u8 ack) {
     s8 i;
     u8 data = 0;
     sensirion_SDA_in();
@@ -103,8 +101,7 @@ static u8 sensirion_i2c_read_byte(u8 ack)
     return data;
 }
 
-static u8 sensirion_i2c_start(void)
-{
+static u8 sensirion_i2c_start(void) {
     sensirion_SCL_in();
     if (sensirion_wait_while_clock_stretching())
         return STATUS_FAIL;
@@ -116,8 +113,7 @@ static u8 sensirion_i2c_start(void)
     return STATUS_OK;
 }
 
-static void sensirion_i2c_stop(void)
-{
+static void sensirion_i2c_stop(void) {
     sensirion_SDA_out();
     sensirion_sleep_usec(DELAY_USEC);
     sensirion_SCL_in();
@@ -126,8 +122,7 @@ static void sensirion_i2c_stop(void)
     sensirion_sleep_usec(DELAY_USEC);
 }
 
-s8 sensirion_i2c_write(u8 address, const u8* data, u16 count)
-{
+s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
     s8 ret;
     u16 i;
 
@@ -151,8 +146,7 @@ s8 sensirion_i2c_write(u8 address, const u8* data, u16 count)
     return ret;
 }
 
-s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
-{
+s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
     s8 ret;
     u8 send_ack;
     u16 i;
@@ -175,8 +169,7 @@ s8 sensirion_i2c_read(u8 address, u8* data, u16 count)
     return STATUS_OK;
 }
 
-void sensirion_i2c_init()
-{
+void sensirion_i2c_init() {
     sensirion_init_pins();
     sensirion_SCL_in();
     sensirion_SDA_in();

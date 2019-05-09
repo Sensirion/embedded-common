@@ -18,14 +18,15 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 
 /**
@@ -34,11 +35,10 @@
  * This module provides functionality that is common to all Sensirion drivers
  */
 
-#include "sensirion_i2c.h"
 #include "sensirion_common.h"
+#include "sensirion_i2c.h"
 
-u8 sensirion_common_generate_crc(u8 *data, u16 count)
-{
+u8 sensirion_common_generate_crc(u8 *data, u16 count) {
     u16 current_byte;
     u8 crc = CRC8_INIT;
     u8 crc_bit;
@@ -56,15 +56,14 @@ u8 sensirion_common_generate_crc(u8 *data, u16 count)
     return crc;
 }
 
-s8 sensirion_common_check_crc(u8 *data, u16 count, u8 checksum)
-{
+s8 sensirion_common_check_crc(u8 *data, u16 count, u8 checksum) {
     if (sensirion_common_generate_crc(data, count) != checksum)
         return STATUS_FAIL;
     return STATUS_OK;
 }
 
-u16 sensirion_fill_cmd_send_buf(u8 *buf, u16 cmd, const u16 *args, u8 num_args)
-{
+u16 sensirion_fill_cmd_send_buf(u8 *buf, u16 cmd, const u16 *args,
+                                u8 num_args) {
     u8 crc;
     u8 i;
     u16 idx = 0;
@@ -88,7 +87,7 @@ s16 sensirion_i2c_read_bytes(u8 address, u8 *data, u16 num_words) {
     u16 i, j;
     u16 size = num_words * (SENSIRION_WORD_SIZE + CRC8_LEN);
     u16 word_buf[SENSIRION_MAX_BUFFER_WORDS];
-    u8 * const buf8 = (u8 *)word_buf;
+    u8 *const buf8 = (u8 *)word_buf;
 
     ret = sensirion_i2c_read(address, buf8, size);
     if (ret != STATUS_OK)
@@ -155,8 +154,8 @@ s16 sensirion_i2c_delayed_read_cmd(u8 address, u16 cmd, u32 delay_us,
     return sensirion_i2c_read_words(address, data_words, num_words);
 }
 
-s16 sensirion_i2c_read_cmd(u8 address, u16 cmd, u16 *data_words, u16 num_words)
-{
+s16 sensirion_i2c_read_cmd(u8 address, u16 cmd, u16 *data_words,
+                           u16 num_words) {
     return sensirion_i2c_delayed_read_cmd(address, cmd, 0, data_words,
                                           num_words);
 }

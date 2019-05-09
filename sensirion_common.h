@@ -18,14 +18,15 @@
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 
 #ifndef SENSIRION_COMMON_H
@@ -53,19 +54,19 @@ extern "C" {
 #else /* SENSIRION_BIG_ENDIAN */
 
 #define be16_to_cpu(s) (((u16)(s) << 8) | (0xff & ((u16)(s)) >> 8))
-#define be32_to_cpu(s) (((u32)be16_to_cpu(s) << 16) | \
-                        (0xffff & (be16_to_cpu((s) >> 16))))
-#define be64_to_cpu(s) (((u64)be32_to_cpu(s) << 32) | \
-                        (0xffffffff & ((u64)be32_to_cpu((s) >> 32))))
+#define be32_to_cpu(s)                                                         \
+    (((u32)be16_to_cpu(s) << 16) | (0xffff & (be16_to_cpu((s) >> 16))))
+#define be64_to_cpu(s)                                                         \
+    (((u64)be32_to_cpu(s) << 32) | (0xffffffff & ((u64)be32_to_cpu((s) >> 32))))
 /**
  * Convert a word-array to a bytes-array, effectively reverting the
  * host-endianness to big-endian
  * @a:  word array to change (must be (u16 *) castable)
  * @w:  number of word-sized elements in the array (SENSIRION_NUM_WORDS(a)).
  */
-#define SENSIRION_WORDS_TO_BYTES(a, w) \
-    for (u16 *__a = (u16 *)(a), __e = (w), __w = 0; __w < __e; ++__w) { \
-        __a[__w] = be16_to_cpu(__a[__w]); \
+#define SENSIRION_WORDS_TO_BYTES(a, w)                                         \
+    for (u16 *__a = (u16 *)(a), __e = (w), __w = 0; __w < __e; ++__w) {        \
+        __a[__w] = be16_to_cpu(__a[__w]);                                      \
     }
 #endif /* SENSIRION_BIG_ENDIAN */
 
@@ -73,14 +74,14 @@ extern "C" {
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof(*(x)))
 #endif
 
-#define CRC8_POLYNOMIAL             0x31
-#define CRC8_INIT                   0xFF
-#define CRC8_LEN                    1
+#define CRC8_POLYNOMIAL 0x31
+#define CRC8_INIT 0xFF
+#define CRC8_LEN 1
 
-#define SENSIRION_COMMAND_SIZE      2
-#define SENSIRION_WORD_SIZE         2
+#define SENSIRION_COMMAND_SIZE 2
+#define SENSIRION_WORD_SIZE 2
 #define SENSIRION_NUM_WORDS(x) (sizeof(x) / SENSIRION_WORD_SIZE)
-#define SENSIRION_MAX_BUFFER_WORDS  32
+#define SENSIRION_MAX_BUFFER_WORDS 32
 
 u8 sensirion_common_generate_crc(u8 *data, u16 count);
 
