@@ -54,7 +54,7 @@
 #define I2C_READ_FAILED -1
 
 static int i2c_device = 0;
-static u8 i2c_address = 0;
+static uint8_t i2c_address = 0;
 
 /**
  * Initialize all hard- and software components that are needed for the I2C
@@ -77,7 +77,7 @@ void sensirion_i2c_init() {
  * @param count   number of bytes to read from I2C and store in the buffer
  * @returns 0 on success, error code otherwise
  */
-s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
+int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
     if (i2c_address != address) {
         ioctl(i2c_device, I2C_SLAVE, address);
         i2c_address = address;
@@ -100,7 +100,8 @@ s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
  * @param count   number of bytes to read from the buffer and send over I2C
  * @returns 0 on success, error code otherwise
  */
-s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
+int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
+                           uint16_t count) {
     if (i2c_address != address) {
         ioctl(i2c_device, I2C_SLAVE, address);
         i2c_address = address;
@@ -118,6 +119,6 @@ s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(u32 useconds) {
+void sensirion_sleep_usec(uint32_t useconds) {
     usleep(useconds);
 }

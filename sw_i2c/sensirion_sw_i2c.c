@@ -36,8 +36,8 @@
 
 #define DELAY_USEC (SENSIRION_I2C_CLOCK_PERIOD_USEC / 2)
 
-static u8 sensirion_wait_while_clock_stretching(void) {
-    u8 timeout = 100;
+static uint8_t sensirion_wait_while_clock_stretching(void) {
+    uint8_t timeout = 100;
 
     while (--timeout) {
         if (sensirion_SCL_read())
@@ -48,8 +48,8 @@ static u8 sensirion_wait_while_clock_stretching(void) {
     return STATUS_FAIL;
 }
 
-static s8 sensirion_i2c_write_byte(u8 data) {
-    s8 nack, i;
+static int8_t sensirion_i2c_write_byte(uint8_t data) {
+    int8_t nack, i;
     for (i = 7; i >= 0; i--) {
         sensirion_SCL_out();
         if ((data >> i) & 0x01)
@@ -74,9 +74,9 @@ static s8 sensirion_i2c_write_byte(u8 data) {
     return nack;
 }
 
-static u8 sensirion_i2c_read_byte(u8 ack) {
-    s8 i;
-    u8 data = 0;
+static uint8_t sensirion_i2c_read_byte(uint8_t ack) {
+    int8_t i;
+    uint8_t data = 0;
     sensirion_SDA_in();
     for (i = 7; i >= 0; i--) {
         sensirion_sleep_usec(DELAY_USEC);
@@ -101,7 +101,7 @@ static u8 sensirion_i2c_read_byte(u8 ack) {
     return data;
 }
 
-static u8 sensirion_i2c_start(void) {
+static uint8_t sensirion_i2c_start(void) {
     sensirion_SCL_in();
     if (sensirion_wait_while_clock_stretching())
         return STATUS_FAIL;
@@ -122,9 +122,10 @@ static void sensirion_i2c_stop(void) {
     sensirion_sleep_usec(DELAY_USEC);
 }
 
-s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
-    s8 ret;
-    u16 i;
+int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
+                           uint16_t count) {
+    int8_t ret;
+    uint16_t i;
 
     ret = sensirion_i2c_start();
     if (ret != STATUS_OK)
@@ -146,10 +147,10 @@ s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
     return ret;
 }
 
-s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
-    s8 ret;
-    u8 send_ack;
-    u16 i;
+int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
+    int8_t ret;
+    uint8_t send_ack;
+    uint16_t i;
 
     ret = sensirion_i2c_start();
     if (ret != STATUS_OK)

@@ -75,46 +75,6 @@ likely not related to the driver and you should ask for help on an Arduino forum
 for your specific platform as Sensirion is not in a position to help you with
 such questions.
 
-### Conflicting type declaration
-If you encounter errors similar to the one below:
-
-    arduino_sps30/sensirion_arch_config.h:46:14: error: conflicting declaration
-    'typedef long int s32'
-     typedef long s32;
-                  ^
-    In file included from
-    C:\Users\foo\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\2.4.2\cores\esp8266/esp8266_peri.h:24:0,
-
-    error: 's32' has a previous declaration as 'typedef int s32'
-     typedef signed int          s32;
-
-Typically, you should be able to adapt the Sensirion typedef to whatever the
-conflicting declaration is. Try to redefine it to the conflicting definitions:
-`typedef signed int s32` - the compiler should then let you off with a warnings.
-
-If this works for your platform, please let us know by opening a GitHub issue
-stating your Arduino model along with the typedef changes needed, such that we
-can add them to the list above.
-
-Otherwise, change every conflicting type in the sensirion driver to avoid the
-conflict by using another type name, e.g. rename all instances of `s32` to
-`sensirion_s32` etc. and update the typedef accordingly in
-`sensirion_arch_config.h`:
-
-Redefine conflicting types (pick as needed)
-
-```c
-typedef unsigned long long int sensirion_u64;
-typedef long long int sensirion_s64;
-typedef long sensirion_s32;
-typedef unsigned long sensirion_u32;
-typedef short sensirion_s16;
-typedef unsigned short sensirion_u16;
-typedef char sensirion_s8;
-typedef unsigned char sensirion_u8;
-typedef float sensirion_f32;
-```
-
 ### Sleep was not declared in this scope
 Delete the example usage file or replace `sleep(x)` with `delay(x * 1000)`
 Multiply by 1000 because delay uses milliseconds but sleep uses seconds.

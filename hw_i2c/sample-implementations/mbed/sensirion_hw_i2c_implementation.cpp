@@ -56,7 +56,7 @@ void sensirion_i2c_init() {
  * @param count   number of bytes to read from I2C and store in the buffer
  * @returns 0 on success, error code otherwise
  */
-s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
+int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
     if (i2c_connection.read(address << 1, (char *)data, count) != 0)
         return E_MBED_I2C_READ_FAILED;
     return 0;
@@ -73,7 +73,8 @@ s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
  * @param count   number of bytes to read from the buffer and send over I2C
  * @returns 0 on success, error code otherwise
  */
-s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
+int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
+                           uint16_t count) {
     if (i2c_connection.write(address << 1, (char *)data, count) != 0)
         return E_MBED_I2C_WRITE_FAILED;
     return 0;
@@ -85,6 +86,6 @@ s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(u32 useconds) {
+void sensirion_sleep_usec(uint32_t useconds) {
     wait_us(useconds);
 }

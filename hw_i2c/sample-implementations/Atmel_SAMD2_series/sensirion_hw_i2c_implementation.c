@@ -50,28 +50,29 @@ void sensirion_i2c_init() {
     i2c_master_enable(&i2c_master_instance);
 }
 
-s8 sensirion_i2c_read(u8 address, u8 *data, u16 count) {
+int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
     struct i2c_master_packet packet = {
         .address = address,
         .data_length = count,
-        .data = (u8 *)data,
+        .data = (uint8_t *)data,
         .ten_bit_address = false,
         .high_speed = false,
     };
     return i2c_master_read_packet_wait(&i2c_master_instance, &packet);
 }
 
-s8 sensirion_i2c_write(u8 address, const u8 *data, u16 count) {
+int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
+                           uint16_t count) {
     struct i2c_master_packet packet = {
         .address = address,
         .data_length = count,
-        .data = (u8 *)data,
+        .data = (uint8_t *)data,
         .ten_bit_address = false,
         .high_speed = false,
     };
     return i2c_master_write_packet_wait_no_stop(&i2c_master_instance, &packet);
 }
 
-void sensirion_sleep_usec(u32 useconds) {
+void sensirion_sleep_usec(uint32_t useconds) {
     delay_us(useconds);
 }

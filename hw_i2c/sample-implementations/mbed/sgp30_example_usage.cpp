@@ -38,11 +38,11 @@
 Serial pc(USBTX, USBRX);
 
 int main(void) {
-    u16 i = 0;
-    s16 err;
-    u16 tvoc_ppb, co2_eq_ppm;
-    u32 iaq_baseline;
-    u16 ethanol_signal, h2_signal;
+    uint16_t i = 0;
+    int16_t err;
+    uint16_t tvoc_ppb, co2_eq_ppm;
+    uint32_t iaq_baseline;
+    uint16_t ethanol_signal, h2_signal;
 
     while (sgp_probe() != STATUS_OK) {
         pc.printf("SGP sensor probing failed" EOL);

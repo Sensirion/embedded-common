@@ -77,7 +77,7 @@ void sensirion_SDA_out() {
  * Read the value of the SDA pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-u8 sensirion_SDA_read() {
+uint8_t sensirion_SDA_read() {
     return sda.read();
 }
 
@@ -103,7 +103,7 @@ void sensirion_SCL_out() {
  * Read the value of the SCL pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-u8 sensirion_SCL_read() {
+uint8_t sensirion_SCL_read() {
     return scl.read();
 }
 
@@ -119,6 +119,6 @@ u8 sensirion_SCL_read() {
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(u32 useconds) {
+void sensirion_sleep_usec(uint32_t useconds) {
     wait_us(useconds);
 }
