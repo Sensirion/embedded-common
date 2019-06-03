@@ -44,7 +44,7 @@ static I2C_HandleTypeDef hi2c1;
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
-void sensirion_i2c_init() {
+void sensirion_i2c_init(void) {
     hi2c1.Instance = I2C1;
     hi2c1.Init.ClockSpeed = 100000;
     hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;

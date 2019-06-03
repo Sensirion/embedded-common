@@ -170,7 +170,7 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
     return STATUS_OK;
 }
 
-void sensirion_i2c_init() {
+void sensirion_i2c_init(void) {
     sensirion_init_pins();
     sensirion_SCL_in();
     sensirion_SDA_in();

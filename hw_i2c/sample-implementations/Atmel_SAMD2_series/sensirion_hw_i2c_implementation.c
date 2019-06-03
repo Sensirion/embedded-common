@@ -37,7 +37,7 @@
 
 struct i2c_master_module i2c_master_instance;
 
-void sensirion_i2c_init() {
+void sensirion_i2c_init(void) {
     /* initialize config structure and software module */
     struct i2c_master_config config_i2c_master;
     i2c_master_get_config_defaults(&config_i2c_master);

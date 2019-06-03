@@ -43,7 +43,7 @@ static I2C i2c_connection(p28, p27); /* or I2C i2c_connection(p9, p10) */
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
-void sensirion_i2c_init() {
+void sensirion_i2c_init(void) {
 }
 
 /**

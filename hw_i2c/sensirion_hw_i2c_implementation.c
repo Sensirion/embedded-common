@@ -44,7 +44,7 @@
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
-void sensirion_i2c_init() {
+void sensirion_i2c_init(void) {
     // IMPLEMENT
 }
 

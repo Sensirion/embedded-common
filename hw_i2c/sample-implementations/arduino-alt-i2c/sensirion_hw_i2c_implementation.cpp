@@ -45,7 +45,7 @@ extern "C" {
  * communication. After this function has been called, the functions
  * i2c_read() and i2c_write() must succeed.
  */
-void sensirion_i2c_init() {
+void sensirion_i2c_init(void) {
     I2c.begin();
 }
 

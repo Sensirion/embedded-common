@@ -53,7 +53,7 @@ static const nrf_drv_twi_t i2c_instance = NRF_DRV_TWI_INSTANCE(0);
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
-void sensirion_i2c_init() {
+void sensirion_i2c_init(void) {
     int8_t err;
     const nrf_drv_twi_config_t i2c_instance_config = {.scl = SENSIRION_SCL_PIN,
                                                       .sda = SENSIRION_SDA_PIN,
