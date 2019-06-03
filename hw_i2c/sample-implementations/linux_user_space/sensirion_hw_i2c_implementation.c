@@ -53,7 +53,7 @@
 #define I2C_WRITE_FAILED -1
 #define I2C_READ_FAILED -1
 
-static int i2c_device = 0;
+static int i2c_device = -1;
 static uint8_t i2c_address = 0;
 
 /**
