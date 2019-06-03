@@ -41,6 +41,21 @@
  */
 
 /**
+ * Select the current i2c bus by index.
+ * All following i2c operations will be directed at that bus.
+ *
+ * THE IMPLEMENTATION IS OPTIONAL ON SINGLE-BUS SETUPS (all sensors on the same
+ * bus)
+ *
+ * @param bus_idx   Bus index to select
+ * @returns         0 on success, an error code otherwise
+ */
+int16_t sensirion_i2c_select_bus(uint8_t bus_idx) {
+    // IMPLEMENT or leave empty if all sensors are located on one single bus
+    return 0;
+}
+
+/**
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
