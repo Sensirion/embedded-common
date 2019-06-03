@@ -68,6 +68,14 @@ void sensirion_i2c_init(void) {
 }
 
 /**
+ * Release all resources initialized by sensirion_i2c_init().
+ */
+void sensirion_i2c_release(void) {
+    if (i2c_device >= 0)
+        close(i2c_device);
+}
+
+/**
  * Execute one read transaction on the I2C bus, reading a given number of bytes.
  * If the device does not acknowledge the read command, an error shall be
  * returned.

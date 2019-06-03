@@ -49,6 +49,12 @@ void sensirion_i2c_init(void) {
     I2c.begin();
 }
 
+/**
+ * Release all resources initialized by sensirion_i2c_init().
+ */
+void sensirion_i2c_release(void) {
+}
+
 int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
     return I2c.read(address, count, data);
 }

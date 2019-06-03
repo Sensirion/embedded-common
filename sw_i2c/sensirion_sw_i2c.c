@@ -175,3 +175,9 @@ void sensirion_i2c_init(void) {
     sensirion_SCL_in();
     sensirion_SDA_in();
 }
+
+void sensirion_i2c_release(void) {
+    sensirion_SCL_in();
+    sensirion_SDA_in();
+    sensirion_release_pins();
+}

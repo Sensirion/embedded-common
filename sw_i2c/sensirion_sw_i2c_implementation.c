@@ -56,6 +56,13 @@ void sensirion_init_pins(void) {
 }
 
 /**
+ * Release all resources initialized by sensirion_init_pins()
+ */
+void sensirion_release_pins(void) {
+    // IMPLEMENT or leave empty if no resources need to be freed
+}
+
+/**
  * Configure the SDA pin as an input. With an external pull-up resistor the line
  * should be left floating, without external pull-up resistor, the input must be
  * configured to use the internal pull-up resistor.

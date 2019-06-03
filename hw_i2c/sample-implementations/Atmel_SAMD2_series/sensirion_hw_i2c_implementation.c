@@ -50,6 +50,12 @@ void sensirion_i2c_init(void) {
     i2c_master_enable(&i2c_master_instance);
 }
 
+/**
+ * Release all resources initialized by sensirion_i2c_init().
+ */
+void sensirion_i2c_release(void) {
+}
+
 int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
     struct i2c_master_packet packet = {
         .address = address,
