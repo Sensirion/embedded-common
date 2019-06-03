@@ -141,7 +141,7 @@ static char gpio_get_value(int fd) {
  * Initialize all hard- and software components that are needed to set the
  * SDA and SCL pins.
  */
-void sensirion_init_pins() {
+void sensirion_init_pins(void) {
     gpio_export(GPIO_SCL_DIR, GPIO_PIN_SCL_STR);
     gpio_export(GPIO_SDA_DIR, GPIO_PIN_SDA_STR);
 
@@ -152,18 +152,24 @@ void sensirion_init_pins() {
 }
 
 /**
+ * Release all resources initialized by sensirion_init_pins()
+ */
+void sensirion_release_pins(void) {
+}
+
+/**
  * Configure the SDA pin as an input. With an external pull-up resistor the line
  * should be left floating, without external pull-up resistor, the input must be
  * configured to use the internal pull-up resistor.
  */
-void sensirion_SDA_in() {
+void sensirion_SDA_in(void) {
     gpio_set_direction(sda_dir_fd, GPIO_DIRECTION_IN);
 }
 
 /**
  * Configure the SDA pin as an output and drive it low or set to logical false.
  */
-void sensirion_SDA_out() {
+void sensirion_SDA_out(void) {
     gpio_set_direction(sda_dir_fd, GPIO_DIRECTION_OUT);
     gpio_set_value(sda_val_fd, GPIO_LOW);
 }
@@ -172,7 +178,7 @@ void sensirion_SDA_out() {
  * Read the value of the SDA pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-uint8_t sensirion_SDA_read() {
+uint8_t sensirion_SDA_read(void) {
     return gpio_get_value(sda_val_fd);
 }
 
@@ -181,14 +187,14 @@ uint8_t sensirion_SDA_read() {
  * should be left floating, without external pull-up resistor, the input must be
  * configured to use the internal pull-up resistor.
  */
-void sensirion_SCL_in() {
+void sensirion_SCL_in(void) {
     gpio_set_direction(scl_dir_fd, GPIO_DIRECTION_IN);
 }
 
 /**
  * Configure the SCL pin as an output and drive it low or set to logical false.
  */
-void sensirion_SCL_out() {
+void sensirion_SCL_out(void) {
     gpio_set_direction(scl_dir_fd, GPIO_DIRECTION_OUT);
     gpio_set_value(scl_val_fd, GPIO_LOW);
 }
@@ -197,7 +203,7 @@ void sensirion_SCL_out() {
  * Read the value of the SCL pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-uint8_t sensirion_SCL_read() {
+uint8_t sensirion_SCL_read(void) {
     return gpio_get_value(scl_val_fd);
 }
 

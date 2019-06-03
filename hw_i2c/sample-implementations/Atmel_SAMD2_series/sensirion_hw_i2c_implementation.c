@@ -37,7 +37,7 @@
 
 struct i2c_master_module i2c_master_instance;
 
-void sensirion_i2c_init() {
+void sensirion_i2c_init(void) {
     /* initialize config structure and software module */
     struct i2c_master_config config_i2c_master;
     i2c_master_get_config_defaults(&config_i2c_master);
@@ -48,6 +48,12 @@ void sensirion_i2c_init() {
     /* initialize and enable device with config. */
     i2c_master_init(&i2c_master_instance, SERCOM2, &config_i2c_master);
     i2c_master_enable(&i2c_master_instance);
+}
+
+/**
+ * Release all resources initialized by sensirion_i2c_init().
+ */
+void sensirion_i2c_release(void) {
 }
 
 int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {

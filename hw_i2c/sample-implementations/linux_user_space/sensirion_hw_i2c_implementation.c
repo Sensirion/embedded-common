@@ -53,18 +53,26 @@
 #define I2C_WRITE_FAILED -1
 #define I2C_READ_FAILED -1
 
-static int i2c_device = 0;
+static int i2c_device = -1;
 static uint8_t i2c_address = 0;
 
 /**
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
-void sensirion_i2c_init() {
+void sensirion_i2c_init(void) {
     /* open i2c adapter */
     i2c_device = open(I2C_DEVICE_PATH, O_RDWR);
     if (i2c_device == -1)
         return; /* no error handling */
+}
+
+/**
+ * Release all resources initialized by sensirion_i2c_init().
+ */
+void sensirion_i2c_release(void) {
+    if (i2c_device >= 0)
+        close(i2c_device);
 }
 
 /**

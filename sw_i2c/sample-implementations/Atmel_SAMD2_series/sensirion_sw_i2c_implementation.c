@@ -50,7 +50,7 @@ ioport_pin_t sda_port = IOPORT_CREATE_PIN(IOPORT_PORTA, 8);
  * Initialize all hard- and software components that are needed to set the
  * SDA and SCL pins.
  */
-void sensirion_init_pins() {
+void sensirion_init_pins(void) {
     ioport_enable_pin(scl_port);
     ioport_enable_pin(sda_port);
     sensirion_SDA_in();
@@ -58,11 +58,17 @@ void sensirion_init_pins() {
 }
 
 /**
+ * Release all resources initialized by sensirion_init_pins()
+ */
+void sensirion_release_pins(void) {
+}
+
+/**
  * Configure the SDA pin as an input. With an external pull-up resistor the line
  * should be left floating, without external pull-up resistor, the input must be
  * configured to use the internal pull-up resistor.
  */
-void sensirion_SDA_in() {
+void sensirion_SDA_in(void) {
     ioport_set_pin_dir(sda_port, IOPORT_DIR_INPUT);
     ioport_set_pin_mode(sda_port, IOPORT_MODE_OPEN_DRAIN);
 }
@@ -70,7 +76,7 @@ void sensirion_SDA_in() {
 /**
  * Configure the SDA pin as an output and drive it low or set to logical false.
  */
-void sensirion_SDA_out() {
+void sensirion_SDA_out(void) {
     ioport_set_pin_dir(sda_port, IOPORT_DIR_OUTPUT);
     ioport_set_pin_level(sda_port, false);
 }
@@ -79,7 +85,7 @@ void sensirion_SDA_out() {
  * Read the value of the SDA pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-uint8_t sensirion_SDA_read() {
+uint8_t sensirion_SDA_read(void) {
     return ioport_get_pin_level(sda_port);
 }
 
@@ -88,7 +94,7 @@ uint8_t sensirion_SDA_read() {
  * should be left floating, without external pull-up resistor, the input must be
  * configured to use the internal pull-up resistor.
  */
-void sensirion_SCL_in() {
+void sensirion_SCL_in(void) {
     ioport_set_pin_dir(scl_port, IOPORT_DIR_INPUT);
     ioport_set_pin_mode(scl_port, IOPORT_MODE_OPEN_DRAIN);
 }
@@ -96,7 +102,7 @@ void sensirion_SCL_in() {
 /**
  * Configure the SCL pin as an output and drive it low or set to logical false.
  */
-void sensirion_SCL_out() {
+void sensirion_SCL_out(void) {
     ioport_set_pin_dir(scl_port, IOPORT_DIR_OUTPUT);
     ioport_set_pin_level(scl_port, false);
 }
@@ -105,7 +111,7 @@ void sensirion_SCL_out() {
  * Read the value of the SCL pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-uint8_t sensirion_SCL_read() {
+uint8_t sensirion_SCL_read(void) {
     return ioport_get_pin_level(scl_port);
 }
 

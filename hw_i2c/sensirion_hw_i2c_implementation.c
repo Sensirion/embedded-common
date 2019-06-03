@@ -44,8 +44,15 @@
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
-void sensirion_i2c_init() {
+void sensirion_i2c_init(void) {
     // IMPLEMENT
+}
+
+/**
+ * Release all resources initialized by sensirion_i2c_init().
+ */
+void sensirion_i2c_release(void) {
+    // IMPLEMENT or leave empty if no resources need to be freed
 }
 
 /**

@@ -44,7 +44,7 @@ static I2C_HandleTypeDef hi2c1;
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
-void sensirion_i2c_init() {
+void sensirion_i2c_init(void) {
     hi2c1.Instance = I2C1;
     hi2c1.Init.ClockSpeed = 100000;
     hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
@@ -60,6 +60,12 @@ void sensirion_i2c_init() {
     __HAL_AFIO_REMAP_I2C1_ENABLE();
     __HAL_RCC_I2C1_CLK_ENABLE();
     HAL_I2C_Init(&hi2c1);
+}
+
+/**
+ * Release all resources initialized by sensirion_i2c_init().
+ */
+void sensirion_i2c_release(void) {
 }
 
 /**

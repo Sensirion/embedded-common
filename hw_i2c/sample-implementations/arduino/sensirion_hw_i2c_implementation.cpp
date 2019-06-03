@@ -52,8 +52,14 @@ extern "C" {
  * communication. After this function has been called, the functions
  * i2c_read() and i2c_write() must succeed.
  */
-void sensirion_i2c_init() {
+void sensirion_i2c_init(void) {
     Wire.begin();
+}
+
+/**
+ * Release all resources initialized by sensirion_i2c_init().
+ */
+void sensirion_i2c_release(void) {
 }
 
 int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
