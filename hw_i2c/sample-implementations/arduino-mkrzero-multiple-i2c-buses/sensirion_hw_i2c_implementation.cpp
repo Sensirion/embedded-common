@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Sensirion AG
+ * Copyright (c) 2019, Sensirion AG
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,13 +32,33 @@
 #include "sensirion_arch_config.h"
 #include "sensirion_i2c.h"
 
+// needed for delay() routine
+#include <Arduino.h>
+#include <Wire.h>
+
 /*
  * INSTRUCTIONS
  * ============
  *
- * Implement all functions where they are marked as IMPLEMENT.
- * Follow the function specification in the comments.
+ * Check out the following link to create other i2c buses on SAMD21 hardware:
+ * https://learn.adafruit.com/using-atsamd21-sercom-to-add-more-spi-i2c-serial-ports/creating-a-new-wire#
+ *
+ * ERRATA
+ * ============
+ * This implementation was built and tested with "Arduino SAMD Boards" 1.6.20
+ * -- THE SECOND BUS DOES NOT WORK WHEN BUILT WITH 1.8.1 --
  */
+
+#define I2C_1_PIN_SDA 26
+#define I2C_1_PIN_SCL 27
+
+TwoWire Wire2(&sercom2, I2C_1_PIN_SDA, I2C_1_PIN_SCL);
+static TwoWire *const i2c_bus[] = {&Wire, &Wire2};
+static uint8_t selected_i2c_bus = 0;
+
+void SERCOM2_Handler(void) {
+    Wire2.onService();
+}
 
 /**
  * Select the current i2c bus by index.
@@ -51,54 +71,58 @@
  * @returns         0 on success, an error code otherwise
  */
 int16_t sensirion_i2c_select_bus(uint8_t bus_idx) {
-    // IMPLEMENT or leave empty if all sensors are located on one single bus
+    if (bus_idx >= (sizeof(i2c_bus) / sizeof(i2c_bus[0])))
+        return -1;
+    selected_i2c_bus = bus_idx;
     return 0;
 }
 
 /**
  * Initialize all hard- and software components that are needed for the I2C
- * communication.
+ * communication. After this function has been called, the functions
+ * i2c_read() and i2c_write() must succeed.
  */
 void sensirion_i2c_init(void) {
-    // IMPLEMENT
+    switch (selected_i2c_bus) {
+        case 0:
+            i2c_bus[selected_i2c_bus]->begin();
+            break;
+
+        case 1:
+            pinPeripheral(I2C_1_PIN_SDA, PIO_SERCOM);
+            pinPeripheral(I2C_1_PIN_SCL, PIO_SERCOM);
+            i2c_bus[selected_i2c_bus]->begin();
+            break;
+    }
 }
 
 /**
  * Release all resources initialized by sensirion_i2c_init().
  */
 void sensirion_i2c_release(void) {
-    // IMPLEMENT or leave empty if no resources need to be freed
+    i2c_bus[selected_i2c_bus]->end();
 }
 
-/**
- * Execute one read transaction on the I2C bus, reading a given number of bytes.
- * If the device does not acknowledge the read command, an error shall be
- * returned.
- *
- * @param address 7-bit I2C address to read from
- * @param data    pointer to the buffer where the data is to be stored
- * @param count   number of bytes to read from I2C and store in the buffer
- * @returns 0 on success, error code otherwise
- */
 int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
-    // IMPLEMENT
+    uint8_t rxByteCount = 0;
+
+    i2c_bus[selected_i2c_bus]->requestFrom(address, count);
+
+    while (i2c_bus[selected_i2c_bus]->available()) {
+        data[rxByteCount++] = i2c_bus[selected_i2c_bus]->read();
+        if (rxByteCount >= count)
+            break;
+    }
+
     return 0;
 }
 
-/**
- * Execute one write transaction on the I2C bus, sending a given number of
- * bytes. The bytes in the supplied buffer must be sent to the given address. If
- * the slave device does not acknowledge any of the bytes, an error shall be
- * returned.
- *
- * @param address 7-bit I2C address to write to
- * @param data    pointer to the buffer containing the data to write
- * @param count   number of bytes to read from the buffer and send over I2C
- * @returns 0 on success, error code otherwise
- */
 int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
                            uint16_t count) {
-    // IMPLEMENT
+    i2c_bus[selected_i2c_bus]->beginTransmission(address);
+    i2c_bus[selected_i2c_bus]->write(data, count);
+    i2c_bus[selected_i2c_bus]->endTransmission();
+
     return 0;
 }
 
@@ -106,10 +130,8 @@ int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
  * Sleep for a given number of microseconds. The function should delay the
  * execution for at least the given time, but may also sleep longer.
  *
- * Despite the unit, a <10 millisecond precision is sufficient.
- *
  * @param useconds the sleep time in microseconds
  */
 void sensirion_sleep_usec(uint32_t useconds) {
-    // IMPLEMENT
+    delay((useconds / 1000) + 1);
 }
