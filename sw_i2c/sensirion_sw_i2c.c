@@ -36,7 +36,7 @@
 
 #define DELAY_USEC (SENSIRION_I2C_CLOCK_PERIOD_USEC / 2)
 
-static uint8_t sensirion_wait_while_clock_stretching(void) {
+static int8_t sensirion_wait_while_clock_stretching(void) {
     uint8_t timeout = 100;
 
     while (--timeout) {
@@ -101,7 +101,7 @@ static uint8_t sensirion_i2c_read_byte(uint8_t ack) {
     return data;
 }
 
-static uint8_t sensirion_i2c_start(void) {
+static int8_t sensirion_i2c_start(void) {
     sensirion_SCL_in();
     if (sensirion_wait_while_clock_stretching())
         return STATUS_FAIL;
