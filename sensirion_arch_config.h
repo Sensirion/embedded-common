@@ -33,6 +33,18 @@
 #define SENSIRION_ARCH_CONFIG_H
 
 /**
+ * If your platform does not provide the library stdlib.h you have to remove the
+ * include and define NULL yourself (see below).
+ */
+#include <stdlib.h>
+
+/**
+ * #ifndef NULL
+ * #define NULL ((void *)0)
+ * #endif
+ */
+
+/**
  * If your platform does not provide the library stdint.h you have to
  * define the integral types yourself (see below).
  */
