@@ -130,7 +130,7 @@ static void gpio_set_direction(int fd, const char *dir) {
     write_or_exit(fd, dir);
 }
 
-static char gpio_get_value(int fd) {
+static uint8_t gpio_get_value(int fd) {
     char c;
 
     rev_or_exit(fd);
