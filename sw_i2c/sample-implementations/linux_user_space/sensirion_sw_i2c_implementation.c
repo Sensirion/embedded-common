@@ -81,7 +81,7 @@ static int open_or_exit(const char *path, int flags) {
     int fd = open(path, flags);
     if (fd < 0) {
         perror(NULL);
-        fprintf(stderr, "Error opening %s (mode %d)\n", path, mode);
+        fprintf(stderr, "Error opening %s (mode %d)\n", path, flags);
         exit(-1);
     }
     return fd;
@@ -101,7 +101,7 @@ static void write_or_exit(int fd, const char *buf) {
 
     // Adapted from stackoverflow answer by Stephen Canon
     // See: https://www.stackoverflow.com/a/16086724
-    if (w < 0 || size_t(w) != len) {
+    if (w < 0 || (size_t)w != len) {
         perror("Error writing");
         exit(-1);
     }
