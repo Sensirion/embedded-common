@@ -37,12 +37,13 @@
 #define DELAY_USEC (SENSIRION_I2C_CLOCK_PERIOD_USEC / 2)
 
 static int8_t sensirion_wait_while_clock_stretching(void) {
-    uint8_t timeout = 100;
+    /* Maximal timeout of 150ms (SCD30) in sleep polling cycles */
+    uint32_t timeout_cycles = 150000 / SENSIRION_I2C_CLOCK_PERIOD_USEC;
 
-    while (--timeout) {
+    while (--timeout_cycles) {
         if (sensirion_SCL_read())
             return STATUS_OK;
-        sensirion_sleep_usec(DELAY_USEC);
+        sensirion_sleep_usec(SENSIRION_I2C_CLOCK_PERIOD_USEC);
     }
 
     return STATUS_FAIL;
