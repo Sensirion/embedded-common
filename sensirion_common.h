@@ -117,7 +117,8 @@ int16_t sensirion_i2c_read_words(uint8_t address, uint16_t *data_words,
                                  uint16_t num_words);
 
 /**
- * sensirion_i2c_read_bytes() - read data words as byte-stream from sensor
+ * sensirion_i2c_read_words_as_bytes() - read data words as byte-stream from
+ *                                       sensor
  *
  * Read bytes without adjusting values to the uP's word-order.
  *
@@ -131,8 +132,8 @@ int16_t sensirion_i2c_read_words(uint8_t address, uint16_t *data_words,
  *
  * @return      STATUS_OK on success, an error code otherwise
  */
-int16_t sensirion_i2c_read_bytes(uint8_t address, uint8_t *data,
-                                 uint16_t num_words);
+int16_t sensirion_i2c_read_words_as_bytes(uint8_t address, uint8_t *data,
+                                          uint16_t num_words);
 
 /**
  * sensirion_i2c_write_cmd() - writes a command to the sensor
