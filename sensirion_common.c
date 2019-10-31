@@ -83,8 +83,8 @@ uint16_t sensirion_fill_cmd_send_buf(uint8_t *buf, uint16_t cmd,
     return idx;
 }
 
-int16_t sensirion_i2c_read_bytes(uint8_t address, uint8_t *data,
-                                 uint16_t num_words) {
+int16_t sensirion_i2c_read_words_as_bytes(uint8_t address, uint8_t *data,
+                                          uint16_t num_words) {
     int16_t ret;
     uint16_t i, j;
     uint16_t size = num_words * (SENSIRION_WORD_SIZE + CRC8_LEN);
@@ -115,7 +115,8 @@ int16_t sensirion_i2c_read_words(uint8_t address, uint16_t *data_words,
     int16_t ret;
     uint8_t i;
 
-    ret = sensirion_i2c_read_bytes(address, (uint8_t *)data_words, num_words);
+    ret = sensirion_i2c_read_words_as_bytes(address, (uint8_t *)data_words,
+                                            num_words);
     if (ret != STATUS_OK)
         return ret;
 
