@@ -38,7 +38,7 @@
 extern "C" {
 #endif /* __cplusplus */
 
-/**
+/*
  * Select the current i2c bus by index.
  * All following i2c operations will be directed at that bus.
  *
@@ -50,18 +50,18 @@ extern "C" {
  */
 int16_t sensirion_i2c_select_bus(uint8_t bus_idx);
 
-/**
+/*
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
 void sensirion_i2c_init(void);
 
-/**
+/*
  * Release all resources initialized by sensirion_i2c_init().
  */
 void sensirion_i2c_release(void);
 
-/**
+/*
  * Execute one read transaction on the I2C bus, reading a given number of bytes.
  * If the device does not acknowledge the read command, an error shall be
  * returned.
@@ -73,7 +73,7 @@ void sensirion_i2c_release(void);
  */
 int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count);
 
-/**
+/*
  * Execute one write transaction on the I2C bus, sending a given number of
  * bytes. The bytes in the supplied buffer must be sent to the given address. If
  * the slave device does not acknowledge any of the bytes, an error shall be
@@ -87,7 +87,7 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count);
 int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
                            uint16_t count);
 
-/**
+/*
  * Sleep for a given number of microseconds. The function should delay the
  * execution approximately, but no less than, the given time.
  *
