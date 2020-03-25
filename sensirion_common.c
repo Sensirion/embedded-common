@@ -63,6 +63,11 @@ int8_t sensirion_common_check_crc(uint8_t *data, uint16_t count,
     return STATUS_OK;
 }
 
+int16_t sensirion_i2c_general_call_reset(void) {
+    const uint8_t data = 0x06;
+    return sensirion_i2c_write(0, &data, (uint16_t)sizeof(data));
+}
+
 uint16_t sensirion_fill_cmd_send_buf(uint8_t *buf, uint16_t cmd,
                                      const uint16_t *args, uint8_t num_args) {
     uint8_t crc;
