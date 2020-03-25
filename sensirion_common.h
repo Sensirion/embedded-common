@@ -87,6 +87,16 @@ int8_t sensirion_common_check_crc(uint8_t *data, uint16_t count,
                                   uint8_t checksum);
 
 /**
+ * Send a general call reset.
+ *
+ * @warning This will reset all attached I2C devices on the bus which support
+ *          general call reset.
+ *
+ * @return  STATUS_OK on success, an error code otherwise
+ */
+int16_t sensirion_i2c_general_call_reset(void);
+
+/**
  * sensirion_fill_cmd_send_buf() - create the i2c send buffer for a command and
  *                                 a set of argument words. The output buffer
  *                                 interleaves argument words with their
