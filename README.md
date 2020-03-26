@@ -9,6 +9,7 @@ files) from the respective projects:
 
 ### I2C Drivers
 * [embedded-scd](https://github.com/Sensirion/embedded-scd/releases)
+* [embedded-sfm](https://github.com/Sensirion/embedded-sfm/releases)
 * [embedded-sgp](https://github.com/Sensirion/embedded-sgp/releases)
 * [embedded-sht](https://github.com/Sensirion/embedded-sht/releases)
 * [embedded-sps](https://github.com/Sensirion/embedded-sps/releases)
