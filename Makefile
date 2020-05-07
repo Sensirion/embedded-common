@@ -14,3 +14,7 @@ test: $(OBJECTS)
 
 clean:
 	$(RM) $(OBJECTS)
+
+style-check:
+	clang-format-6.0 -i $$(find . -name "*.[ch]")
+	git diff --exit-code
