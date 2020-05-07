@@ -2,16 +2,22 @@ version: 2
 
 jobs:
   build:
-
     docker:
       - image: sensirion/embedded-ci:2.0.0
-
     steps:
       - checkout
       - run: make test
+
+  style-check:
+    docker:
+      - image: sensirion/embedded-ci:2.0.0
+    steps:
+      - checkout
+      - run: make style-check
 
 workflows:
   version: 2
   build:
     jobs:
       - build
+      - style-check

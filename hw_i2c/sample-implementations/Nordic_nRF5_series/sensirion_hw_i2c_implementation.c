@@ -91,7 +91,7 @@ void sensirion_i2c_release(void) {
  * error codes:  3 -> error detected by hardware (internal error)
  *              17 -> driver not ready for new transfer (busy)
  */
-int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
+int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
     int8_t err = nrf_drv_twi_rx(&i2c_instance, address, data, (uint8_t)count);
     return err;
 }
@@ -110,7 +110,7 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
  * error codes:  3 -> error detected by hardware (internal error)
  *              17 -> driver not ready for new transfer (busy)
  */
-int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
+int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
                            uint16_t count) {
     int8_t err =
         nrf_drv_twi_tx(&i2c_instance, address, data, (uint8_t)count, false);

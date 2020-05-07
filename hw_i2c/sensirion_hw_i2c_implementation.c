@@ -30,8 +30,8 @@
  */
 
 #include "sensirion_arch_config.h"
-#include "sensirion_i2c.h"
 #include "sensirion_common.h"
+#include "sensirion_i2c.h"
 
 /*
  * INSTRUCTIONS
@@ -81,7 +81,7 @@ void sensirion_i2c_release(void) {
  * @param count   number of bytes to read from I2C and store in the buffer
  * @returns 0 on success, error code otherwise
  */
-int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
+int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
     // IMPLEMENT
     return STATUS_FAIL;
 }
@@ -97,7 +97,7 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
  * @param count   number of bytes to read from the buffer and send over I2C
  * @returns 0 on success, error code otherwise
  */
-int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
+int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
                            uint16_t count) {
     // IMPLEMENT
     return STATUS_FAIL;
