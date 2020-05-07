@@ -38,7 +38,7 @@
 #include "sensirion_common.h"
 #include "sensirion_i2c.h"
 
-uint8_t sensirion_common_generate_crc(uint8_t *data, uint16_t count) {
+uint8_t sensirion_common_generate_crc(const uint8_t* data, uint16_t count) {
     uint16_t current_byte;
     uint8_t crc = CRC8_INIT;
     uint8_t crc_bit;
@@ -56,7 +56,7 @@ uint8_t sensirion_common_generate_crc(uint8_t *data, uint16_t count) {
     return crc;
 }
 
-int8_t sensirion_common_check_crc(uint8_t *data, uint16_t count,
+int8_t sensirion_common_check_crc(const uint8_t* data, uint16_t count,
                                   uint8_t checksum) {
     if (sensirion_common_generate_crc(data, count) != checksum)
         return STATUS_FAIL;

@@ -81,9 +81,9 @@ extern "C" {
 #define SENSIRION_NUM_WORDS(x) (sizeof(x) / SENSIRION_WORD_SIZE)
 #define SENSIRION_MAX_BUFFER_WORDS 32
 
-uint8_t sensirion_common_generate_crc(uint8_t *data, uint16_t count);
+uint8_t sensirion_common_generate_crc(const uint8_t* data, uint16_t count);
 
-int8_t sensirion_common_check_crc(uint8_t *data, uint16_t count,
+int8_t sensirion_common_check_crc(const uint8_t* data, uint16_t count,
                                   uint8_t checksum);
 
 /**
