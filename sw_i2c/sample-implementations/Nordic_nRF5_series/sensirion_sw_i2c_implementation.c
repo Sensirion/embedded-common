@@ -55,8 +55,8 @@
 
 uint32_t sda;
 uint32_t scl;
-volatile uint32_t *sclPinRegAddr;
-volatile uint32_t *sdaPinRegAddr;
+volatile uint32_t* sclPinRegAddr;
+volatile uint32_t* sdaPinRegAddr;
 
 /* configuration register value for I2C output pin */
 static const uint32_t REGVALOUT =

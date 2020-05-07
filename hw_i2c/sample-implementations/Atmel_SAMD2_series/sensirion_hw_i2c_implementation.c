@@ -56,23 +56,23 @@ void sensirion_i2c_init(void) {
 void sensirion_i2c_release(void) {
 }
 
-int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
+int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
     struct i2c_master_packet packet = {
         .address = address,
         .data_length = count,
-        .data = (uint8_t *)data,
+        .data = (uint8_t*)data,
         .ten_bit_address = false,
         .high_speed = false,
     };
     return i2c_master_read_packet_wait(&i2c_master_instance, &packet);
 }
 
-int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
+int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
                            uint16_t count) {
     struct i2c_master_packet packet = {
         .address = address,
         .data_length = count,
-        .data = (uint8_t *)data,
+        .data = (uint8_t*)data,
         .ten_bit_address = false,
         .high_speed = false,
     };

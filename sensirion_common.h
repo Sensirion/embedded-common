@@ -50,10 +50,10 @@ extern "C" {
 #else /* SENSIRION_BIG_ENDIAN */
 
 #define be16_to_cpu(s) (((uint16_t)(s) << 8) | (0xff & ((uint16_t)(s)) >> 8))
-#define be32_to_cpu(s)                                                         \
+#define be32_to_cpu(s) \
     (((uint32_t)be16_to_cpu(s) << 16) | (0xffff & (be16_to_cpu((s) >> 16))))
-#define be64_to_cpu(s)                                                         \
-    (((uint64_t)be32_to_cpu(s) << 32) |                                        \
+#define be64_to_cpu(s)                  \
+    (((uint64_t)be32_to_cpu(s) << 32) | \
      (0xffffffff & ((uint64_t)be32_to_cpu((s) >> 32))))
 /**
  * Convert a word-array to a bytes-array, effectively reverting the
@@ -61,10 +61,10 @@ extern "C" {
  * @a:  word array to change (must be (uint16_t *) castable)
  * @w:  number of word-sized elements in the array (SENSIRION_NUM_WORDS(a)).
  */
-#define SENSIRION_WORDS_TO_BYTES(a, w)                                         \
-    for (uint16_t *__a = (uint16_t *)(a), __e = (w), __w = 0; __w < __e;       \
-         ++__w) {                                                              \
-        __a[__w] = be16_to_cpu(__a[__w]);                                      \
+#define SENSIRION_WORDS_TO_BYTES(a, w)                                  \
+    for (uint16_t* __a = (uint16_t*)(a), __e = (w), __w = 0; __w < __e; \
+         ++__w) {                                                       \
+        __a[__w] = be16_to_cpu(__a[__w]);                               \
     }
 #endif /* SENSIRION_BIG_ENDIAN */
 
@@ -110,8 +110,8 @@ int16_t sensirion_i2c_general_call_reset(void);
  *
  * @return      The number of bytes written to buf
  */
-uint16_t sensirion_fill_cmd_send_buf(uint8_t *buf, uint16_t cmd,
-                                     const uint16_t *args, uint8_t num_args);
+uint16_t sensirion_fill_cmd_send_buf(uint8_t* buf, uint16_t cmd,
+                                     const uint16_t* args, uint8_t num_args);
 
 /**
  * sensirion_i2c_read_words() - read data words from sensor
@@ -123,7 +123,7 @@ uint16_t sensirion_fill_cmd_send_buf(uint8_t *buf, uint16_t cmd,
  *
  * @return      STATUS_OK on success, an error code otherwise
  */
-int16_t sensirion_i2c_read_words(uint8_t address, uint16_t *data_words,
+int16_t sensirion_i2c_read_words(uint8_t address, uint16_t* data_words,
                                  uint16_t num_words);
 
 /**
@@ -142,7 +142,7 @@ int16_t sensirion_i2c_read_words(uint8_t address, uint16_t *data_words,
  *
  * @return      STATUS_OK on success, an error code otherwise
  */
-int16_t sensirion_i2c_read_words_as_bytes(uint8_t address, uint8_t *data,
+int16_t sensirion_i2c_read_words_as_bytes(uint8_t address, uint8_t* data,
                                           uint16_t num_words);
 
 /**
@@ -165,7 +165,7 @@ int16_t sensirion_i2c_write_cmd(uint8_t address, uint16_t command);
  * @return      STATUS_OK on success, an error code otherwise
  */
 int16_t sensirion_i2c_write_cmd_with_args(uint8_t address, uint16_t command,
-                                          const uint16_t *data_words,
+                                          const uint16_t* data_words,
                                           uint16_t num_words);
 
 /**
@@ -180,7 +180,7 @@ int16_t sensirion_i2c_write_cmd_with_args(uint8_t address, uint16_t command,
  * @return      STATUS_OK on success, an error code otherwise
  */
 int16_t sensirion_i2c_delayed_read_cmd(uint8_t address, uint16_t cmd,
-                                       uint32_t delay_us, uint16_t *data_words,
+                                       uint32_t delay_us, uint16_t* data_words,
                                        uint16_t num_words);
 /**
  * sensirion_i2c_read_cmd() - reads data words from the sensor after a command
@@ -193,7 +193,7 @@ int16_t sensirion_i2c_delayed_read_cmd(uint8_t address, uint16_t cmd,
  * @return      STATUS_OK on success, an error code otherwise
  */
 int16_t sensirion_i2c_read_cmd(uint8_t address, uint16_t cmd,
-                               uint16_t *data_words, uint16_t num_words);
+                               uint16_t* data_words, uint16_t num_words);
 
 #ifdef __cplusplus
 }
