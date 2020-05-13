@@ -87,7 +87,7 @@ int8_t sensirion_common_check_crc(const uint8_t* data, uint16_t count,
                                   uint8_t checksum);
 
 /**
- * Send a general call reset.
+ * sensirion_i2c_general_call_reset() - Send a general call reset.
  *
  * @warning This will reset all attached I2C devices on the bus which support
  *          general call reset.
