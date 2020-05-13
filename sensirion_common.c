@@ -38,6 +38,21 @@
 #include "sensirion_common.h"
 #include "sensirion_i2c.h"
 
+uint32_t sensirion_bytes_to_uint32_t(const uint8_t* bytes) {
+    return (uint32_t)bytes[0] << 24 | (uint32_t)bytes[1] << 16 |
+           (uint32_t)bytes[2] << 8 | (uint32_t)bytes[3];
+}
+
+uint32_t sensirion_bytes_to_float(const uint8_t* bytes) {
+    union {
+        uint32_t u32_value;
+        float float32;
+    } tmp;
+
+    tmp.u32_value = sensirion_bytes_to_uint32_t(bytes);
+    return tmp.float32;
+}
+
 uint8_t sensirion_common_generate_crc(const uint8_t* data, uint16_t count) {
     uint16_t current_byte;
     uint8_t crc = CRC8_INIT;

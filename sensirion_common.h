@@ -81,6 +81,28 @@ extern "C" {
 #define SENSIRION_NUM_WORDS(x) (sizeof(x) / SENSIRION_WORD_SIZE)
 #define SENSIRION_MAX_BUFFER_WORDS 32
 
+/**
+ * sensirion_bytes_to_uint32_t() - Convert an array of bytes to an uint32_t
+ *
+ * Convert an array of bytes received from the sensor in big-endian/MSB-first
+ * format to an uint32_t value in the correct system-endianness.
+ *
+ * @param bytes An array of at least four bytes (MSB first)
+ * @return      The byte array represented as uint32_t
+ */
+uint32_t sensirion_bytes_to_uint32_t(const uint8_t* bytes);
+
+/**
+ * sensirion_bytes_to_float() - Convert an array of bytes to an uint32_t
+ *
+ * Convert an array of bytes received from the sensor in big-endian/MSB-first
+ * format to an uint32_t value in the correct system-endianness.
+ *
+ * @param bytes An array of at least four bytes (MSB first)
+ * @return      The byte array represented as uint32_t
+ */
+uint32_t sensirion_bytes_to_float(const uint8_t* bytes);
+
 uint8_t sensirion_common_generate_crc(const uint8_t* data, uint16_t count);
 
 int8_t sensirion_common_check_crc(const uint8_t* data, uint16_t count,
