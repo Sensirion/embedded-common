@@ -46,7 +46,7 @@ static int8_t sensirion_wait_while_clock_stretching(void) {
         sensirion_sleep_usec(SENSIRION_I2C_CLOCK_PERIOD_USEC);
     }
 
-    return STATUS_FAIL;
+    return I2C_BUS_ERROR;
 }
 
 static int8_t sensirion_i2c_write_byte(uint8_t data) {
@@ -61,14 +61,14 @@ static int8_t sensirion_i2c_write_byte(uint8_t data) {
         sensirion_SCL_in();
         sensirion_sleep_usec(DELAY_USEC);
         if (sensirion_wait_while_clock_stretching())
-            return STATUS_FAIL;
+            return I2C_BUS_ERROR;
     }
     sensirion_SCL_out();
     sensirion_SDA_in();
     sensirion_sleep_usec(DELAY_USEC);
     sensirion_SCL_in();
     if (sensirion_wait_while_clock_stretching())
-        return STATUS_FAIL;
+        return I2C_BUS_ERROR;
     nack = (sensirion_SDA_read() != 0);
     sensirion_SCL_out();
 
@@ -105,7 +105,7 @@ static uint8_t sensirion_i2c_read_byte(uint8_t ack) {
 static int8_t sensirion_i2c_start(void) {
     sensirion_SCL_in();
     if (sensirion_wait_while_clock_stretching())
-        return STATUS_FAIL;
+        return I2C_BUS_ERROR;
 
     sensirion_SDA_out();
     sensirion_sleep_usec(DELAY_USEC);

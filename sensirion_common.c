@@ -74,7 +74,7 @@ uint8_t sensirion_common_generate_crc(const uint8_t* data, uint16_t count) {
 int8_t sensirion_common_check_crc(const uint8_t* data, uint16_t count,
                                   uint8_t checksum) {
     if (sensirion_common_generate_crc(data, count) != checksum)
-        return STATUS_FAIL;
+        return CRC_ERROR;
     return NO_ERROR;
 }
 
