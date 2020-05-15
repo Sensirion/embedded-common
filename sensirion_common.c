@@ -75,7 +75,7 @@ int8_t sensirion_common_check_crc(const uint8_t* data, uint16_t count,
                                   uint8_t checksum) {
     if (sensirion_common_generate_crc(data, count) != checksum)
         return STATUS_FAIL;
-    return STATUS_OK;
+    return NO_ERROR;
 }
 
 int16_t sensirion_i2c_general_call_reset(void) {
@@ -112,7 +112,7 @@ int16_t sensirion_i2c_read_words_as_bytes(uint8_t address, uint8_t* data,
     uint8_t* const buf8 = (uint8_t*)word_buf;
 
     ret = sensirion_i2c_read(address, buf8, size);
-    if (ret != STATUS_OK)
+    if (ret != NO_ERROR)
         return ret;
 
     /* check the CRC for each word */
@@ -120,14 +120,14 @@ int16_t sensirion_i2c_read_words_as_bytes(uint8_t address, uint8_t* data,
 
         ret = sensirion_common_check_crc(&buf8[i], SENSIRION_WORD_SIZE,
                                          buf8[i + SENSIRION_WORD_SIZE]);
-        if (ret != STATUS_OK)
+        if (ret != NO_ERROR)
             return ret;
 
         data[j++] = buf8[i];
         data[j++] = buf8[i + 1];
     }
 
-    return STATUS_OK;
+    return NO_ERROR;
 }
 
 int16_t sensirion_i2c_read_words(uint8_t address, uint16_t* data_words,
@@ -138,7 +138,7 @@ int16_t sensirion_i2c_read_words(uint8_t address, uint16_t* data_words,
 
     ret = sensirion_i2c_read_words_as_bytes(address, (uint8_t*)data_words,
                                             num_words);
-    if (ret != STATUS_OK)
+    if (ret != NO_ERROR)
         return ret;
 
     for (i = 0; i < num_words; ++i) {
@@ -146,7 +146,7 @@ int16_t sensirion_i2c_read_words(uint8_t address, uint16_t* data_words,
         data_words[i] = ((uint16_t)word_bytes[0] << 8) | word_bytes[1];
     }
 
-    return STATUS_OK;
+    return NO_ERROR;
 }
 
 int16_t sensirion_i2c_write_cmd(uint8_t address, uint16_t command) {
@@ -174,7 +174,7 @@ int16_t sensirion_i2c_delayed_read_cmd(uint8_t address, uint16_t cmd,
 
     sensirion_fill_cmd_send_buf(buf, cmd, NULL, 0);
     ret = sensirion_i2c_write(address, buf, SENSIRION_COMMAND_SIZE);
-    if (ret != STATUS_OK)
+    if (ret != NO_ERROR)
         return ret;
 
     if (delay_us)

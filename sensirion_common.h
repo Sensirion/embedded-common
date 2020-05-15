@@ -38,6 +38,8 @@
 extern "C" {
 #endif
 
+#define NO_ERROR 0
+/* deprecated defines, use NO_ERROR or custom error codes instead */
 #define STATUS_OK 0
 #define STATUS_FAIL (-1)
 
@@ -114,7 +116,7 @@ int8_t sensirion_common_check_crc(const uint8_t* data, uint16_t count,
  * @warning This will reset all attached I2C devices on the bus which support
  *          general call reset.
  *
- * @return  STATUS_OK on success, an error code otherwise
+ * @return  NO_ERROR on success, an error code otherwise
  */
 int16_t sensirion_i2c_general_call_reset(void);
 
@@ -143,7 +145,7 @@ uint16_t sensirion_fill_cmd_send_buf(uint8_t* buf, uint16_t cmd,
  *              The buffer may also have been modified on STATUS_FAIL return.
  * @num_words:  Number of data words to read (without CRC bytes)
  *
- * @return      STATUS_OK on success, an error code otherwise
+ * @return      NO_ERROR on success, an error code otherwise
  */
 int16_t sensirion_i2c_read_words(uint8_t address, uint16_t* data_words,
                                  uint16_t num_words);
@@ -162,7 +164,7 @@ int16_t sensirion_i2c_read_words(uint8_t address, uint16_t* data_words,
  *              is still specified in sensor-words (num_words = num_bytes *
  *              SENSIRION_WORD_SIZE)
  *
- * @return      STATUS_OK on success, an error code otherwise
+ * @return      NO_ERROR on success, an error code otherwise
  */
 int16_t sensirion_i2c_read_words_as_bytes(uint8_t address, uint8_t* data,
                                           uint16_t num_words);
@@ -172,7 +174,7 @@ int16_t sensirion_i2c_read_words_as_bytes(uint8_t address, uint8_t* data,
  * @address:    Sensor i2c address
  * @command:    Sensor command
  *
- * @return      STATUS_OK on success, an error code otherwise
+ * @return      NO_ERROR on success, an error code otherwise
  */
 int16_t sensirion_i2c_write_cmd(uint8_t address, uint16_t command);
 
@@ -184,7 +186,7 @@ int16_t sensirion_i2c_write_cmd(uint8_t address, uint16_t command);
  * @data:       Argument buffer with words to send
  * @num_words:  Number of data words to send (without CRC bytes)
  *
- * @return      STATUS_OK on success, an error code otherwise
+ * @return      NO_ERROR on success, an error code otherwise
  */
 int16_t sensirion_i2c_write_cmd_with_args(uint8_t address, uint16_t command,
                                           const uint16_t* data_words,
@@ -199,7 +201,7 @@ int16_t sensirion_i2c_write_cmd_with_args(uint8_t address, uint16_t command,
  * @data_words: Allocated buffer to store the read data
  * @num_words:  Data words to read (without CRC bytes)
  *
- * @return      STATUS_OK on success, an error code otherwise
+ * @return      NO_ERROR on success, an error code otherwise
  */
 int16_t sensirion_i2c_delayed_read_cmd(uint8_t address, uint16_t cmd,
                                        uint32_t delay_us, uint16_t* data_words,
@@ -212,7 +214,7 @@ int16_t sensirion_i2c_delayed_read_cmd(uint8_t address, uint16_t cmd,
  * @data_words: Allocated buffer to store the read data
  * @num_words:  Data words to read (without CRC bytes)
  *
- * @return      STATUS_OK on success, an error code otherwise
+ * @return      NO_ERROR on success, an error code otherwise
  */
 int16_t sensirion_i2c_read_cmd(uint8_t address, uint16_t cmd,
                                uint16_t* data_words, uint16_t num_words);
