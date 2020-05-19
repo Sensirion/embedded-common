@@ -44,7 +44,7 @@ int main(void) {
     uint32_t iaq_baseline;
     uint16_t ethanol_signal, h2_signal;
 
-    while (sgp_probe() != STATUS_OK) {
+    while (sgp_probe() != NO_ERROR) {
         pc.printf("SGP sensor probing failed" EOL);
         sensirion_sleep_usec(1000000);
     }
@@ -52,7 +52,7 @@ int main(void) {
 
     /* Read signals */
     err = sgp_measure_signals_blocking_read(&ethanol_signal, &h2_signal);
-    if (err == STATUS_OK) {
+    if (err == NO_ERROR) {
         /* Print ethanol signal and h2 signal */
         pc.printf("Ethanol signal: %u" EOL, ethanol_signal);
         pc.printf("H2 signal: %u" EOL, h2_signal);
@@ -72,7 +72,7 @@ int main(void) {
     /* Run periodic IAQ measurements at defined intervals */
     while (1) {
         err = sgp_measure_iaq_blocking_read(&tvoc_ppb, &co2_eq_ppm);
-        if (err == STATUS_OK) {
+        if (err == NO_ERROR) {
             pc.printf(
                 "tVOC  Concentration: %dppb, CO2eq Concentration: %dppm" EOL,
                 tvoc_ppb, co2_eq_ppm);
@@ -83,7 +83,7 @@ int main(void) {
         /* Persist the current baseline every hour */
         if (++i % 3600 == 3599) {
             err = sgp_get_iaq_baseline(&iaq_baseline);
-            if (err == STATUS_OK) {
+            if (err == NO_ERROR) {
                 /* IMPLEMENT: store baseline to presistent storage */
             }
         }
