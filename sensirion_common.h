@@ -38,7 +38,13 @@
 extern "C" {
 #endif
 
+/* Common error codes in the range of 0 to 31 */
 #define NO_ERROR 0
+#define CRC_ERROR 1
+#define I2C_BUS_ERROR 2
+#define I2C_NACK_ERROR 3
+#define NOT_IMPLEMENTED_ERROR 31
+
 /* deprecated defines, use NO_ERROR or custom error codes instead */
 #define STATUS_OK 0
 #define STATUS_FAIL (-1)
@@ -142,7 +148,7 @@ uint16_t sensirion_fill_cmd_send_buf(uint8_t* buf, uint16_t cmd,
  *
  * @address:    Sensor i2c address
  * @data_words: Allocated buffer to store the read words.
- *              The buffer may also have been modified on STATUS_FAIL return.
+ *              The buffer may also have been modified in case of an error.
  * @num_words:  Number of data words to read (without CRC bytes)
  *
  * @return      NO_ERROR on success, an error code otherwise
@@ -158,7 +164,7 @@ int16_t sensirion_i2c_read_words(uint8_t address, uint16_t* data_words,
  *
  * @address:    Sensor i2c address
  * @data:       Allocated buffer to store the read bytes.
- *              The buffer may also have been modified on STATUS_FAIL return.
+ *              The buffer may also have been modified in case of an error.
  * @num_words:  Number of data words(!) to read (without CRC bytes)
  *              Since only word-chunks can be read from the sensor the size
  *              is still specified in sensor-words (num_words = num_bytes *

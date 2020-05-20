@@ -53,7 +53,7 @@
  */
 int16_t sensirion_i2c_select_bus(uint8_t bus_idx) {
     // IMPLEMENT or leave empty if all sensors are located on one single bus
-    return STATUS_FAIL;
+    return NOT_IMPLEMENTED_ERROR;
 }
 
 /**
@@ -83,7 +83,7 @@ void sensirion_i2c_release(void) {
  */
 int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
     // IMPLEMENT
-    return STATUS_FAIL;
+    return NOT_IMPLEMENTED_ERROR;
 }
 
 /**
@@ -100,7 +100,7 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
 int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
                            uint16_t count) {
     // IMPLEMENT
-    return STATUS_FAIL;
+    return NOT_IMPLEMENTED_ERROR;
 }
 
 /**
