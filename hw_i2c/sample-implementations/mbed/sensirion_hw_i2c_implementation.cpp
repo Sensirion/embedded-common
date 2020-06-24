@@ -37,7 +37,7 @@
 #define E_MBED_I2C_WRITE_FAILED -1
 
 /* open I2C connection */
-static I2C i2c_connection(p28, p27); /* or I2C i2c_connection(p9, p10) */
+static I2C i2c_connection(I2C_SDA, I2C_SCL);
 
 /**
  * Initialize all hard- and software components that are needed for the I2C
