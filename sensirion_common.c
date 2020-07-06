@@ -43,7 +43,7 @@ uint32_t sensirion_bytes_to_uint32_t(const uint8_t* bytes) {
            (uint32_t)bytes[2] << 8 | (uint32_t)bytes[3];
 }
 
-uint32_t sensirion_bytes_to_float(const uint8_t* bytes) {
+float sensirion_bytes_to_float(const uint8_t* bytes) {
     union {
         uint32_t u32_value;
         float float32;
