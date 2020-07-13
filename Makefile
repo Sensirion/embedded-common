@@ -1,4 +1,4 @@
-CFLAGS:= -Wall -Wstrict-aliasing=1 -Wsign-conversion -I. -Isw_i2c
+CFLAGS:= -Wall -Wextra -Wfloat-conversion -Wno-unused-parameter -Wstrict-aliasing=1 -Wsign-conversion -I. -Isw_i2c
 
 ifdef CI
 	CFLAGS += -Werror
