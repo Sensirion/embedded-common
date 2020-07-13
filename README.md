@@ -42,7 +42,6 @@ specify the following types yourself:
 * uint16\_t = unsigned 16bit integer
 * int8\_t = signed 8bit integer
 * uint8\_t = unsigned 8bit integer
-* float32\_t = 32bit IEEE754 floating point number
 
 Make sure you specify the whole range (64bit sized integers are used on a 32bit
 system for some sensor data).
