@@ -50,10 +50,6 @@
  */
 #include <stdint.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /**
  * Typedef section for types commonly defined in <stdint.h>
  * If your system does not provide stdint headers, please define them
@@ -68,6 +64,26 @@ extern "C" {
  * typedef char int8_t;
  * typedef unsigned char uint8_t; */
 
+#ifndef __cplusplus
+
+/**
+ * If your platform doesn't define the bool type we define it as int. Depending
+ * on your system update the definition below.
+ */
+#if __STDC_VERSION__ >= 199901L
+#include <stdbool.h>
+#else
+
+#ifndef bool
+#define bool int
+#define true 1
+#define false 0
+#endif /* bool */
+
+#endif /* __STDC_VERSION__ */
+
+#endif /* __cplusplus */
+
 /**
  * The clock period of the i2c bus in microseconds. Increase this, if your GPIO
  * ports cannot support a 200 kHz output rate. (2 * 1 / 10usec == 200Khz)
@@ -76,9 +92,5 @@ extern "C" {
  * pulse length is half the clock period, the number should thus be even.
  */
 #define SENSIRION_I2C_CLOCK_PERIOD_USEC 10
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* SENSIRION_ARCH_CONFIG_H */
