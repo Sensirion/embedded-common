@@ -27,6 +27,7 @@ files) from the respective projects:
   including sample code for some platforms)
 * `sw_i2c` folder (stub for implementation of the software i2c communication
   (bit-banging GPIOs), including sample code for some platforms)
+* `test-config` folder (configuration files for tests, used by driver repositories)
 
 ### sensirion\_arch\_config.h
 You need to specify the integer sizes on your system.
