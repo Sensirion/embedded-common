@@ -1,10 +1,9 @@
 #include "CppUTest/CommandLineTestRunner.h"
 
-#include "sensirion_i2c.h"
+#include "sensirion_common.h"
 
 int16_t i2c_reset() {
-    const uint8_t reset_data[] = {0x06};
-    return sensirion_i2c_write(0x00, reset_data, (uint16_t)sizeof(reset_data));
+    return sensirion_i2c_general_call_reset();
 }
 
 int main(int argc, char** argv) {
