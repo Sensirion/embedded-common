@@ -31,7 +31,6 @@
 
 #include <device.h>
 #include <drivers/i2c.h>
-#include <unistd.h>
 #include <zephyr.h>
 
 #include "sensirion_arch_config.h"
@@ -121,5 +120,8 @@ int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
  * @param useconds the sleep time in microseconds
  */
 void sensirion_sleep_usec(uint32_t useconds) {
-    usleep(useconds);
+    int32_t remaining = useconds;
+    while (remaining > 0) {
+        remaining = k_usleep(remaining);
+    }
 }
