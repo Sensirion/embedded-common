@@ -1,23 +1,12 @@
 # embedded-common
-This repository contains the Sensirion i2c abstraction layer and commonly shared
-code. It is a dependency of the Sensirion embedded drivers and it should not be
-necessary to clone it independently, as we recommend to download the repository
-recursively from the respective projects.
+This repository contains the Sensirion i2c hardware abstraction layer and
+commonly shared code. It is a dependency of the Sensirion embedded drivers.
+**It should not be necessary to clone this repository independently**, and we
+recommend to clone the repository recursively from the respective projects.
 
-If you're looking for the drivers, please refer to the release bundles (zip
-files) from the respective projects:
-
-### I2C Drivers
-* [embedded-scd](https://github.com/Sensirion/embedded-scd/releases)
-* [embedded-sfm](https://github.com/Sensirion/embedded-sfm/releases)
-* [embedded-sgp](https://github.com/Sensirion/embedded-sgp/releases)
-* [embedded-sht](https://github.com/Sensirion/embedded-sht/releases)
-* [embedded-sps](https://github.com/Sensirion/embedded-sps/releases)
-* [embedded-sts](https://github.com/Sensirion/embedded-sts/releases)
-
-### UART Drivers:
-* [embedded-uart-sps](https://github.com/Sensirion/embedded-uart-sps/releases)
-  (UART driver)
+If you're looking for sensor drivers, please refer to the release bundles (zip
+files) from the respective projects. An overview is listed at
+https://github.com/Sensirion/info#repositories
 
 ## Repository content
 * `*.c` files (CRC calculation function)
@@ -35,14 +24,14 @@ We assume you have the `<stdint.h>` file available, so we have an
 include directive for it. If this is not the case on your platform you need to
 specify the following types yourself:
 
-* int64\_t = signed 64bit integer
-* uint64\_t = unsigned 64bit integer
-* int32\_t = signed 32bit integer
-* uint32\_t = unsigned 32bit integer
-* int16\_t = signed 16bit integer
-* uint16\_t = unsigned 16bit integer
-* int8\_t = signed 8bit integer
-* uint8\_t = unsigned 8bit integer
+* `int64_t` = signed 64bit integer
+* `uint64_t` = unsigned 64bit integer
+* `int32_t` = signed 32bit integer
+* `uint32_t` = unsigned 32bit integer
+* `int16_t` = signed 16bit integer
+* `uint16_t` = unsigned 16bit integer
+* `int8_t` = signed 8bit integer
+* `uint8_t` = unsigned 8bit integer
 
 Make sure you specify the whole range (64bit sized integers are used on a 32bit
 system for some sensor data).
