@@ -57,6 +57,17 @@ extern "C" {
 #define SENSIRION_MAX_BUFFER_WORDS 32
 
 /**
+ * sensirion_bytes_to_uint16_t() - Convert an array of bytes to an uint16_t
+ *
+ * Convert an array of bytes received from the sensor in big-endian/MSB-first
+ * format to an uint16_t value in the correct system-endianness.
+ *
+ * @param bytes An array of at least two bytes (MSB first)
+ * @return      The byte array represented as uint16_t
+ */
+uint16_t sensirion_bytes_to_uint16_t(const uint8_t* bytes);
+
+/**
  * sensirion_bytes_to_uint32_t() - Convert an array of bytes to an uint32_t
  *
  * Convert an array of bytes received from the sensor in big-endian/MSB-first
