@@ -5,6 +5,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+ * [`changed`] `base_config.inc` to work with I2C and SHDLC at the same time.
+               Changed hal implemantation locations and moved the uart one from
+               the Makefile of the test in the sensor repo to here. Also changed
+               the way how mux sources are included so they are only needed by i2c
+               tests.
  * [`added`] Shdlc implementation. This implementation was immigrated from the
              `embedded-uart-sps` [repository][embedded-uart-common]. Since it's
              general code which could be used by multiple sensors it makes more
