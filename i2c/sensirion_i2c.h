@@ -51,11 +51,6 @@ extern "C" {
 #define SENSIRION_NUM_WORDS(x) (sizeof(x) / SENSIRION_WORD_SIZE)
 #define SENSIRION_MAX_BUFFER_WORDS 32
 
-uint8_t sensirion_common_generate_crc(const uint8_t* data, uint16_t count);
-
-int8_t sensirion_common_check_crc(const uint8_t* data, uint16_t count,
-                                  uint8_t checksum);
-
 /**
  * sensirion_i2c_general_call_reset() - Send a general call reset.
  *
@@ -65,6 +60,33 @@ int8_t sensirion_common_check_crc(const uint8_t* data, uint16_t count,
  * @return  NO_ERROR on success, an error code otherwise
  */
 int16_t sensirion_i2c_general_call_reset(void);
+
+/**
+ * sensirion_i2c_generate_crc() - Generate the CRC used by Sensirion sensors.
+ *
+ * @param data        Pointer to data bytes for which the CRC should be
+ *                    calculated.
+ * @param data_length Number of bytes over which the CRC should be calculated.
+ *
+ * @return            CRC for the given data.
+ *
+ */
+uint8_t sensirion_i2c_generate_crc(const uint8_t* data, uint16_t data_length);
+
+/**
+ * sensirion_i2c_check_crc() - Check if CRC is correct for given data.
+ *
+ * @param data        Pointer to data bytes for which the CRC was calculated.
+ * @param data_length Number of bytes over which the CRC was calculated.
+ * @param crc         Expected CRC result.
+ *
+ * @return            NO_ERROR when CRC is correct for given data, CRC_ERROR
+ *                    otherwise.
+ *
+ */
+
+int16_t sensirion_i2c_check_crc(const uint8_t* data, uint16_t data_length,
+                                uint8_t crc);
 
 /**
  * sensirion_fill_cmd_send_buf() - create the i2c send buffer for a command and
@@ -80,8 +102,9 @@ int16_t sensirion_i2c_general_call_reset(void);
  *
  * @return      The number of bytes written to buf
  */
-uint16_t sensirion_fill_cmd_send_buf(uint8_t* buf, uint16_t cmd,
-                                     const uint16_t* args, uint8_t num_args);
+uint16_t sensirion_i2c_fill_cmd_send_buf(uint8_t* buf, uint16_t cmd,
+                                         const uint16_t* args,
+                                         uint8_t num_args);
 
 /**
  * sensirion_i2c_read_words() - read data words from sensor

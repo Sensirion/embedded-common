@@ -47,7 +47,7 @@ static struct device* i2c_dev;
  * @param bus_idx   Bus index to select
  * @returns         0 on success, an error code otherwise
  */
-int16_t sensirion_i2c_select_bus(uint8_t bus_idx) {
+int16_t sensirion_i2c_hal_select_bus(uint8_t bus_idx) {
     char bus_name[6] = "I2C_0";
 
     if (bus_idx > 9) {
@@ -69,15 +69,15 @@ int16_t sensirion_i2c_select_bus(uint8_t bus_idx) {
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
-void sensirion_i2c_init(void) {
+int16_t sensirion_i2c_hal_init(void) {
     /* Device (specified by sps30_i2c_dev) is already initialized by the Zephyr
      * boot-up process. Nothing to be done here. */
 }
 
 /**
- * Release all resources initialized by sensirion_i2c_init().
+ * Release all resources initialized by sensirion_i2c_hal_init().
  */
-void sensirion_i2c_release(void) {
+int16_t sensirion_i2c_hal_free(void) {
     i2c_dev = NULL;
 }
 
@@ -91,7 +91,7 @@ void sensirion_i2c_release(void) {
  * @param count   number of bytes to read from I2C and store in the buffer
  * @returns 0 on success, error code otherwise
  */
-int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
+int16_t sensirion_i2c_hal_read(uint8_t address, uint8_t* data, uint16_t count) {
     return i2c_read(i2c_dev, data, count, address);
 }
 
@@ -106,8 +106,8 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
  * @param count   number of bytes to read from the buffer and send over I2C
  * @returns 0 on success, error code otherwise
  */
-int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
-                           uint16_t count) {
+int16_t sensirion_i2c_hal_write(uint8_t address, const uint8_t* data,
+                                uint16_t count) {
     return i2c_write(i2c_dev, data, count, address);
 }
 
@@ -119,7 +119,7 @@ int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(uint32_t useconds) {
+void sensirion_i2c_hal_sleep_usec(uint32_t useconds) {
     int32_t remaining = useconds;
     while (remaining > 0) {
         remaining = k_usleep(remaining);

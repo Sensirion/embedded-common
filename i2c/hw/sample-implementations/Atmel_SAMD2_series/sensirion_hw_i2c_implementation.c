@@ -38,7 +38,7 @@
 
 struct i2c_master_module i2c_master_instance;
 
-void sensirion_i2c_init(void) {
+int16_t sensirion_i2c_hal_init(void) {
     /* initialize config structure and software module */
     struct i2c_master_config config_i2c_master;
     i2c_master_get_config_defaults(&config_i2c_master);
@@ -52,12 +52,12 @@ void sensirion_i2c_init(void) {
 }
 
 /**
- * Release all resources initialized by sensirion_i2c_init().
+ * Release all resources initialized by sensirion_i2c_hal_init().
  */
-void sensirion_i2c_release(void) {
+int16_t sensirion_i2c_hal_free(void) {
 }
 
-int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
+int16_t sensirion_i2c_hal_read(uint8_t address, uint8_t* data, uint16_t count) {
     struct i2c_master_packet packet = {
         .address = address,
         .data_length = count,
@@ -68,8 +68,8 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
     return i2c_master_read_packet_wait(&i2c_master_instance, &packet);
 }
 
-int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
-                           uint16_t count) {
+int16_t sensirion_i2c_hal_write(uint8_t address, const uint8_t* data,
+                                uint16_t count) {
     struct i2c_master_packet packet = {
         .address = address,
         .data_length = count,
@@ -80,6 +80,6 @@ int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
     return i2c_master_write_packet_wait_no_stop(&i2c_master_instance, &packet);
 }
 
-void sensirion_sleep_usec(uint32_t useconds) {
+void sensirion_i2c_hal_sleep_usec(uint32_t useconds) {
     delay_us(useconds);
 }

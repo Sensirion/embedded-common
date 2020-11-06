@@ -46,7 +46,7 @@ int main(void) {
 
     while (sgp_probe() != NO_ERROR) {
         pc.printf("SGP sensor probing failed" EOL);
-        sensirion_sleep_usec(1000000);
+        sensirion_i2c_hal_sleep_usec(1000000);
     }
     pc.printf("SGP sensor probing successful" EOL);
 
@@ -88,7 +88,7 @@ int main(void) {
             }
         }
 
-        sensirion_sleep_usec(1000000);
+        sensirion_i2c_hal_sleep_usec(1000000);
     }
     return 1;
 }

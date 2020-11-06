@@ -64,22 +64,22 @@ void SERCOM1_Handler() {
 }
 
 /**
- * sensirion_uart_select_port() - select the UART port index to use
+ * sensirion_uart_hal_select_port() - select the UART port index to use
  *                                THE IMPLEMENTATION IS OPTIONAL ON SINGLE-PORT
  *                                SETUPS (only one SPS30)
  *
  * Return:      0 on success, an error code otherwise
  */
-int16_t sensirion_uart_select_port(uint8_t port) {
+int16_t sensirion_uart_hal_select_port(uint8_t port) {
     return 0;
 }
 
 /**
- * sensirion_uart_open() - initialize UART
+ * sensirion_uart_hal_init() - initialize UART
  *
  * Return:      0 on success, an error code otherwise
  */
-int16_t sensirion_uart_open() {
+int16_t sensirion_uart_hal_init() {
     Serial2.begin(BAUDRATE);
     pinPeripheral(PIN_UART_TX, PIO_SERCOM);
     pinPeripheral(PIN_UART_RX, PIO_SERCOM);
@@ -91,34 +91,34 @@ int16_t sensirion_uart_open() {
 }
 
 /**
- * sensirion_uart_close() - release UART resources
+ * sensirion_uart_hal_free() - release UART resources
  *
  * Return:      0 on success, an error code otherwise
  */
-int16_t sensirion_uart_close() {
+int16_t sensirion_uart_hal_free() {
     Serial2.end();
     return 0;
 }
 
 /**
- * sensirion_uart_tx() - transmit data over UART
+ * sensirion_uart_hal_tx() - transmit data over UART
  *
  * @data_len:   number of bytes to send
  * @data:       data to sendv v
  * Return:      Number of bytes sent or a negative error code
  */
-int16_t sensirion_uart_tx(uint16_t data_len, const uint8_t* data) {
+int16_t sensirion_uart_hal_tx(uint16_t data_len, const uint8_t* data) {
     return Serial2.write(data, data_len);
 }
 
 /**
- * sensirion_uart_rx() - receive data over UART
+ * sensirion_uart_hal_rx() - receive data over UART
  *
  * @data_len:   max number of bytes to receive
  * @data:       Memory where received data is stored
  * Return:      Number of bytes received or a negative error code
  */
-int16_t sensirion_uart_rx(uint16_t max_data_len, uint8_t* data) {
+int16_t sensirion_uart_hal_rx(uint16_t max_data_len, uint8_t* data) {
     int16_t i = 0;
 
     while (Serial2.available() > 0 && i < max_data_len) {
@@ -137,7 +137,7 @@ int16_t sensirion_uart_rx(uint16_t max_data_len, uint8_t* data) {
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(uint32_t useconds) {
+void sensirion_uart_hal_sleep_usec(uint32_t useconds) {
     delay((useconds / 1000) + 1);
 }
 

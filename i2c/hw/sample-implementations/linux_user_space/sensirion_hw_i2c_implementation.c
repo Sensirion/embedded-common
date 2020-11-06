@@ -61,19 +61,21 @@ static uint8_t i2c_address = 0;
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
-void sensirion_i2c_init(void) {
+int16_t sensirion_i2c_hal_init(void) {
     /* open i2c adapter */
     i2c_device = open(I2C_DEVICE_PATH, O_RDWR);
     if (i2c_device == -1)
-        return; /* no error handling */
+        return -1;
+    return NO_ERROR;
 }
 
 /**
- * Release all resources initialized by sensirion_i2c_init().
+ * Release all resources initialized by sensirion_i2c_hal_init().
  */
-void sensirion_i2c_release(void) {
+int16_t sensirion_i2c_hal_free(void) {
     if (i2c_device >= 0)
-        close(i2c_device);
+        return close(i2c_device);
+    return -1;
 }
 
 /**
@@ -86,7 +88,7 @@ void sensirion_i2c_release(void) {
  * @param count   number of bytes to read from I2C and store in the buffer
  * @returns 0 on success, error code otherwise
  */
-int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
+int16_t sensirion_i2c_hal_read(uint8_t address, uint8_t* data, uint16_t count) {
     if (i2c_address != address) {
         ioctl(i2c_device, I2C_SLAVE, address);
         i2c_address = address;
@@ -109,8 +111,8 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
  * @param count   number of bytes to read from the buffer and send over I2C
  * @returns 0 on success, error code otherwise
  */
-int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
-                           uint16_t count) {
+int16_t sensirion_i2c_hal_write(uint8_t address, const uint8_t* data,
+                                uint16_t count) {
     if (i2c_address != address) {
         ioctl(i2c_device, I2C_SLAVE, address);
         i2c_address = address;
@@ -128,6 +130,6 @@ int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(uint32_t useconds) {
+void sensirion_i2c_hal_sleep_usec(uint32_t useconds) {
     usleep(useconds);
 }
