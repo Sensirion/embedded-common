@@ -5,6 +5,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+ * [`added`]   new interface for Sensirion I2C. Now there is only one
+               interface for reading and writing data. This consists of uint8
+               address, ( uint16 command,) uint8* data, uint8 data_length.
+               The variable data_length needs to be a multiple of
+               SENSIRION_WORD_SIZE otherwise the functions with through a
+               BYTE_NUM_ERROR.
+ * [`deleted`] unnecessary functions. Sensirion I2C now consists of only
+               six functions, three of those helpers and three for implementing
+               communication with sensors. One to write commands, one to read
+               data and one to combine those two. Two helpers for the CRC and one
+               for the general I2C reset call.
  * [`renamed`] functions to match file name. All functions of embedded-common
                now have their file name as a prefix to the function name. Mostly
                this was already the case but now it's consistent.
