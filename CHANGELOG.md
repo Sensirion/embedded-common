@@ -5,6 +5,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+ * [`added`]   incremental frame construction to I2C. This includes a set of
+               functions to create a frame step by step. For all used data types
+               in a frame there is a method to add it on top of the already built
+               frame. This saves memory by using a smaller number of buffers and
+               is a useful way to build the frame with generated drivers.
  * [`renamed`] functions to match file name. All functions of embedded-common
                now have their file name as a prefix to the function name. Mostly
                this was already the case but now it's consistent.
