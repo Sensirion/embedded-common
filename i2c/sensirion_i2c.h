@@ -41,6 +41,7 @@ extern "C" {
 #define CRC_ERROR 1
 #define I2C_BUS_ERROR 2
 #define I2C_NACK_ERROR 3
+#define BYTE_NUM_ERROR 4
 
 #define CRC8_POLYNOMIAL 0x31
 #define CRC8_INIT 0xFF
@@ -165,6 +166,147 @@ int16_t sensirion_i2c_delayed_read_cmd(uint8_t address, uint16_t cmd,
 int16_t sensirion_i2c_read_cmd(uint8_t address, uint16_t cmd,
                                uint16_t* data_words, uint16_t num_words);
 
+/**
+ * sensirion_i2c_add_command_to_buffer() - Add a command to the buffer at
+ *                                         offset. Adds 2 bytes to the buffer.
+ *
+ * @param buffer  Pointer to buffer in which the write frame will be prepared.
+ *                Caller needs to make sure that there is enough space after
+ *                offset left to write the data into the buffer.
+ * @param offset  Offset of the next free byte in the buffer.
+ * @param command Command to be written into the buffer.
+ *
+ * @return        Offset of next free byte in the buffer after writing the data.
+ */
+uint16_t sensirion_i2c_add_command_to_buffer(uint8_t* buffer, uint16_t offset,
+                                             uint16_t command);
+
+/**
+ * sensirion_i2c_add_uint32_t_to_buffer() - Add a uint32_t to the buffer at
+ *                                          offset. Adds 6 bytes to the buffer.
+ *
+ * @param buffer  Pointer to buffer in which the write frame will be prepared.
+ *                Caller needs to make sure that there is enough space after
+ *                offset left to write the data into the buffer.
+ * @param offset  Offset of the next free byte in the buffer.
+ * @param data    uint32_t to be written into the buffer.
+ *
+ * @return        Offset of next free byte in the buffer after writing the data.
+ */
+uint16_t sensirion_i2c_add_uint32_t_to_buffer(uint8_t* buffer, uint16_t offset,
+                                              uint32_t data);
+
+/**
+ * sensirion_i2c_add_int32_t_to_buffer() - Add a int32_t to the buffer at
+ *                                         offset. Adds 6 bytes to the buffer.
+ *
+ * @param buffer  Pointer to buffer in which the write frame will be prepared.
+ *                Caller needs to make sure that there is enough space after
+ *                offset left to write the data into the buffer.
+ * @param offset  Offset of the next free byte in the buffer.
+ * @param data    int32_t to be written into the buffer.
+ *
+ * @return        Offset of next free byte in the buffer after writing the data.
+ */
+uint16_t sensirion_i2c_add_int32_t_to_buffer(uint8_t* buffer, uint16_t offset,
+                                             int32_t data);
+
+/**
+ * sensirion_i2c_add_uint16_t_to_buffer() - Add a uint16_t to the buffer at
+ *                                          offset. Adds 3 bytes to the buffer.
+ *
+ * @param buffer  Pointer to buffer in which the write frame will be prepared.
+ *                Caller needs to make sure that there is enough space after
+ *                offset left to write the data into the buffer.
+ * @param offset  Offset of the next free byte in the buffer.
+ * @param data    uint16_t to be written into the buffer.
+ *
+ * @return        Offset of next free byte in the buffer after writing the data.
+ */
+uint16_t sensirion_i2c_add_uint16_t_to_buffer(uint8_t* buffer, uint16_t offset,
+                                              uint16_t data);
+
+/**
+ * sensirion_i2c_add_int16_t_to_buffer() - Add a int16_t to the buffer at
+ *                                         offset. Adds 3 bytes to the buffer.
+ *
+ * @param buffer  Pointer to buffer in which the write frame will be prepared.
+ *                Caller needs to make sure that there is enough space after
+ *                offset left to write the data into the buffer.
+ * @param offset  Offset of the next free byte in the buffer.
+ * @param data    int16_t to be written into the buffer.
+ *
+ * @return        Offset of next free byte in the buffer after writing the data.
+ */
+uint16_t sensirion_i2c_add_int16_t_to_buffer(uint8_t* buffer, uint16_t offset,
+                                             int16_t data);
+
+/**
+ * sensirion_i2c_add_float_to_buffer() - Add a float to the buffer at offset.
+ *                                       Adds 6 bytes to the buffer.
+ *
+ * @param buffer  Pointer to buffer in which the write frame will be prepared.
+ *                Caller needs to make sure that there is enough space after
+ *                offset left to write the data into the buffer.
+ * @param offset  Offset of the next free byte in the buffer.
+ * @param data    float to be written into the buffer.
+ *
+ * @return        Offset of next free byte in the buffer after writing the data.
+ */
+uint16_t sensirion_i2c_add_float_to_buffer(uint8_t* buffer, uint16_t offset,
+                                           float data);
+
+/**
+ * sensirion_i2c_add_bytes_to_buffer() - Add a byte array to the buffer at
+ *                                       offset.
+ *
+ * @param buffer      Pointer to buffer in which the write frame will be
+ *                    prepared. Caller needs to make sure that there is
+ *                    enough space after offset left to write the data
+ *                    into the buffer.
+ * @param offset      Offset of the next free byte in the buffer.
+ * @param data        Pointer to data to be written into the buffer.
+ * @param data_length Number of bytes to be written into the buffer. Needs to
+ *                    be a multiple of SENSIRION_WORD_SIZE otherwise the
+ *                    function returns BYTE_NUM_ERROR.
+ *
+ * @return            Offset of next free byte in the buffer after writing the
+ *                    data.
+ */
+uint16_t sensirion_i2c_add_bytes_to_buffer(uint8_t* buffer, uint16_t offset,
+                                           uint8_t* data, uint16_t data_length);
+
+/**
+ * sensirion_i2c_write_data() - Writes data to the Sensor.
+ *
+ * @note This is just a wrapper for sensirion_i2c_hal_write() to
+ *       not need to include the HAL in the drivers.
+ *
+ * @param address     I2C address to write to.
+ * @param data        Pointer to the buffer containing the data to write.
+ * @param data_length Number of bytes to send to the Sensor.
+ *
+ * @return        NO_ERROR on success, error code otherwise
+ */
+int16_t sensirion_i2c_write_data(uint8_t address, const uint8_t* data,
+                                 uint16_t data_length);
+
+/**
+ * sensirion_i2c_read_data_inplace() - Reads data from the Sensor.
+ *
+ * @param address              Sensor I2C address
+ * @param buffer               Allocated buffer to store data as bytes. Needs
+ *                             to be big enough to store the data including
+ *                             CRC. Twice the size of data should always
+ *                             suffice.
+ * @param expected_data_length Number of bytes to read (without CRC). Needs
+ *                             to be a multiple of SENSIRION_WORD_SIZE,
+ *                             otherwise the function returns BYTE_NUM_ERROR.
+ *
+ * @return            NO_ERROR on success, an error code otherwise
+ */
+int16_t sensirion_i2c_read_data_inplace(uint8_t address, uint8_t* buffer,
+                                        uint16_t expected_data_length);
 #ifdef __cplusplus
 }
 #endif
