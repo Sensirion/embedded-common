@@ -5,22 +5,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2020-11-11
+
  * [`changed`] `base_config.inc` to work with I2C and SHDLC at the same time.
                Changed HAL implemantation locations and moved the UART one from
                the Makefile of the test in the sensor repo to here. Also changed
-               the way how mux sources are included so they are only needed by i2c
+               the way how mux sources are included so they are only needed by I2C
                tests.
- * [`added`] SHDLC implementation. This implementation was immigrated from the
-             `embedded-uart-sps` [repository][embedded-uart-common]. Since it's
-             general code which could be used by multiple sensors it makes more
-             sense to interate it here. The Shdlc part also uses the files in
-             `common/`. In addition to that it adds two `.[ch]` file pairs.
-             First `sensirion_shdlc.[ch]` which contains the SHDLC implementation
-             for Sensirion sensors. Sencondly `sensirion_uart_hal.h` and
-             `sensirion_uart_implementation.c` which describe the hardware
-             abstraction layer used by `sensirion_shdlc.c`.
-             This hal can be implemented in `sensirion_uart_implentation.c` for
-             the platform the sensor will be used on.
+ * [`added`]   SHDLC implementation. This implementation was imported from the
+               `embedded-uart-sps` [repository][embedded-uart-common]. Since it's
+               general code which could be used by multiple sensors it makes more
+               sense to interate it here. The SHDLC part also uses the files in
+               `common/`. In addition to that it adds two `.[ch]` file pairs.
+               First `sensirion_shdlc.[ch]` which contains the SHDLC implementation
+               for Sensirion sensors. Sencondly `sensirion_uart_hal.h` and
+               `sensirion_uart_implementation.c` which describe the hardware
+               abstraction layer used by `sensirion_shdlc.c`.
+               This hal can be implemented in `sensirion_uart_implentation.c` for
+               the platform the sensor will be used on.
  * [`renamed`] `sensirion_arch_config.h` to `senirion_config.h`. The reason for
                this is that the arch part is not really needed since it's the only
                config in embedded-common.
@@ -49,7 +51,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  * First release with support for I2C using a HW controller or SW bit-banging, 
    with sample implementations for common platforms and helper functions.
 
-[Unreleased]: https://github.com/Sensirion/embedded-common/compare/0.1.0...master
+[Unreleased]: https://github.com/Sensirion/embedded-common/compare/0.2.0...master
+[0.2.0]: https://github.com/Sensirion/embedded-common/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/Sensirion/embedded-common/releases/tag/0.1.0
 [embedded-uart-common]: https://github.com/Sensirion/embedded-uart-sps/tree/f31d181/embedded-uart-common
 
