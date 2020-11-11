@@ -5,6 +5,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+ * [`renamed`] functions to match file name. All functions of embedded-common
+               now have their file name as a prefix to the function name. Mostly
+               this was already the case but now it's consistent.
+ * [`renamed`] `sensirion_i2c_release()` to `sensirion_i2c_hal_free()'.
+ * [`renamed`] `sensirion_uart_open()` to `sensirion_uart_hal_init()'.
+ * [`renamed`] `sensirion_uart_close()` to `sensirion_uart_hal_free()'.
+ * [`renamed`] `sensirion_sleep_usec()` to in Sensirion I2C/UART HAL to
+               `sensirion_i2c/uart_hal_sleep_usec()` respectively. This is a
+               necessary evil to make use of both the I2C and UART part at the
+               same time possible and keep the files to edit minimal. It's true
+               that those two functions are exactly the same and will be probably
+               implemented the same if the I2C and UART part would be used together,
+               but we also would have it implemented twice. This would result in a
+               compiler error. Since we don't want to add another file which needs to
+               be edited by the user `we just name them differently.
  * [`added`]   function `sensirion_common_copy_bytes()` to `sensirion_common.[ch]`
                to copy bytes from one buffer to another one.
 
