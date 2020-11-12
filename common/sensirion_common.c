@@ -91,3 +91,11 @@ void sensirion_float_to_bytes(const float value, uint8_t* bytes) {
     tmp.float32 = value;
     sensirion_uint32_t_to_bytes(tmp.u32_value, bytes);
 }
+
+void sensirion_common_copy_bytes(const uint8_t* source, uint8_t* destination,
+                                 uint16_t data_length) {
+    uint16_t i;
+    for (i = 0; i < data_length; i++) {
+        destination[i] = source[i];
+    }
+}

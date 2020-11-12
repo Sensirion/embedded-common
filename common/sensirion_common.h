@@ -160,6 +160,16 @@ void sensirion_int16_t_to_bytes(const int16_t value, uint8_t* bytes);
  */
 void sensirion_float_to_bytes(const float value, uint8_t* bytes);
 
+/**
+ * sensirion_common_copy_bytes() - Copy bytes from one array to the other.
+ *
+ * @param source      Array of bytes to be copied.
+ * @param destination Array of bytes to be copied to.
+ * @param data_length Number of bytes to copy.
+ */
+void sensirion_common_copy_bytes(const uint8_t* source, uint8_t* destination,
+                                 uint16_t data_length);
+
 #ifdef __cplusplus
 }
 #endif
