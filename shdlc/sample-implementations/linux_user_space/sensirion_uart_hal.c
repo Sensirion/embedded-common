@@ -47,17 +47,17 @@
 static int uart_fd = -1;
 
 /**
- * sensirion_uart_select_port() - select the UART port index to use
+ * sensirion_uart_hal_select_port() - select the UART port index to use
  *                                THE IMPLEMENTATION IS OPTIONAL ON SINGLE-PORT
  *                                SETUPS (only one SPS30)
  *
  * Return:      0 on success, an error code otherwise
  */
-int16_t sensirion_uart_select_port(uint8_t port) {
+int16_t sensirion_uart_hal_select_port(uint8_t port) {
     return 0;
 }
 
-int16_t sensirion_uart_open() {
+int16_t sensirion_uart_hal_init() {
     // The flags (defined in fcntl.h):
     //    Access modes (use 1 of these):
     //        O_RDONLY - Open for reading only.
@@ -98,23 +98,23 @@ int16_t sensirion_uart_open() {
     return 0;
 }
 
-int16_t sensirion_uart_close() {
+int16_t sensirion_uart_hal_free() {
     return close(uart_fd);
 }
 
-int16_t sensirion_uart_tx(uint16_t data_len, const uint8_t* data) {
+int16_t sensirion_uart_hal_tx(uint16_t data_len, const uint8_t* data) {
     if (uart_fd == -1)
         return -1;
 
     return write(uart_fd, (void*)data, data_len);
 }
 
-int16_t sensirion_uart_rx(uint16_t max_data_len, uint8_t* data) {
+int16_t sensirion_uart_hal_rx(uint16_t max_data_len, uint8_t* data) {
     if (uart_fd == -1)
         return -1;
 
     return read(uart_fd, (void*)data, max_data_len);
 }
-void sensirion_sleep_usec(uint32_t useconds) {
+void sensirion_uart_hal_sleep_usec(uint32_t useconds) {
     usleep(useconds);
 }
