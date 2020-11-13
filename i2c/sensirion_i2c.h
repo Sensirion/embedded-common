@@ -51,10 +51,10 @@ extern "C" {
 #define SENSIRION_NUM_WORDS(x) (sizeof(x) / SENSIRION_WORD_SIZE)
 #define SENSIRION_MAX_BUFFER_WORDS 32
 
-uint8_t sensirion_common_generate_crc(const uint8_t* data, uint16_t count);
+uint8_t sensirion_i2c_generate_crc(const uint8_t* data, uint16_t count);
 
-int8_t sensirion_common_check_crc(const uint8_t* data, uint16_t count,
-                                  uint8_t checksum);
+int8_t sensirion_i2c_check_crc(const uint8_t* data, uint16_t count,
+                               uint8_t checksum);
 
 /**
  * sensirion_i2c_general_call_reset() - Send a general call reset.
@@ -67,10 +67,9 @@ int8_t sensirion_common_check_crc(const uint8_t* data, uint16_t count,
 int16_t sensirion_i2c_general_call_reset(void);
 
 /**
- * sensirion_fill_cmd_send_buf() - create the i2c send buffer for a command and
- *                                 a set of argument words. The output buffer
- *                                 interleaves argument words with their
- *                                 checksums.
+ * sensirion_i2c_fill_cmd_send_buf() - create the i2c send buffer for a command
+ * and a set of argument words. The output buffer interleaves argument words
+ * with their checksums.
  * @buf:        The generated buffer to send over i2c. Then buffer length must
  *              be at least SENSIRION_COMMAND_LEN + num_args *
  *              (SENSIRION_WORD_SIZE + CRC8_LEN).
@@ -80,8 +79,9 @@ int16_t sensirion_i2c_general_call_reset(void);
  *
  * @return      The number of bytes written to buf
  */
-uint16_t sensirion_fill_cmd_send_buf(uint8_t* buf, uint16_t cmd,
-                                     const uint16_t* args, uint8_t num_args);
+uint16_t sensirion_i2c_fill_cmd_send_buf(uint8_t* buf, uint16_t cmd,
+                                         const uint16_t* args,
+                                         uint8_t num_args);
 
 /**
  * sensirion_i2c_read_words() - read data words from sensor
