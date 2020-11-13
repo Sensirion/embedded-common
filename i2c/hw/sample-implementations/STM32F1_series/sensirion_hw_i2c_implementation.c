@@ -45,7 +45,7 @@ static I2C_HandleTypeDef hi2c1;
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
-void sensirion_i2c_init(void) {
+void sensirion_i2c_hal_init(void) {
     hi2c1.Instance = I2C1;
     hi2c1.Init.ClockSpeed = 100000;
     hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
@@ -64,9 +64,9 @@ void sensirion_i2c_init(void) {
 }
 
 /**
- * Release all resources initialized by sensirion_i2c_init().
+ * Release all resources initialized by sensirion_i2c_hal_init().
  */
-void sensirion_i2c_release(void) {
+void sensirion_i2c_hal_free(void) {
 }
 
 /**
@@ -79,7 +79,7 @@ void sensirion_i2c_release(void) {
  * @param count   number of bytes to read from I2C and store in the buffer
  * @returns 0 on success, error code otherwise
  */
-int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
+int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t* data, uint16_t count) {
     return (int8_t)HAL_I2C_Master_Receive(&hi2c1, (uint16_t)(address << 1),
                                           data, count, 100);
 }
@@ -95,8 +95,8 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
  * @param count   number of bytes to read from the buffer and send over I2C
  * @returns 0 on success, error code otherwise
  */
-int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
-                           uint16_t count) {
+int8_t sensirion_i2c_hal_write(uint8_t address, const uint8_t* data,
+                               uint16_t count) {
     return (int8_t)HAL_I2C_Master_Transmit(&hi2c1, (uint16_t)(address << 1),
                                            (uint8_t*)data, count, 100);
 }
@@ -107,7 +107,7 @@ int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(uint32_t useconds) {
+void sensirion_i2c_hal_sleep_usec(uint32_t useconds) {
     uint32_t msec = useconds / 1000;
     if (useconds % 1000 > 0) {
         msec++;
