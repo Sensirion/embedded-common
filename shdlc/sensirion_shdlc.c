@@ -46,8 +46,8 @@
 
 #define RX_DELAY_US 20000
 
-static uint8_t sensirion_shdlc_crc(uint8_t header_sum, uint8_t data_len,
-                                   const uint8_t* data) {
+static uint8_t sensirion_shdlc_checksum(uint8_t header_sum, uint8_t data_len,
+                                        const uint8_t* data) {
     header_sum += data_len;
 
     while (data_len--)
@@ -122,7 +122,7 @@ int16_t sensirion_shdlc_tx(uint8_t addr, uint8_t cmd, uint8_t data_len,
     uint8_t crc;
     uint8_t tx_frame_buf[SHDLC_FRAME_MAX_TX_FRAME_SIZE];
 
-    crc = sensirion_shdlc_crc(addr + cmd, data_len, data);
+    crc = sensirion_shdlc_checksum(addr + cmd, data_len, data);
 
     tx_frame_buf[len++] = SHDLC_START;
     len += sensirion_shdlc_stuff_data(1, &addr, tx_frame_buf + len);
@@ -192,8 +192,8 @@ int16_t sensirion_shdlc_rx(uint8_t max_data_len,
     if (sensirion_shdlc_check_unstuff(crc))
         crc = sensirion_shdlc_unstuff_byte(rx_frame[i++]);
 
-    if (sensirion_shdlc_crc(rxh->addr + rxh->cmd + rxh->state, rxh->data_len,
-                            data) != crc)
+    if (sensirion_shdlc_checksum(rxh->addr + rxh->cmd + rxh->state,
+                                 rxh->data_len, data) != crc)
         return SENSIRION_SHDLC_ERR_CRC_MISMATCH;
 
     if (i >= len || rx_frame[i] != SHDLC_STOP)
