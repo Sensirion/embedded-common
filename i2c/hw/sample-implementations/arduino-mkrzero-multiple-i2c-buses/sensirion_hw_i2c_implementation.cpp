@@ -71,7 +71,7 @@ void SERCOM2_Handler(void) {
  * @param bus_idx   Bus index to select
  * @returns         0 on success, an error code otherwise
  */
-int16_t sensirion_i2c_select_bus(uint8_t bus_idx) {
+int16_t sensirion_i2c_hal_select_bus(uint8_t bus_idx) {
     if (bus_idx >= (sizeof(i2c_bus) / sizeof(i2c_bus[0])))
         return -1;
     selected_i2c_bus = bus_idx;
@@ -83,7 +83,7 @@ int16_t sensirion_i2c_select_bus(uint8_t bus_idx) {
  * communication. After this function has been called, the functions
  * i2c_read() and i2c_write() must succeed.
  */
-void sensirion_i2c_init(void) {
+void sensirion_i2c_hal_init(void) {
     switch (selected_i2c_bus) {
         case 0:
             i2c_bus[selected_i2c_bus]->begin();
@@ -98,13 +98,13 @@ void sensirion_i2c_init(void) {
 }
 
 /**
- * Release all resources initialized by sensirion_i2c_init().
+ * Release all resources initialized by sensirion_i2c_hal_init().
  */
-void sensirion_i2c_release(void) {
+void sensirion_i2c_hal_free(void) {
     i2c_bus[selected_i2c_bus]->end();
 }
 
-int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
+int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t *data, uint16_t count) {
     uint8_t rxByteCount = 0;
 
     i2c_bus[selected_i2c_bus]->requestFrom(address, count);
@@ -118,7 +118,7 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t *data, uint16_t count) {
     return 0;
 }
 
-int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
+int8_t sensirion_i2c_hal_write(uint8_t address, const uint8_t *data,
                            uint16_t count) {
     i2c_bus[selected_i2c_bus]->beginTransmission(address);
     i2c_bus[selected_i2c_bus]->write(data, count);
@@ -133,6 +133,6 @@ int8_t sensirion_i2c_write(uint8_t address, const uint8_t *data,
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(uint32_t useconds) {
+void sensirion_i2c_hal_sleep_usec(uint32_t useconds) {
     delay((useconds / 1000) + 1);
 }

@@ -64,7 +64,7 @@ void sensirion_SCL_out(void);
 
 uint8_t sensirion_SCL_read(void);
 
-void sensirion_sleep_usec(uint32_t useconds);
+void sensirion_i2c_hal_sleep_usec(uint32_t useconds);
 
 #ifdef __cplusplus
 }

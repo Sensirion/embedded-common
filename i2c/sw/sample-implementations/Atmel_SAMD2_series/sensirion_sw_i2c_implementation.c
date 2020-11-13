@@ -128,6 +128,6 @@ uint8_t sensirion_SCL_read(void) {
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(uint32_t useconds) {
+void sensirion_i2c_hal_sleep_usec(uint32_t useconds) {
     // IMPLEMENT
 }

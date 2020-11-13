@@ -44,7 +44,7 @@ static int8_t sensirion_wait_while_clock_stretching(void) {
     while (--timeout_cycles) {
         if (sensirion_SCL_read())
             return NO_ERROR;
-        sensirion_sleep_usec(SENSIRION_I2C_CLOCK_PERIOD_USEC);
+        sensirion_i2c_hal_sleep_usec(SENSIRION_I2C_CLOCK_PERIOD_USEC);
     }
 
     return I2C_BUS_ERROR;
@@ -58,15 +58,15 @@ static int8_t sensirion_i2c_write_byte(uint8_t data) {
             sensirion_SDA_in();
         else
             sensirion_SDA_out();
-        sensirion_sleep_usec(DELAY_USEC);
+        sensirion_i2c_hal_sleep_usec(DELAY_USEC);
         sensirion_SCL_in();
-        sensirion_sleep_usec(DELAY_USEC);
+        sensirion_i2c_hal_sleep_usec(DELAY_USEC);
         if (sensirion_wait_while_clock_stretching())
             return I2C_BUS_ERROR;
     }
     sensirion_SCL_out();
     sensirion_SDA_in();
-    sensirion_sleep_usec(DELAY_USEC);
+    sensirion_i2c_hal_sleep_usec(DELAY_USEC);
     sensirion_SCL_in();
     if (sensirion_wait_while_clock_stretching())
         return I2C_BUS_ERROR;
@@ -81,7 +81,7 @@ static uint8_t sensirion_i2c_read_byte(uint8_t ack) {
     uint8_t data = 0;
     sensirion_SDA_in();
     for (i = 7; i >= 0; i--) {
-        sensirion_sleep_usec(DELAY_USEC);
+        sensirion_i2c_hal_sleep_usec(DELAY_USEC);
         sensirion_SCL_in();
         if (sensirion_wait_while_clock_stretching())
             return 0xFF;  // return 0xFF on error
@@ -92,9 +92,9 @@ static uint8_t sensirion_i2c_read_byte(uint8_t ack) {
         sensirion_SDA_out();
     else
         sensirion_SDA_in();
-    sensirion_sleep_usec(DELAY_USEC);
+    sensirion_i2c_hal_sleep_usec(DELAY_USEC);
     sensirion_SCL_in();
-    sensirion_sleep_usec(DELAY_USEC);
+    sensirion_i2c_hal_sleep_usec(DELAY_USEC);
     if (sensirion_wait_while_clock_stretching())
         return 0xFF;  // return 0xFF on error
     sensirion_SCL_out();
@@ -109,23 +109,23 @@ static int8_t sensirion_i2c_start(void) {
         return I2C_BUS_ERROR;
 
     sensirion_SDA_out();
-    sensirion_sleep_usec(DELAY_USEC);
+    sensirion_i2c_hal_sleep_usec(DELAY_USEC);
     sensirion_SCL_out();
-    sensirion_sleep_usec(DELAY_USEC);
+    sensirion_i2c_hal_sleep_usec(DELAY_USEC);
     return NO_ERROR;
 }
 
 static void sensirion_i2c_stop(void) {
     sensirion_SDA_out();
-    sensirion_sleep_usec(DELAY_USEC);
+    sensirion_i2c_hal_sleep_usec(DELAY_USEC);
     sensirion_SCL_in();
-    sensirion_sleep_usec(DELAY_USEC);
+    sensirion_i2c_hal_sleep_usec(DELAY_USEC);
     sensirion_SDA_in();
-    sensirion_sleep_usec(DELAY_USEC);
+    sensirion_i2c_hal_sleep_usec(DELAY_USEC);
 }
 
-int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
-                           uint16_t count) {
+int8_t sensirion_i2c_hal_write(uint8_t address, const uint8_t* data,
+                               uint16_t count) {
     int8_t ret;
     uint16_t i;
 
@@ -149,7 +149,7 @@ int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
     return ret;
 }
 
-int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
+int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t* data, uint16_t count) {
     int8_t ret;
     uint8_t send_ack;
     uint16_t i;
@@ -172,13 +172,13 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
     return NO_ERROR;
 }
 
-void sensirion_i2c_init(void) {
+void sensirion_i2c_hal_init(void) {
     sensirion_init_pins();
     sensirion_SCL_in();
     sensirion_SDA_in();
 }
 
-void sensirion_i2c_release(void) {
+void sensirion_i2c_hal_free(void) {
     sensirion_SCL_in();
     sensirion_SDA_in();
     sensirion_release_pins();
