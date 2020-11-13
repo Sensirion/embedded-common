@@ -5,6 +5,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+ * [`added`]   function `sensirion_common_copy_bytes()` to `sensirion_common.[ch]`
+               to copy bytes from one buffer to another one.
+
 ## [0.2.0] - 2020-11-11
 
  * [`changed`] `base_config.inc` to work with I2C and SHDLC at the same time.
