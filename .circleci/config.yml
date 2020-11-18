@@ -15,9 +15,19 @@ jobs:
       - checkout
       - run: make style-check
 
+  run-tests:
+    docker:
+      - image: sensirion/embedded-ci:2.0.0
+    steps:
+      - checkout
+      - run:
+          name: Running tests
+          command: cd tests &&  make test
+
 workflows:
   version: 2
   build:
     jobs:
       - build
       - style-check
+      - run-tests
