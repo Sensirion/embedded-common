@@ -1,1 +1,2 @@
 *.o
+/tests/embedded-common-test
