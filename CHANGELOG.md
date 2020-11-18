@@ -5,6 +5,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+ * [`added`]   tests to embedded-common.
  * [`added`]   incremental frame construction to SHLDC. This includes a set of
                functions to create a frame step by step. For all used data types
                in a frame there is a method to add it on top of the already built
