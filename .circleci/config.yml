@@ -3,21 +3,21 @@ version: 2
 jobs:
   build:
     docker:
-      - image: sensirion/embedded-ci:2.0.0
+      - image: sensirion/embedded-ci:2.3.0
     steps:
       - checkout
       - run: make test
 
   style-check:
     docker:
-      - image: sensirion/embedded-ci:2.0.0
+      - image: sensirion/embedded-ci:2.3.0
     steps:
       - checkout
       - run: make style-check
 
   run-tests:
     docker:
-      - image: sensirion/embedded-ci:2.0.0
+      - image: sensirion/embedded-ci:2.3.0
     steps:
       - checkout
       - run:
