@@ -31,9 +31,9 @@
 
 #include <mbed.h>
 
-#include "sensirion_config.h"
 #include "sensirion_common.h"
 #include "sensirion_i2c_gpio.h"
+#include "sensirion_config.h"
 
 /*
  * We use the following names for the two I2C signal lines:

@@ -37,8 +37,8 @@
 extern "C" {
 #endif
 
-#include "sensirion_config.h"
 #include "sensirion_common.h"
+#include "sensirion_config.h"
 #include "sensirion_uart_hal.h"
 
 #define BAUDRATE 115200  // baud rate of SPS30
