@@ -29,8 +29,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "sensirion_config.h"
 #include "sensirion_common.h"
+#include "sensirion_config.h"
 #include "sensirion_i2c_hal.h"
 
 // needed for delay() routine
@@ -56,12 +56,12 @@ void sensirion_i2c_hal_init(void) {
 void sensirion_i2c_hal_free(void) {
 }
 
-int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t *data, uint16_t count) {
+int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t* data, uint16_t count) {
     return I2c.read(address, count, data);
 }
 
-int8_t sensirion_i2c_hal_write(uint8_t address, const uint8_t *data,
-                           uint16_t count) {
+int8_t sensirion_i2c_hal_write(uint8_t address, const uint8_t* data,
+                               uint16_t count) {
     // the API doesn't forsee calls without register, so we'll use the first
     // byte as "register", and pass the rest as data argument
     if (count == 0) {

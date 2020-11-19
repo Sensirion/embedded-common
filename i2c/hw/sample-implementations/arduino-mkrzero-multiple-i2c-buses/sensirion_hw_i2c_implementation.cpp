@@ -29,8 +29,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "sensirion_config.h"
 #include "sensirion_common.h"
+#include "sensirion_config.h"
 #include "sensirion_i2c_hal.h"
 
 // needed for delay() routine
@@ -54,7 +54,7 @@
 #define I2C_1_PIN_SCL 27
 
 TwoWire Wire2(&sercom2, I2C_1_PIN_SDA, I2C_1_PIN_SCL);
-static TwoWire *const i2c_bus[] = {&Wire, &Wire2};
+static TwoWire* const i2c_bus[] = {&Wire, &Wire2};
 static uint8_t selected_i2c_bus = 0;
 
 void SERCOM2_Handler(void) {
@@ -104,7 +104,7 @@ void sensirion_i2c_hal_free(void) {
     i2c_bus[selected_i2c_bus]->end();
 }
 
-int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t *data, uint16_t count) {
+int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t* data, uint16_t count) {
     uint8_t rxByteCount = 0;
 
     i2c_bus[selected_i2c_bus]->requestFrom(address, count);
@@ -118,8 +118,8 @@ int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t *data, uint16_t count) {
     return 0;
 }
 
-int8_t sensirion_i2c_hal_write(uint8_t address, const uint8_t *data,
-                           uint16_t count) {
+int8_t sensirion_i2c_hal_write(uint8_t address, const uint8_t* data,
+                               uint16_t count) {
     i2c_bus[selected_i2c_bus]->beginTransmission(address);
     i2c_bus[selected_i2c_bus]->write(data, count);
     i2c_bus[selected_i2c_bus]->endTransmission();
