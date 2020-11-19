@@ -25,5 +25,5 @@ clean:
 	$(RM) $(OBJECTS)
 
 style-check:
-	clang-format-6.0 -i $$(find . -name "*.[ch]")
+	git ls-files | grep -e '\.\(c\|h\|cpp\)$$' | xargs clang-format -i -style=file;
 	git diff --exit-code
