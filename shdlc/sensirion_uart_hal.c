@@ -29,9 +29,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "sensirion_uart_hal.h"
 #include "sensirion_common.h"
 #include "sensirion_config.h"
-#include "sensirion_uart_hal.h"
 
 /*
  * INSTRUCTIONS
@@ -49,6 +49,7 @@
  * Return:      0 on success, an error code otherwise
  */
 int16_t sensirion_uart_select_port(uint8_t port) {
+    // TODO: implement
     return NOT_IMPLEMENTED_ERROR;
 }
 
@@ -58,6 +59,7 @@ int16_t sensirion_uart_select_port(uint8_t port) {
  * Return:      0 on success, an error code otherwise
  */
 int16_t sensirion_uart_open() {
+    // TODO: implement
     return NOT_IMPLEMENTED_ERROR;
 }
 
