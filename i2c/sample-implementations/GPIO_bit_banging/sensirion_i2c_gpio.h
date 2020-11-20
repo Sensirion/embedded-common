@@ -29,8 +29,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef SENSIRION_SW_I2C_GPIO_H
-#define SENSIRION_SW_I2C_GPIO_H
+#ifndef SENSIRION_SW_I2C_H
+#define SENSIRION_SW_I2C_H
 
 #include "sensirion_common.h"
 #include "sensirion_config.h"
@@ -47,27 +47,69 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+/**
+ * Initialize all hard- and software components that are needed to set the
+ * SDA and SCL pins.
+ */
+void sensirion_i2c_gpio_init_pins(void);
 
-void sensirion_init_pins(void);
+/**
+ * Release all resources initialized by sensirion_i2c_gpio_init_pins()
+ */
+void sensirion_i2c_gpio_release_pins(void);
 
-void sensirion_release_pins(void);
+/**
+ * Configure the SDA pin as an input. With an external pull-up resistor the line
+ * should be left floating, without external pull-up resistor, the input must be
+ * configured to use the internal pull-up resistor.
+ */
+void sensirion_i2c_gpio_SDA_in(void);
 
-void sensirion_SDA_in(void);
+/**
+ * Configure the SDA pin as an output and drive it low or set to logical false.
+ */
+void sensirion_i2c_gpio_SDA_out(void);
 
-void sensirion_SDA_out(void);
+/**
+ * Read the value of the SDA pin.
+ * @returns 0 if the pin is low and 1 otherwise.
+ */
+uint8_t sensirion_i2c_gpio_SDA_read(void);
 
-uint8_t sensirion_SDA_read(void);
+/**
+ * Configure the SCL pin as an input. With an external pull-up resistor the line
+ * should be left floating, without external pull-up resistor, the input must be
+ * configured to use the internal pull-up resistor.
+ */
+void sensirion_i2c_gpio_SCL_in(void);
 
-void sensirion_SCL_in(void);
+/**
+ * Configure the SCL pin as an output and drive it low or set to logical false.
+ */
+void sensirion_i2c_gpio_SCL_out(void);
 
-void sensirion_SCL_out(void);
+/**
+ * Read the value of the SCL pin.
+ * @returns 0 if the pin is low and 1 otherwise.
+ */
+uint8_t sensirion_i2c_gpio_SCL_read(void);
 
-uint8_t sensirion_SCL_read(void);
-
-void sensirion_sleep_usec(uint32_t useconds);
+/**
+ * Sleep for a given number of microseconds. The function should delay the
+ * execution approximately, but no less than, the given time.
+ *
+ * The precision needed depends on the desired i2c frequency, i.e. should be
+ * exact to about half a clock cycle (defined in
+ * `SENSIRION_I2C_CLOCK_PERIOD_USEC` in `sensirion_i2c_gpio.h`).
+ *
+ * Example with 400kHz requires a precision of 1 / (2 * 400kHz) == 1.25usec.
+ *
+ * @param useconds the sleep time in microseconds
+ */
+void sensirion_i2c_gpio_sleep_usec(uint32_t useconds);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* SENSIRION_SW_I2C_GPIO_H */
+#endif /* SENSIRION_SW_I2C_H */

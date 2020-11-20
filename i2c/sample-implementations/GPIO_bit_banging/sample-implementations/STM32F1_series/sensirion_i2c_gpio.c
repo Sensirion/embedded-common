@@ -34,7 +34,7 @@
 
 #include "sensirion_common.h"
 #include "sensirion_config.h"
-#include "sensirion_sw_i2c_gpio.h"
+#include "sensirion_i2c_gpio.h"
 
 /*
  * We use the following names for the two I2C signal lines:
@@ -49,16 +49,16 @@
  * Initialize all hard- and software components that are needed to set the
  * SDA and SCL pins.
  */
-void sensirion_init_pins(void) {
+void sensirion_i2c_gpio_init_pins(void) {
     __GPIOB_CLK_ENABLE();
-    sensirion_SDA_in();
-    sensirion_SCL_in();
+    sensirion_i2c_gpio_SDA_in();
+    sensirion_i2c_gpio_SCL_in();
 }
 
 /**
- * Release all resources initialized by sensirion_init_pins()
+ * Release all resources initialized by sensirion_i2c_gpio_init_pins()
  */
-void sensirion_release_pins(void) {
+void sensirion_i2c_gpio_release_pins(void) {
 }
 
 /**
@@ -66,7 +66,7 @@ void sensirion_release_pins(void) {
  * should be left floating, without external pull-up resistor, the input must be
  * configured to use the internal pull-up resistor.
  */
-void sensirion_SDA_in(void) {
+void sensirion_i2c_gpio_SDA_in(void) {
     GPIO_InitTypeDef GPIO_InitStruct = {
         .Pin = GPIO_PIN_9,
         .Mode = GPIO_MODE_INPUT,
@@ -79,7 +79,7 @@ void sensirion_SDA_in(void) {
 /**
  * Configure the SDA pin as an output and drive it low or set to logical false.
  */
-void sensirion_SDA_out(void) {
+void sensirion_i2c_gpio_SDA_out(void) {
     GPIO_InitTypeDef GPIO_InitStruct = {
         .Pin = GPIO_PIN_9,
         .Mode = GPIO_MODE_OUTPUT_PP,
@@ -94,7 +94,7 @@ void sensirion_SDA_out(void) {
  * Read the value of the SDA pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-uint8_t sensirion_SDA_read(void) {
+uint8_t sensirion_i2c_gpio_SDA_read(void) {
     return (uint8_t)HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_9) == GPIO_PIN_SET;
 }
 
@@ -103,7 +103,7 @@ uint8_t sensirion_SDA_read(void) {
  * should be left floating, without external pull-up resistor, the input must be
  * configured to use the internal pull-up resistor.
  */
-void sensirion_SCL_in(void) {
+void sensirion_i2c_gpio_SCL_in(void) {
     GPIO_InitTypeDef GPIO_InitStruct = {
         .Pin = GPIO_PIN_8,
         .Mode = GPIO_MODE_INPUT,
@@ -116,7 +116,7 @@ void sensirion_SCL_in(void) {
 /**
  * Configure the SCL pin as an output and drive it low or set to logical false.
  */
-void sensirion_SCL_out(void) {
+void sensirion_i2c_gpio_SCL_out(void) {
     GPIO_InitTypeDef GPIO_InitStruct = {
         .Pin = GPIO_PIN_8,
         .Mode = GPIO_MODE_OUTPUT_PP,
@@ -131,7 +131,7 @@ void sensirion_SCL_out(void) {
  * Read the value of the SCL pin.
  * @returns 0 if the pin is low and 1 otherwise.
  */
-uint8_t sensirion_SCL_read(void) {
+uint8_t sensirion_i2c_gpio_SCL_read(void) {
     return (uint8_t)HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8) == GPIO_PIN_SET;
 }
 
@@ -141,12 +141,12 @@ uint8_t sensirion_SCL_read(void) {
  *
  * The precision needed depends on the desired i2c frequency, i.e. should be
  * exact to about half a clock cycle (defined in
- * `SENSIRION_I2C_CLOCK_PERIOD_USEC` in `sensirion_sw_i2c_gpio.h`).
+ * `SENSIRION_I2C_CLOCK_PERIOD_USEC` in `sensirion_i2c_gpio.h`).
  *
  * Example with 400kHz requires a precision of 1 / (2 * 400kHz) == 1.25usec.
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(uint32_t useconds) {
+void sensirion_i2c_gpio_sleep_usec(uint32_t useconds) {
     HAL_Delay(useconds / 1000 + 1);
 }
