@@ -29,7 +29,7 @@ _sgp30-x.y.z.zip_ from
   `sxx30_example_usage.c`) from the release folder into the `sxx30` library
   folder.
 * Copy the Arduino sample implementation
-  `sensirion_hw_i2c_implementation.cpp` from this folder into the `sxx30`
+  `sensirion_i2c_hal.cpp` from this folder into the `sxx30`
   library folder.
 
 ### A Typical Example Project
