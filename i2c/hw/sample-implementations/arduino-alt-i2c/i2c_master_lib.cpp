@@ -79,7 +79,7 @@ I2C::I2C() {
 ////////////// Public Methods ////////////////////////////////////////
 
 void I2C::begin() {
-#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega8__) ||                  \
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega8__) || \
     defined(__AVR_ATmega328P__)
     // activate internal pull-ups for twi
     // as per note from atmega8 manual pg167
@@ -117,7 +117,7 @@ void I2C::setSpeed(uint8_t _fast) {
 
 void I2C::pullup(uint8_t activate) {
     if (activate) {
-#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega8__) ||                  \
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega8__) || \
     defined(__AVR_ATmega328P__)
         // activate internal pull-ups for twi
         // as per note from atmega8 manual pg167
@@ -130,7 +130,7 @@ void I2C::pullup(uint8_t activate) {
         sbi(PORTD, 1);
 #endif
     } else {
-#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega8__) ||                  \
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega8__) || \
     defined(__AVR_ATmega328P__)
         // deactivate internal pull-ups for twi
         // as per note from atmega8 manual pg167
@@ -288,15 +288,15 @@ uint8_t I2C::write(int address, int registerAddress, int data) {
     return (write((uint8_t)address, (uint8_t)registerAddress, (uint8_t)data));
 }
 
-uint8_t I2C::write(uint8_t address, uint8_t registerAddress, char *data) {
+uint8_t I2C::write(uint8_t address, uint8_t registerAddress, char* data) {
     uint8_t bufferLength = strlen(data);
     returnStatus = 0;
     returnStatus =
-        write(address, registerAddress, (uint8_t *)data, bufferLength);
+        write(address, registerAddress, (uint8_t*)data, bufferLength);
     return (returnStatus);
 }
 
-uint8_t I2C::write(uint8_t address, uint8_t registerAddress, uint8_t *data,
+uint8_t I2C::write(uint8_t address, uint8_t registerAddress, uint8_t* data,
                    uint8_t numberBytes) {
     returnStatus = 0;
     returnStatus = start();
@@ -470,7 +470,7 @@ uint8_t I2C::read(uint8_t address, uint8_t registerAddress,
     return (returnStatus);
 }
 
-uint8_t I2C::read(uint8_t address, uint8_t numberBytes, uint8_t *dataBuffer) {
+uint8_t I2C::read(uint8_t address, uint8_t numberBytes, uint8_t* dataBuffer) {
     bytesAvailable = 0;
     bufferIndex = 0;
     if (numberBytes == 0) {
@@ -522,7 +522,7 @@ uint8_t I2C::read(uint8_t address, uint8_t numberBytes, uint8_t *dataBuffer) {
 }
 
 uint8_t I2C::read(uint8_t address, uint8_t registerAddress, uint8_t numberBytes,
-                  uint8_t *dataBuffer) {
+                  uint8_t* dataBuffer) {
     bytesAvailable = 0;
     bufferIndex = 0;
     if (numberBytes == 0) {

@@ -29,8 +29,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "sensirion_config.h"
 #include "sensirion_common.h"
+#include "sensirion_config.h"
 #include "sensirion_i2c_hal.h"
 
 // needed for delay() routine
@@ -63,7 +63,7 @@ void sensirion_i2c_hal_init(void) {
 void sensirion_i2c_hal_free(void) {
 }
 
-int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t *data, uint16_t count) {
+int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t* data, uint16_t count) {
     uint8_t readData[count];
     uint8_t rxByteCount = 0;
 
@@ -81,8 +81,8 @@ int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t *data, uint16_t count) {
     return 0;
 }
 
-int8_t sensirion_i2c_hal_write(uint8_t address, const uint8_t *data,
-                           uint16_t count) {
+int8_t sensirion_i2c_hal_write(uint8_t address, const uint8_t* data,
+                               uint16_t count) {
     Wire.beginTransmission(address);
     Wire.write(data, count);
     Wire.endTransmission();
