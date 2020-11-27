@@ -1,7 +1,13 @@
 # embedded-common
-This repository contains the Sensirion I2C hardware abstraction layer,
-the Sensirion SHDLC/UART hardware abstraction layer and commonly shared code
-for both parts. It is a dependency of the Sensirion embedded drivers.
+This repository contains the implementation of the Sensirion I2C and SHDLC
+protocol and some commonly used functions for sensor implementations.
+It is a dependency of the Sensirion embedded sensor drivers. Sensirion
+sensors all use a protocol on top of the I2C/UART communications layer.
+There are two of those kinds of protocols used by Sensirion sensors, one
+for UART communication, called SHDLC, and one for I2C communication.
+To keep this implementation in one place only, this repository exists and is
+used by all embedded drivers.
+
 **It should not be necessary to clone this repository independently**, and we
 recommend to clone the repository recursively from the respective projects.
 
@@ -10,21 +16,68 @@ files) from the respective projects. An overview is listed at
 https://github.com/Sensirion/info#repositories
 
 ## Repository content
-* `common` folder (shared functions and global defines)
-* `shdlc` folder (implementation of the SHDLC communication and UART HAL
-  including sample code for some platforms)
-* `i2c` folder (implementation of the I2C communication)
-* `i2c/hw` folder (stub for implementation of the hardware I2C HAL,
-  including sample code for some platforms)
-* `i2c/sw` folder (stub for implementation of the software I2C HAL
-  (bit-banging GPIOs), including sample code for some platforms)
-* `tests-common-config` folder (configuration files for tests, used by driver repositories)
+
+The source code in this repository is spilt into three parts: Common code,
+I2C protocol and SHDLC protocol.
+
+### Common
+
+In the `common/` folder are three files. `senirion_config.h` is the general
+configuration file. Depending on your hardware you will need to edit this.
+For more information, see the section named `sensirion_config.h` further down
+in this document. There are also the two files `sensirion_common.[ch]`. These
+contain common helper functions used by both UART and I2C sensor drivers.
+
+### I2C
+
+In the `i2c/` folder is the implementation of the protocol used by Sensirion
+sensors for I2C communication. This implementation is spilt into two parts.
+The implementation of the high level protocol in the files `sensirion_i2c.[ch]`
+and a hardware abstraction layer in `senirion_i2c_hal.[ch]`.
+In `sensirion_i2c.[ch]` all the implementation details (CRC calculation, byte order
+swapping, ...) of Sensirion's I2C communication are implemented. The finished frame
+is then sent to the attached hardware using the Hardware Abstraction Layer (HAL) in
+the other two files. Since the way how to send out this frame depends on underlying
+hardware and operating system, we provide different implementations for that part
+of the code. You can find these in the folder `i2c/sample-implementations/` for the
+most common platforms. We even provide a implementation for software I2C using
+bit-banging on GPIOs in `i2c/sample-implementations/GPIO_bit_banging/`. If we
+don't provide code for your platform yet you can use the provided template structure
+in the `i2c/` folder to implement it yourself. We're very happy to review and include
+more architectures in the form of a pull request on GitHub.
+
+### SHDLC
+
+The `shdlc` folder contains the implementation of the protocol used by Sensirion
+sensors for UART communication. These sensors use Sensirion's own SHDLC protocol.
+The high level implementation of this protocol can be found in
+`sensirion_shdlc.[ch]` and the hardware abstraction layer in `sensirion_uart_hal.[ch]`.
+In `sensirion_shdlc.[ch]` all the implementation details (checksum calculation,
+byte order swapping, frame construction, ...) of Sensirion's SHDLC communication are
+implemented. The finished frame is then sent to your hardware using the HAL
+in the other two files. Since the way how to send
+out this frame depends on underlying hardware and operating system we provide
+different implementations for that part of the code. You can find these in the
+folder `shdlc/sample-implementaions/` for the most common platforms. If we
+we don't provide code for your platform yet, you can use the provided template
+structure in the `shdlc/` folder to implement it yourself. We're very happy to
+review and include more architectures in the form of a pull request on GitHub.
+
+## Files to be adjusted by the User
+
+The following files are the only ones you should need to change if you want to
+use the functionality of `embedded-common`. Here we explain which changes need
+to be made according to your hardware platform.
 
 ### sensirion\_config.h
-You need to specify the integer sizes on your system.
-We assume you have the `<stdint.h>` file available, so we have an
-include directive for it. If this is not the case on your platform you need to
-specify the following types yourself:
+
+In this file we keep all the included libraries for our drivers. It is located
+in the `common/` folder. The two libraries our drivers use are `<stdint.h>` and
+`<stdlib.h>`. The features we use out of those libraries is standard integer sizes
+from `<stdint.h>` and `NULL` from `<stdlib.h>`. We assume that those libraries
+are provided by your toolchain, compiler or are available on your system, so we have
+include directives for them. If this is not the case on your platform you need to
+specify the following integer types yourself:
 
 * `int64_t` = signed 64bit integer
 * `uint64_t` = unsigned 64bit integer
@@ -35,25 +88,30 @@ specify the following types yourself:
 * `int8_t` = signed 8bit integer
 * `uint8_t` = unsigned 8bit integer
 
+In addition to that you will need to specify `NULL`. For both we have a commented
+template where just need to fill in your system specific values.
+
 Make sure you specify the whole range (64bit sized integers are used on a 32bit
 system for some sensor data).
 
-### sensirion\_hw\_i2c\_implementation.c
-Use this file when using a dedicated I2C controller (use software I2C from the
-next section for bit banging on GPIOs.)
+### sensirion\_i2c\_hal.c
 
-Use this file to implement the I2C HAL via the I2C controller of your
-system. Implement the documented function stubs: an init, a read, a write and a
-delay function. For further information please check out some of the sample
-implementations in the `i2c/hw/sample-implementations` folder in this
-repository.
+As already explained earlier is all the I2C related code in this repository based
+on Sensirion's I2C HAL. It is defined in `sensirion_i2c_hal.h` and implemented in
+the corresponding `.c` file, both located in the `i2c/` folder. To use the I2C part
+of `embedded-common` you either need to implement the functions in sensirion_i2c_hal.c or
+replace it with a sample implementation from i2c/sample-implementation/.
+If you want to use software I2C on GPIOs using bit banging, then there is a sample
+implementation for `sensirion_i2c_hal.c` in the `GPIO_bit_banging` folder but then
+you will have to implement the `sensirion_sw_i2c.c` file also located there. More
+about this in the `README.md` located in the `GPIO_bit_banging` folder.
 
-### sensirion\_sw\_i2c\_implementation.c
-Use this file if you don't have a dedicated hardware I2C controller (otherwise
-see the previous section) to emulate an I2C controller in software by
-bit-banging GPIOs. You will thus need to implement the stubs necessary to drive
-the GPIO pins used for SDA (data line) and SCL (clock line) along with the delay
-function, that must be precise enough to drive the pins at the desired
-frequency.  For further information please check out some of the sample
-implementations in the `i2c/sw/sample-implementations` folder in this
-repository.
+
+### sensirion\_shdlc\_hal.c
+
+As already explained earlier is all the SHDLC and UART related code in this repository
+based on Sensirion's UART HAL. It is defined in `sensirion_uart_hal.h` and implemented
+in the corresponding `.c` file, both located in the `shdlc/` folder. To use the SHDLC
+part of `embedded-common` you either need to implement the `sensirion_uart_hal.c`
+file or replace the unimplemented version in `shdlc/` with the correct sample
+implementation from `shdlc/sample-implementation/`.
