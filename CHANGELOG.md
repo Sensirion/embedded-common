@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
                abstraction layer used by `sensirion_shdlc.c`.
                This hal can be implemented in `sensirion_uart_implentation.c` for
                the platform the sensor will be used on.
- * [`renamed`] `sensirion_arch_config.h` to `senirion_config.h`. The reason for
+ * [`renamed`] `sensirion_arch_config.h` to `sensirion_config.h`. The reason for
                this is that the arch part is not really needed since it's the only
                config in embedded-common.
  * [`changed`] Structure of embedded-common. File names should be more logical
