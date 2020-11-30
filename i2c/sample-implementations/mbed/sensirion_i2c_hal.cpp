@@ -29,9 +29,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "sensirion_i2c_hal.h"
 #include "sensirion_common.h"
 #include "sensirion_config.h"
-#include "sensirion_i2c_hal.h"
 #include <mbed.h>
 
 #define E_MBED_I2C_READ_FAILED -1
