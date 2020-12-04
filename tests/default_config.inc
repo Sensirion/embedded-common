@@ -7,12 +7,12 @@ sensirion_common_dir = ../common
 sensirion_i2c_sources = ${sensirion_i2c_dir}/sensirion_i2c.h \
                         ${sensirion_i2c_dir}/sensirion_i2c.c \
                         ${sensirion_i2c_dir}/sensirion_i2c_hal.h \
-                        ${sensirion_i2c_dir}/hw/sensirion_hw_i2c_implementation.c
+                        ${sensirion_i2c_dir}/sensirion_i2c_hal.c
 
 sensirion_shdlc_sources = ${sensirion_shdlc_dir}/sensirion_shdlc.h \
                           ${sensirion_shdlc_dir}/sensirion_shdlc.c \
                           ${sensirion_shdlc_dir}/sensirion_uart_hal.h \
-                          ${sensirion_shdlc_dir}/sensirion_uart_implementation.c
+                          ${sensirion_shdlc_dir}/sensirion_uart_hal.c
 
 sensirion_common_sources = ${sensirion_common_dir}/sensirion_config.h \
                            ${sensirion_common_dir}/sensirion_common.h \
