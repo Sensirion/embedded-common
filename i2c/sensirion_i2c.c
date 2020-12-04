@@ -284,7 +284,7 @@ int16_t sensirion_i2c_read_data_inplace(uint8_t address, uint8_t* buffer,
     for (i = 0, j = 0; i < size; i += SENSIRION_WORD_SIZE + CRC8_LEN) {
 
         error = sensirion_i2c_check_crc(&buffer[i], SENSIRION_WORD_SIZE,
-                                        buffer[j + SENSIRION_WORD_SIZE]);
+                                        buffer[i + SENSIRION_WORD_SIZE]);
         if (error) {
             return error;
         }
