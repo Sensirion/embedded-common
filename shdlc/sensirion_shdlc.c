@@ -372,5 +372,9 @@ int16_t sensirion_shdlc_rx_inplace(struct sensirion_shdlc_buffer* rx_frame,
         return SENSIRION_SHDLC_ERR_MISSING_STOP;
     }
 
+    if (0x7F & header->state) {
+        return SENSIRION_SHDLC_ERR_EXECUTION_FAILURE;
+    }
+
     return NO_ERROR;
 }
