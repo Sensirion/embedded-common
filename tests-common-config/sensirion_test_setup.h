@@ -5,8 +5,15 @@
 
 #include "CppUTest/TestHarness.h"
 
-#define CHECK_ZERO(actual) CHECK_EQUAL(0, (actual))
-#define CHECK_ZERO_TEXT(actual, text) CHECK_EQUAL_TEXT(0, (actual), (text))
+// provide macros which will only be available in a future cpputest release
+// See https://github.com/cpputest/cpputest/pull/1423
+#ifndef CHECK_EQUAL_ZERO
+#define CHECK_EQUAL_ZERO(actual) CHECK_EQUAL(0, (actual))
+#endif
+#ifndef CHECK_EQUAL_ZERO_TEXT
+#define CHECK_EQUAL_ZERO_TEXT(actual, text) \
+    CHECK_EQUAL_TEXT(0, (actual), (text))
+#endif
 
 int main(int argc, char** argv);
 
