@@ -45,6 +45,7 @@ extern "C" {
 #define SENSIRION_SHDLC_ERR_ENCODING_ERROR -5
 #define SENSIRION_SHDLC_ERR_TX_INCOMPLETE -6
 #define SENSIRION_SHDLC_ERR_FRAME_TOO_LONG -7
+#define SENSIRION_SHDLC_ERR_EXECUTION_FAILURE -8
 
 struct sensirion_shdlc_buffer {
     uint8_t* data;

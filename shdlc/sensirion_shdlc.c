@@ -199,6 +199,10 @@ int16_t sensirion_shdlc_rx(uint8_t max_data_len,
     if (i >= len || rx_frame[i] != SHDLC_STOP)
         return SENSIRION_SHDLC_ERR_MISSING_STOP;
 
+    if (0x7F & rxh->state) {
+        return SENSIRION_SHDLC_ERR_EXECUTION_FAILURE;
+    }
+
     return 0;
 }
 
