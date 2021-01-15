@@ -5,6 +5,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+ * [`fixed`]   handling of execution errors when using the SHDLC protocol. Now
+               execution errors reported in the state byte result in an error.
  * [`added`]   tests to embedded-common.
  * [`added`]   incremental frame construction to SHLDC. This includes a set of
                functions to create a frame step by step. For all used data types
@@ -84,4 +86,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [0.2.0]: https://github.com/Sensirion/embedded-common/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/Sensirion/embedded-common/releases/tag/0.1.0
 [embedded-uart-common]: https://github.com/Sensirion/embedded-uart-sps/tree/f31d181/embedded-uart-common
-

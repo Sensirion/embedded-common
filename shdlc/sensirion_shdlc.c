@@ -199,6 +199,10 @@ int16_t sensirion_shdlc_rx(uint8_t max_data_len,
     if (i >= len || rx_frame[i] != SHDLC_STOP)
         return SENSIRION_SHDLC_ERR_MISSING_STOP;
 
+    if (0x7F & rxh->state) {
+        return SENSIRION_SHDLC_ERR_EXECUTION_FAILURE;
+    }
+
     return 0;
 }
 
@@ -366,6 +370,10 @@ int16_t sensirion_shdlc_rx_inplace(struct sensirion_shdlc_buffer* rx_frame,
     if (rx_frame->offset >= rx_length ||
         rx_frame->data[rx_frame->offset] != SHDLC_STOP) {
         return SENSIRION_SHDLC_ERR_MISSING_STOP;
+    }
+
+    if (0x7F & header->state) {
+        return SENSIRION_SHDLC_ERR_EXECUTION_FAILURE;
     }
 
     return NO_ERROR;
