@@ -55,7 +55,7 @@ static void sensirion_i2c_gpio_stop(void);
  * @param bus_idx   Bus index to select
  * @returns         0 on success, an error code otherwise
  */
-int16_t sensirion_i2c_select_bus(uint8_t bus_idx) {
+int16_t sensirion_i2c_hal_select_bus(uint8_t bus_idx) {
     return NO_ERROR;  // not relevant for software I2C
 }
 
@@ -63,16 +63,16 @@ int16_t sensirion_i2c_select_bus(uint8_t bus_idx) {
  * Initialize all hard- and software components that are needed for the I2C
  * communication.
  */
-void sensirion_i2c_init(void) {
+void sensirion_i2c_hal_init(void) {
     sensirion_i2c_gpio_init_pins();
     sensirion_i2c_gpio_SCL_in();
     sensirion_i2c_gpio_SDA_in();
 }
 
 /**
- * Release all resources initialized by sensirion_i2c_init().
+ * Release all resources initialized by sensirion_i2c_hal_init().
  */
-void sensirion_i2c_release(void) {
+void sensirion_i2c_hal_free(void) {
     sensirion_i2c_gpio_SCL_in();
     sensirion_i2c_gpio_SDA_in();
     sensirion_i2c_gpio_release_pins();
@@ -88,7 +88,7 @@ void sensirion_i2c_release(void) {
  * @param count   number of bytes to read from I2C and store in the buffer
  * @returns 0 on success, error code otherwise
  */
-int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
+int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t* data, uint16_t count) {
     int8_t ret;
     uint8_t send_ack;
     uint16_t i;
@@ -122,8 +122,8 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
  * @param count   number of bytes to read from the buffer and send over I2C
  * @returns 0 on success, error code otherwise
  */
-int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
-                           uint16_t count) {
+int8_t sensirion_i2c_hal_write(uint8_t address, const uint8_t* data,
+                               uint16_t count) {
     int8_t ret;
     uint16_t i;
 
@@ -155,7 +155,7 @@ int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(uint32_t useconds) {
+void sensirion_i2c_hal_sleep_usec(uint32_t useconds) {
     sensirion_i2c_gpio_sleep_usec(useconds);
 }
 
