@@ -27,9 +27,9 @@ TEST (EmbeddedCommon_SHDLC_Tests, Frame_Test_1) {
     uint8_t address = 0;
     uint8_t sub_command = 0x00;
     uint8_t data_length = 5;  // sub_command(1) + auto_clean_interval(4)
-    struct sensirion_shdlc_buffer frame;
-    sensirion_shdlc_begin_frame(&frame, &buffer[0], command, address,
-                                data_length);
+    struct sensirion_shdlc_frame frame;
+    sensirion_shdlc_initialize_frame(&frame, &buffer[0], 11);
+    sensirion_shdlc_begin_frame(&frame, command, address, data_length);
     sensirion_shdlc_add_uint8_t_to_frame(&frame, sub_command);
     sensirion_shdlc_add_uint32_t_to_frame(&frame, auto_clean_interval);
     sensirion_shdlc_finish_frame(&frame);
@@ -45,9 +45,9 @@ TEST (EmbeddedCommon_SHDLC_Tests, Frame_Test_2) {
     uint8_t address = 0;
     uint8_t sub_command = 0x00;
     uint8_t data_length = 5;  // sub_command(1) + auto_clean_interval(4)
-    struct sensirion_shdlc_buffer frame;
-    sensirion_shdlc_begin_frame(&frame, &buffer[0], command, address,
-                                data_length);
+    struct sensirion_shdlc_frame frame;
+    sensirion_shdlc_initialize_frame(&frame, &buffer[0], 11);
+    sensirion_shdlc_begin_frame(&frame, command, address, data_length);
     sensirion_shdlc_add_uint8_t_to_frame(&frame, sub_command);
     sensirion_shdlc_add_uint32_t_to_frame(&frame, auto_clean_interval);
     sensirion_shdlc_finish_frame(&frame);
@@ -63,9 +63,9 @@ TEST (EmbeddedCommon_SHDLC_Tests, Frame_Test_3) {
     uint8_t address = 0;
     uint8_t sub_command = 0x00;
     uint8_t data_length = 5;  // sub_command(1) + auto_clean_interval(4)
-    struct sensirion_shdlc_buffer frame;
-    sensirion_shdlc_begin_frame(&frame, &buffer[0], command, address,
-                                data_length);
+    struct sensirion_shdlc_frame frame;
+    sensirion_shdlc_initialize_frame(&frame, &buffer[0], 15);
+    sensirion_shdlc_begin_frame(&frame, command, address, data_length);
     sensirion_shdlc_add_uint8_t_to_frame(&frame, sub_command);
     sensirion_shdlc_add_uint32_t_to_frame(&frame, auto_clean_interval);
     sensirion_shdlc_finish_frame(&frame);
