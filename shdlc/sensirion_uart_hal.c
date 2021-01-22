@@ -49,7 +49,7 @@
  * Return:      0 on success, an error code otherwise
  */
 int16_t sensirion_uart_hal_select_port(uint8_t port) {
-    // TODO: implement
+    /* TODO: implement */
     return NOT_IMPLEMENTED_ERROR;
 }
 
@@ -59,7 +59,7 @@ int16_t sensirion_uart_hal_select_port(uint8_t port) {
  * Return:      0 on success, an error code otherwise
  */
 int16_t sensirion_uart_hal_init() {
-    // TODO: implement
+    /* TODO: implement */
     return NOT_IMPLEMENTED_ERROR;
 }
 
@@ -69,7 +69,7 @@ int16_t sensirion_uart_hal_init() {
  * Return:      0 on success, an error code otherwise
  */
 int16_t sensirion_uart_hal_free() {
-    // TODO: implement
+    /* TODO: implement */
     return NOT_IMPLEMENTED_ERROR;
 }
 
@@ -81,7 +81,7 @@ int16_t sensirion_uart_hal_free() {
  * Return:      Number of bytes sent or a negative error code
  */
 int16_t sensirion_uart_hal_tx(uint16_t data_len, const uint8_t* data) {
-    // TODO: implement
+    /* TODO: implement */
     return NOT_IMPLEMENTED_ERROR;
 }
 
@@ -93,7 +93,7 @@ int16_t sensirion_uart_hal_tx(uint16_t data_len, const uint8_t* data) {
  * Return:      Number of bytes received or a negative error code
  */
 int16_t sensirion_uart_hal_rx(uint16_t max_data_len, uint8_t* data) {
-    // TODO: implement
+    /* TODO: implement */
     return NOT_IMPLEMENTED_ERROR;
 }
 
@@ -106,5 +106,5 @@ int16_t sensirion_uart_hal_rx(uint16_t max_data_len, uint8_t* data) {
  * @param useconds the sleep time in microseconds
  */
 void sensirion_uart_hal_sleep_usec(uint32_t useconds) {
-    // TODO: implement
+    /* TODO: implement */
 }

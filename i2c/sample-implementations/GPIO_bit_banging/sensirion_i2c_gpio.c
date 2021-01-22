@@ -53,14 +53,14 @@
  * SDA and SCL pins.
  */
 void sensirion_i2c_gpio_init_pins(void) {
-    // TODO:IMPLEMENT
+    /* TODO:IMPLEMENT */
 }
 
 /**
  * Release all resources initialized by sensirion_i2c_gpio_init_pins()
  */
 void sensirion_i2c_gpio_release_pins(void) {
-    // TODO:IMPLEMENT or leave empty if no resources need to be freed
+    /* TODO:IMPLEMENT or leave empty if no resources need to be freed */
 }
 
 /**
@@ -69,14 +69,14 @@ void sensirion_i2c_gpio_release_pins(void) {
  * configured to use the internal pull-up resistor.
  */
 void sensirion_i2c_gpio_SDA_in(void) {
-    // TODO:IMPLEMENT
+    /* TODO:IMPLEMENT */
 }
 
 /**
  * Configure the SDA pin as an output and drive it low or set to logical false.
  */
 void sensirion_i2c_gpio_SDA_out(void) {
-    // TODO:IMPLEMENT
+    /* TODO:IMPLEMENT */
 }
 
 /**
@@ -84,7 +84,7 @@ void sensirion_i2c_gpio_SDA_out(void) {
  * @returns 0 if the pin is low and 1 otherwise.
  */
 uint8_t sensirion_i2c_gpio_SDA_read(void) {
-    // TODO:IMPLEMENT
+    /* TODO:IMPLEMENT */
     return NOT_IMPLEMENTED_ERROR;
 }
 
@@ -94,14 +94,14 @@ uint8_t sensirion_i2c_gpio_SDA_read(void) {
  * configured to use the internal pull-up resistor.
  */
 void sensirion_i2c_gpio_SCL_in(void) {
-    // TODO:IMPLEMENT
+    /* TODO:IMPLEMENT */
 }
 
 /**
  * Configure the SCL pin as an output and drive it low or set to logical false.
  */
 void sensirion_i2c_gpio_SCL_out(void) {
-    // TODO:IMPLEMENT
+    /* TODO:IMPLEMENT */
 }
 
 /**
@@ -109,7 +109,7 @@ void sensirion_i2c_gpio_SCL_out(void) {
  * @returns 0 if the pin is low and 1 otherwise.
  */
 uint8_t sensirion_i2c_gpio_SCL_read(void) {
-    // TODO:IMPLEMENT
+    /* TODO:IMPLEMENT */
     return NOT_IMPLEMENTED_ERROR;
 }
 
@@ -126,5 +126,5 @@ uint8_t sensirion_i2c_gpio_SCL_read(void) {
  * @param useconds the sleep time in microseconds
  */
 void sensirion_i2c_gpio_sleep_usec(uint32_t useconds) {
-    // TODO:IMPLEMENT
+    /* TODO:IMPLEMENT */
 }

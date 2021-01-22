@@ -68,7 +68,8 @@ static uint16_t sensirion_shdlc_stuff_data(uint8_t data_len,
             case 0x13:
             case 0x7d:
             case 0x7e:
-                // byte stuffing is done by inserting 0x7d and inverting bit 5
+                /* byte stuffing is done by inserting 0x7d and inverting bit 5
+                 */
                 *(stuffed_data++) = 0x7d;
                 *(stuffed_data++) = c ^ (1 << 5);
                 output_data_len += 2;
@@ -212,7 +213,7 @@ static void sensirion_shdlc_stuff_byte(struct sensirion_shdlc_buffer* tx_frame,
         case 0x13:
         case 0x7d:
         case 0x7e:
-            // byte stuffing is done by inserting 0x7d and inverting bit 5
+            /* byte stuffing is done by inserting 0x7d and inverting bit 5 */
             tx_frame->data[tx_frame->offset++] = 0x7d;
             tx_frame->data[tx_frame->offset++] = data ^ (1 << 5);
             return;
@@ -361,7 +362,7 @@ int16_t sensirion_shdlc_rx_inplace(struct sensirion_shdlc_buffer* rx_frame,
 
     sensirion_shdlc_unstuff_next_byte(rx_frame);
 
-    // (CHECKSUM + ~CHECKSUM) = 0xFF
+    /* (CHECKSUM + ~CHECKSUM) = 0xFF */
     if (rx_frame->checksum != 0xFF) {
         return SENSIRION_SHDLC_ERR_CRC_MISMATCH;
     }

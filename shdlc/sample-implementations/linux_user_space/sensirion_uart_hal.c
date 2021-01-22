@@ -37,8 +37,9 @@
 #include <termios.h>
 #include <unistd.h>
 
-// Adapted from
-// http://www.raspberry-projects.com/pi/programming-in-c/uart-serial-port/using-the-uart
+/* Adapted from
+ * http://www.raspberry-projects.com/pi/programming-in-c/uart-serial-port/using-the-uart
+ */
 
 #ifndef SENSIRION_UART_TTYDEV
 #define SENSIRION_UART_TTYDEV "/dev/ttyUSB0"
@@ -58,38 +59,42 @@ int16_t sensirion_uart_hal_select_port(uint8_t port) {
 }
 
 int16_t sensirion_uart_hal_init() {
-    // The flags (defined in fcntl.h):
-    //    Access modes (use 1 of these):
-    //        O_RDONLY - Open for reading only.
-    //        O_RDWR - Open for reading and writing.
-    //        O_WRONLY - Open for writing only.
-    //    O_NDELAY / O_NONBLOCK (same function) - Enables nonblocking mode.
-    //      When set read requests on the file can return immediately with a
-    //      failure status if there is no input immediately available (instead
-    //      of blocking). Likewise, write requests can also return immediately
-    //      with a failure status if the output can't be written immediately.
-    //    O_NOCTTY - When set and path identifies a terminal device, open()
-    //      shall not cause the terminal device to become the controlling
-    //      terminal for the process.
+    /*
+     * The flags (defined in fcntl.h):
+     * Access modes (use 1 of these):
+     *        O_RDONLY - Open for reading only.
+     *        O_RDWR - Open for reading and writing.
+     *        O_WRONLY - Open for writing only.
+     *    O_NDELAY / O_NONBLOCK (same function) - Enables nonblocking mode.
+     *      When set read requests on the file can return immediately with a
+     *      failure status if there is no input immediately available (instead
+     *      of blocking). Likewise, write requests can also return immediately
+     *      with a failure status if the output can't be written immediately.
+     *    O_NOCTTY - When set and path identifies a terminal device, open()
+     *      shall not cause the terminal device to become the controlling
+     *      terminal for the process.
+     */
     uart_fd = open(SENSIRION_UART_TTYDEV, O_RDWR | O_NOCTTY);
     if (uart_fd == -1) {
         fprintf(stderr, "Error opening UART. Ensure it's not otherwise used\n");
         return -1;
     }
 
-    // see http://pubs.opengroup.org/onlinepubs/007908799/xsh/termios.h.html:
-    //    CSIZE:- CS5, CS6, CS7, CS8
-    //    CLOCAL - Ignore modem status lines
-    //    CREAD - Enable receiver
-    //    IGNPAR = Ignore characters with parity errors
-    //    ICRNL - Map CR to NL on input (Use for ASCII comms where you want to
-    //                                   auto correct end of line characters,
-    //                                   don't use for bianry comms)
-    //    PARENB - Parity enable
-    //    PARODD - Odd parity (else even)
+    /*
+     * see http://pubs.opengroup.org/onlinepubs/007908799/xsh/termios.h.html:
+     *    CSIZE:- CS5, CS6, CS7, CS8
+     *    CLOCAL - Ignore modem status lines
+     *    CREAD - Enable receiver
+     *    IGNPAR = Ignore characters with parity errors
+     *    ICRNL - Map CR to NL on input (Use for ASCII comms where you want to
+     *                                   auto correct end of line characters,
+     *                                   don't use for bianry comms)
+     *    PARENB - Parity enable
+     *    PARODD - Odd parity (else even)
+     */
     struct termios options;
     tcgetattr(uart_fd, &options);
-    options.c_cflag = B115200 | CS8 | CLOCAL | CREAD;  // set baud rate
+    options.c_cflag = B115200 | CS8 | CLOCAL | CREAD; /* set baud rate */
     options.c_iflag = IGNPAR;
     options.c_oflag = 0;
     options.c_lflag = 0;
