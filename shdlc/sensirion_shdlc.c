@@ -60,10 +60,9 @@ static uint16_t sensirion_shdlc_stuff_data(uint8_t data_len,
                                            const uint8_t* data,
                                            uint8_t* stuffed_data) {
     uint16_t output_data_len = 0;
-    uint8_t c;
 
     while (data_len--) {
-        c = *(data++);
+        uint8_t c = *(data++);
         switch (c) {
             case 0x11:
             case 0x13:
