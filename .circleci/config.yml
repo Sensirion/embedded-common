@@ -15,6 +15,13 @@ jobs:
       - checkout
       - run: make style-check
 
+  run-cppcheck:
+    docker:
+      - image: sensirion/embedded-ci:2.3.0
+    steps:
+      - checkout
+      - run: cppcheck --std=c89 --language=c --error-exitcode=1 --enable=warning,style,performance,portability -i i2c/sample-implementations/ -i shdlc/sample-implementations/ .
+
   run-tests:
     docker:
       - image: sensirion/embedded-ci:2.3.0
@@ -31,3 +38,4 @@ workflows:
       - build
       - style-check
       - run-tests
+      - run-cppcheck
