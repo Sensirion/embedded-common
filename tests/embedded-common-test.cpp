@@ -26,7 +26,7 @@ TEST (EmbeddedCommon_SHDLC_Tests, Frame_Test_1) {
     uint8_t command = 0x80;
     uint8_t address = 0;
     uint8_t sub_command = 0x00;
-    uint8_t data_length = 5;  // sub_command(1) + auto_clean_interval(4)
+    uint8_t data_length = 5; /* sub_command(1) + auto_clean_interval(4) */
     struct sensirion_shdlc_buffer frame;
     sensirion_shdlc_begin_frame(&frame, &buffer[0], command, address,
                                 data_length);
@@ -44,7 +44,7 @@ TEST (EmbeddedCommon_SHDLC_Tests, Frame_Test_2) {
     uint8_t command = 0x80;
     uint8_t address = 0;
     uint8_t sub_command = 0x00;
-    uint8_t data_length = 5;  // sub_command(1) + auto_clean_interval(4)
+    uint8_t data_length = 5; /* sub_command(1) + auto_clean_interval(4) */
     struct sensirion_shdlc_buffer frame;
     sensirion_shdlc_begin_frame(&frame, &buffer[0], command, address,
                                 data_length);
@@ -62,7 +62,7 @@ TEST (EmbeddedCommon_SHDLC_Tests, Frame_Test_3) {
     uint8_t command = 0x80;
     uint8_t address = 0;
     uint8_t sub_command = 0x00;
-    uint8_t data_length = 5;  // sub_command(1) + auto_clean_interval(4)
+    uint8_t data_length = 5; /* sub_command(1) + auto_clean_interval(4) */
     struct sensirion_shdlc_buffer frame;
     sensirion_shdlc_begin_frame(&frame, &buffer[0], command, address,
                                 data_length);

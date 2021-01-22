@@ -1,4 +1,4 @@
-CFLAGS:= -Wall -Wextra -Wfloat-conversion -Wno-unused-parameter -Wstrict-aliasing=1 \
+CFLAGS:= --std=c89 -Wall -Wextra -Wfloat-conversion -Wno-unused-parameter -Wstrict-aliasing=1 \
 	-Wsign-conversion -Icommon -Ii2c -Ii2c/sample-implementations/GPIO_bit_banging -Ishdlc
 
 ifdef CI

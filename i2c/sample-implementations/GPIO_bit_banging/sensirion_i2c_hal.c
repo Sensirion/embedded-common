@@ -56,7 +56,7 @@ static void sensirion_i2c_gpio_stop(void);
  * @returns         0 on success, an error code otherwise
  */
 int16_t sensirion_i2c_hal_select_bus(uint8_t bus_idx) {
-    return NO_ERROR;  // not relevant for software I2C
+    return NO_ERROR; /* not relevant for software I2C */
 }
 
 /**
@@ -210,7 +210,7 @@ static uint8_t sensirion_i2c_gpio_read_byte(uint8_t ack) {
         sensirion_i2c_gpio_sleep_usec(DELAY_USEC);
         sensirion_i2c_gpio_SCL_in();
         if (sensirion_wait_while_clock_stretching())
-            return 0xFF;  // return 0xFF on error
+            return 0xFF; /* return 0xFF on error */
         data |= (sensirion_i2c_gpio_SDA_read() != 0) << i;
         sensirion_i2c_gpio_SCL_out();
     }
@@ -222,7 +222,7 @@ static uint8_t sensirion_i2c_gpio_read_byte(uint8_t ack) {
     sensirion_i2c_gpio_SCL_in();
     sensirion_i2c_gpio_sleep_usec(DELAY_USEC);
     if (sensirion_wait_while_clock_stretching())
-        return 0xFF;  // return 0xFF on error
+        return 0xFF; /* return 0xFF on error */
     sensirion_i2c_gpio_SCL_out();
     sensirion_i2c_gpio_SDA_in();
 
