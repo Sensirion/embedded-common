@@ -29,6 +29,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* Enable usleep function */
+#define _DEFAULT_SOURCE
+
 #include <fcntl.h>     /* close, open */
 #include <stdio.h>     /* fprintf, perror, stderr */
 #include <stdlib.h>    /* exit */

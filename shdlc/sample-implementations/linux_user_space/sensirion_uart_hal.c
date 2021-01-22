@@ -29,6 +29,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* Enable usleep function */
+#define _DEFAULT_SOURCE
+
 #include "sensirion_uart_hal.h"
 #include "sensirion_common.h"
 #include "sensirion_config.h"
