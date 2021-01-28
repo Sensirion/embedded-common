@@ -6,15 +6,13 @@ So we need to adjust two files according to your platform.
 
 ### Edit `sensirion_uart_hal.c`
 
-This file contains the implementation of the sensor communication (how to send
-requests to the sensor). Therefore, how this is done depends on your hardware
-platform. Therefore we can only provide function stubs in which you can
-implement the logic yourself.
-There are sample implementations available for some platforms:
-[`sample-implementations`](sample-implementations). If you are using a Linux
-based platform like Raspberry Pi you can just replace the unimplemented HAL
-template with the provided implementation in
-`sample-implementations/linux_user_space/`:
+This file contains the implementation of the sensor communication, which
+depends on your hardware platform. We provide function stubs for your
+hardware's own implementation.
+Sample implementations are available for some platforms:
+[`sample-implementations`](sample-implementations). For Linux based platforms
+like Raspberry Pi you can just replace the unimplemented HAL template with the
+implementation in `sample-implementations/linux_user_space/`:
 
 ```
 cp sample-implementations/linux_user_space/sensirion_uart_hal.c ./
@@ -22,16 +20,16 @@ cp sample-implementations/linux_user_space/sensirion_uart_hal.c ./
 
 ### Edit `sensirion_config.h`
 
-If you are on a Linux based platform you can skip this part since everything is
-already correctly setup for you.
+Skip this part for Linux based platforms since everything is already setup for
+this case.
 
 Otherwise you need to check if the libraries `<stdint.h>` and `<stdlib.h>` are
 provided by your toolchain, compiler or system. If you have no idea on how to
 do that you can skip this step for now and come back when you get errors
 related to these names when compiling the driver.
-The features we use out of those libraries are standard integer sizes from
-`<stdint.h>` and `NULL` from `<stdlib.h>`. If they are not available you need
-to specify the following integer types yourself:
+The features we use from those libraries are type definitions for integer sizes
+from `<stdint.h>` and `NULL` from `<stdlib.h>`. If they are not available you
+need to specify the following integer types yourself:
 
 * `int64_t` = signed 64bit integer
 * `uint64_t` = unsigned 64bit integer
@@ -49,15 +47,14 @@ Now we are ready to compile and run the example usage for your sensor.
 
 ## Compile and Run
 
-Take the `.c` and `.h` files directly in this folder pass them to your favorite
-C compiler and run the resulting binary. This step may vary, depending on your
-platform. Here we demonstrate the procedure for Linux based platforms:
+Pass the source `.c` and header `.h` files in this folder into your C compiler
+and run the resulting binary. This step may vary, depending on your platform.
+Here we demonstrate the procedure for Linux based platforms:
 
 1. Open up a terminal.
 2. Navigate to the directory where this README is located.
-3. Run `make` (this compiles all the code here to one binary).
-4. Run `./[SENSORNAME]_uart_example_usage` (This will run your newly compiled
-   binary).
+3. Run `make` (this compiles the example code into one executable binary).
+4. Run the compiled executable with `./[SENSORNAME]_uart_example_usage`
 5. Now you should see the first measurement values appear in your terminal. As
    a next step you can adjust the example usage file or write your own main
    function to use the sensor.
@@ -78,11 +75,11 @@ sensor.
 
 ### sensirion\_uart\_hal.[ch]
 
-In these files you can find the implementation of the hardware abstraction
-layer used by Sensirion's UART embedded drivers. This part of the code is
-specific to the underlying hardware platform. This is an unimplemented template
-for the user to implement. In the `sample-implementations/` folder we provide
-implementations for the most common platforms.
+These files contain the implementation of the hardware abstraction layer used
+by Sensirion's UART embedded drivers. This part of the code is specific to the
+underlying hardware platform. This is an unimplemented template for the user to
+implement. In the `sample-implementations/` folder we provide implementations
+for the most common platforms.
 
 ### sensirion\_config.h
 
