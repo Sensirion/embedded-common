@@ -5,9 +5,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2021-02-01
+
  * [`rework`]  I2C and SHDLC specific READMEs.
  * [`fixed`]   handling of execution errors when using the SHDLC protocol. Now
                execution errors reported in the state byte result in an error.
+ * [`added`]   README to explain the usage of the GPIO bit banging sample
+               implementation.
+ * [`added`]   I2C and SHDLC specific READMEs to explain first steps to use a driver.
+ * [`moved`]   Software I2C implementation from it's own folder into a folder
+               in sample implementations. The software I2C is now seen as a
+               general sample implementation of the I2C HAL. It was also renamed
+               to GPIO bit banging. Additionally functions were renamed to include
+               the prefix `sensirion_i2c_gpio` in the name.
+ * [`renamed`] Rename sensirion_uart_implementation.c to sensirion_uart_hal.c
+               to match the .h file.
  * [`added`]   function `sensirion_common_copy_bytes()` to `sensirion_common.[ch]`
                to copy bytes from one buffer to another one.
 
@@ -57,7 +69,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  * First release with support for I2C using a HW controller or SW bit-banging, 
    with sample implementations for common platforms and helper functions.
 
-[Unreleased]: https://github.com/Sensirion/embedded-common/compare/0.2.0...master
+[Unreleased]: https://github.com/Sensirion/embedded-common/compare/0.3.0...master
+[0.3.0]: https://github.com/Sensirion/embedded-common/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/Sensirion/embedded-common/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/Sensirion/embedded-common/releases/tag/0.1.0
 [embedded-uart-common]: https://github.com/Sensirion/embedded-uart-sps/tree/f31d181/embedded-uart-common
