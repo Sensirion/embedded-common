@@ -274,7 +274,8 @@ uint16_t sensirion_i2c_add_float_to_buffer(uint8_t* buffer, uint16_t offset,
  *                    data.
  */
 uint16_t sensirion_i2c_add_bytes_to_buffer(uint8_t* buffer, uint16_t offset,
-                                           uint8_t* data, uint16_t data_length);
+                                           const uint8_t* data,
+                                           uint16_t data_length);
 
 /**
  * sensirion_i2c_write_data() - Writes data to the Sensor.

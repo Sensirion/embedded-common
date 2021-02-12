@@ -288,7 +288,8 @@ void sensirion_shdlc_add_float_to_frame(struct sensirion_shdlc_buffer* tx_frame,
 }
 
 void sensirion_shdlc_add_bytes_to_frame(struct sensirion_shdlc_buffer* tx_frame,
-                                        uint8_t* data, uint16_t data_length) {
+                                        const uint8_t* data,
+                                        uint16_t data_length) {
     uint16_t i;
 
     for (i = 0; i < data_length; i++) {

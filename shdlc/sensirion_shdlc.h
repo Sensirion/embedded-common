@@ -212,7 +212,8 @@ void sensirion_shdlc_add_float_to_frame(struct sensirion_shdlc_buffer* tx_frame,
  * @param data_length Number of bytes to be written into the frame.
  */
 void sensirion_shdlc_add_bytes_to_frame(struct sensirion_shdlc_buffer* tx_frame,
-                                        uint8_t* data, uint16_t data_length);
+                                        const uint8_t* data,
+                                        uint16_t data_length);
 
 /**
  * sensirion_shdlc_finish_frame() - Write closing part of the frame.

@@ -5,6 +5,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+ * [`added`]   `const` modifier to functions which process MOSI array data.
  * [`rework`]  I2C and SHDLC specific READMEs.
  * [`fixed`]   handling of execution errors when using the SHDLC protocol. Now
                execution errors reported in the state byte result in an error.
