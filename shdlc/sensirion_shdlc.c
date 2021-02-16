@@ -242,6 +242,11 @@ void sensirion_shdlc_begin_frame(struct sensirion_shdlc_buffer* tx_frame,
     sensirion_shdlc_add_uint8_t_to_frame(tx_frame, data_length);
 }
 
+void sensirion_shdlc_add_bool_to_frame(struct sensirion_shdlc_buffer* tx_frame,
+                                       bool data) {
+    sensirion_shdlc_add_uint8_t_to_frame(tx_frame, data);
+}
+
 void sensirion_shdlc_add_uint32_t_to_frame(
     struct sensirion_shdlc_buffer* tx_frame, uint32_t data) {
 
