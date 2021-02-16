@@ -72,6 +72,32 @@ TEST (EmbeddedCommon_SHDLC_Tests, Frame_Test_3) {
     MEMCMP_EQUAL(outdata, buffer, 15);
 }
 
+TEST (EmbeddedCommon_SHDLC_Tests, Frame_add_bool_false) {
+    const uint8_t outdata[] = {0x7E, 0x01, 0x02, 0x1, 0x00, 0xFB, 0x7E};
+    uint8_t buffer[15];
+    const uint8_t address = 0x01;
+    const uint8_t command = 0x02;
+    const uint8_t data_length = 1;
+    struct sensirion_shdlc_buffer frame;
+    sensirion_shdlc_begin_frame(&frame, buffer, command, address, data_length);
+    sensirion_shdlc_add_bool_to_frame(&frame, false);
+    sensirion_shdlc_finish_frame(&frame);
+    MEMCMP_EQUAL(outdata, buffer, sizeof(outdata));
+}
+
+TEST (EmbeddedCommon_SHDLC_Tests, Frame_add_bool_true) {
+    const uint8_t outdata[] = {0x7E, 0x01, 0x02, 0x1, 0x01, 0xFA, 0x7E};
+    uint8_t buffer[15];
+    const uint8_t address = 0x01;
+    const uint8_t command = 0x02;
+    const uint8_t data_length = 1;
+    struct sensirion_shdlc_buffer frame;
+    sensirion_shdlc_begin_frame(&frame, buffer, command, address, data_length);
+    sensirion_shdlc_add_bool_to_frame(&frame, true);
+    sensirion_shdlc_finish_frame(&frame);
+    MEMCMP_EQUAL(outdata, buffer, sizeof(outdata));
+}
+
 TEST (EmbeddedCommon_I2C_Tests, Frame_Test_1) {
     uint8_t outdata[] = {0x28, 0x0E, 0xBE, 0xEF, 0x92};
     uint8_t buffer[5];
