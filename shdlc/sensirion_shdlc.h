@@ -137,6 +137,18 @@ void sensirion_shdlc_begin_frame(struct sensirion_shdlc_buffer* tx_frame,
                                  uint8_t address, uint8_t data_length);
 
 /**
+ * sensirion_shdlc_add_bool_to_frame() - Add a bool to the frame at offset.
+ *
+ * @param tx_frame Pointer to buffer in which the write frame will be prepared.
+ *                 Caller needs to make sure that there is enough space left in
+ *                 the buffer pointed to by the data member after offset in
+ *                 tx_frame, to write the data.
+ * @param data     bool to be written into the frame.
+ */
+void sensirion_shdlc_add_bool_to_frame(struct sensirion_shdlc_buffer* tx_frame,
+                                       bool data);
+
+/**
  * sensirion_shdlc_add_uint32_t_to_frame() - Add a uint32_t to the frame at
  *                                           offset.
  *
