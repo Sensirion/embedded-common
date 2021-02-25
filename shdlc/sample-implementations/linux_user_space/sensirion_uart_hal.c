@@ -50,17 +50,6 @@
 
 static int uart_fd = -1;
 
-/**
- * sensirion_uart_hal_select_port() - select the UART port index to use
- *                                THE IMPLEMENTATION IS OPTIONAL ON SINGLE-PORT
- *                                SETUPS (only one SPS30)
- *
- * Return:      0 on success, an error code otherwise
- */
-int16_t sensirion_uart_hal_select_port(uint8_t port) {
-    return 0;
-}
-
 int16_t sensirion_uart_hal_init() {
     /*
      * The flags (defined in fcntl.h):
