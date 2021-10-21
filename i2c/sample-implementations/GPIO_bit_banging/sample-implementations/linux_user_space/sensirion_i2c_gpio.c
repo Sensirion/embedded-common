@@ -29,6 +29,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* Enable usleep function */
+#define _DEFAULT_SOURCE
+
 #include <fcntl.h>     /* close, open */
 #include <stdio.h>     /* fprintf, perror, stderr */
 #include <stdlib.h>    /* exit */
@@ -100,8 +103,8 @@ static void write_or_exit(int fd, const char* buf) {
 
     ssize_t w = write(fd, buf, len);
 
-    // Adapted from stackoverflow answer by Stephen Canon
-    // See: https://www.stackoverflow.com/a/16086724
+    /* Adapted from stackoverflow answer by Stephen Canon
+       See: https://www.stackoverflow.com/a/16086724 */
     if (w < 0 || (size_t)w != len) {
         perror("Error writing");
         exit(-1);

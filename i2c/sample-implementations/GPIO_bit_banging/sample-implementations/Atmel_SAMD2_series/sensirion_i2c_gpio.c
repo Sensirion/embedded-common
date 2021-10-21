@@ -129,5 +129,5 @@ uint8_t sensirion_i2c_gpio_SCL_read(void) {
  * @param useconds the sleep time in microseconds
  */
 void sensirion_i2c_gpio_sleep_usec(uint32_t useconds) {
-    // IMPLEMENT
+    /* TODO: IMPLEMENT */
 }

@@ -42,58 +42,46 @@
  */
 
 /**
- * sensirion_uart_select_port() - select the UART port index to use
- *                                THE IMPLEMENTATION IS OPTIONAL ON SINGLE-PORT
- *                                SETUPS (only one SPS30)
+ * sensirion_uart_hal_init() - initialize UART
  *
  * Return:      0 on success, an error code otherwise
  */
-int16_t sensirion_uart_select_port(uint8_t port) {
-    // TODO: implement
+int16_t sensirion_uart_hal_init() {
+    /* TODO: implement */
     return NOT_IMPLEMENTED_ERROR;
 }
 
 /**
- * sensirion_uart_open() - initialize UART
+ * sensirion_uart_hal_free() - release UART resources
  *
  * Return:      0 on success, an error code otherwise
  */
-int16_t sensirion_uart_open() {
-    // TODO: implement
+int16_t sensirion_uart_hal_free() {
+    /* TODO: implement */
     return NOT_IMPLEMENTED_ERROR;
 }
 
 /**
- * sensirion_uart_close() - release UART resources
- *
- * Return:      0 on success, an error code otherwise
- */
-int16_t sensirion_uart_close() {
-    // TODO: implement
-    return NOT_IMPLEMENTED_ERROR;
-}
-
-/**
- * sensirion_uart_tx() - transmit data over UART
+ * sensirion_uart_hal_tx() - transmit data over UART
  *
  * @data_len:   number of bytes to send
  * @data:       data to send
  * Return:      Number of bytes sent or a negative error code
  */
-int16_t sensirion_uart_tx(uint16_t data_len, const uint8_t* data) {
-    // TODO: implement
+int16_t sensirion_uart_hal_tx(uint16_t data_len, const uint8_t* data) {
+    /* TODO: implement */
     return NOT_IMPLEMENTED_ERROR;
 }
 
 /**
- * sensirion_uart_rx() - receive data over UART
+ * sensirion_uart_hal_rx() - receive data over UART
  *
  * @data_len:   max number of bytes to receive
  * @data:       Memory where received data is stored
  * Return:      Number of bytes received or a negative error code
  */
-int16_t sensirion_uart_rx(uint16_t max_data_len, uint8_t* data) {
-    // TODO: implement
+int16_t sensirion_uart_hal_rx(uint16_t max_data_len, uint8_t* data) {
+    /* TODO: implement */
     return NOT_IMPLEMENTED_ERROR;
 }
 
@@ -105,6 +93,6 @@ int16_t sensirion_uart_rx(uint16_t max_data_len, uint8_t* data) {
  *
  * @param useconds the sleep time in microseconds
  */
-void sensirion_sleep_usec(uint32_t useconds) {
-    // TODO: implement
+void sensirion_uart_hal_sleep_usec(uint32_t useconds) {
+    /* TODO: implement */
 }

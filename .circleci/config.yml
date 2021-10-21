@@ -3,17 +3,33 @@ version: 2
 jobs:
   build:
     docker:
-      - image: sensirion/embedded-ci:2.0.0
+      - image: sensirion/embedded-ci:2.4.0
     steps:
       - checkout
       - run: make test
 
   style-check:
     docker:
-      - image: sensirion/embedded-ci:2.0.0
+      - image: sensirion/embedded-ci:2.4.0
     steps:
       - checkout
       - run: make style-check
+
+  run-cppcheck:
+    docker:
+      - image: sensirion/embedded-ci:2.4.0
+    steps:
+      - checkout
+      - run: cppcheck --std=c89 --language=c --error-exitcode=1 --enable=warning,style,performance,portability -i i2c/sample-implementations/ -i shdlc/sample-implementations/ .
+
+  run-tests:
+    docker:
+      - image: sensirion/embedded-ci:2.4.0
+    steps:
+      - checkout
+      - run:
+          name: Running tests
+          command: cd tests &&  make test
 
 workflows:
   version: 2
@@ -21,3 +37,5 @@ workflows:
     jobs:
       - build
       - style-check
+      - run-tests
+      - run-cppcheck
