@@ -124,7 +124,6 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
 			    /* Increment timeout counter and check if timed out if needed. */
 			    if (timeout++ == TIMEOUT) {
 					return -1;
-				    break;
 			    }
 		    }
 			
