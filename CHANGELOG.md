@@ -3,6 +3,11 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2023-03-20
+ * [`changed`] `sensirion_i2c_hal.h` change interface of count from uint16_t
+               to uint8_t.
+
+
 ## [0.4.0] - 2021-10-22
 
  * [`added`]   `const` modifier to functions which process MOSI array data.
